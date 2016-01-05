@@ -42,7 +42,7 @@ class RCT_CameraViewController: UIViewController {
     
     @IBAction func shutterButtonTapped(sender: AnyObject) {
     
-        
+        performSegueWithIdentifier("ToEditView", sender: self)
     
     }
     
@@ -52,7 +52,6 @@ class RCT_CameraViewController: UIViewController {
     
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -60,6 +59,5 @@ class RCT_CameraViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }

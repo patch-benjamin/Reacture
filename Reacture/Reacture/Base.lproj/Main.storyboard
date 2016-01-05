@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -18,37 +19,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Gv3-aR-oat">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-hq-PEG">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-mf-aEW">
-                                        <rect key="frame" x="285" y="0.0" width="30" height="60"/>
-                                        <state key="normal" title="🔁"/>
-                                    </button>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-hq-PEG">
-                                        <rect key="frame" x="0.0" y="60" width="600" height="480"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-4j-ZFs">
-                                        <rect key="frame" x="285" y="540" width="30" height="60"/>
-                                        <state key="normal" title="📸 "/>
-                                        <connections>
-                                            <action selector="shutterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kLH-NL-DV7"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-4j-ZFs">
+                                <rect key="frame" x="285" y="520" width="30" height="60"/>
+                                <state key="normal" title="📸 "/>
+                                <connections>
+                                    <action selector="shutterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kLH-NL-DV7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-mf-aEW">
+                                <rect key="frame" x="542" y="28" width="30" height="30"/>
+                                <state key="normal" title="🔁"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TMN-mf-aEW" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.1" id="0ra-Z2-OKL"/>
-                            <constraint firstItem="Gv3-aR-oat" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FOt-ar-VOB"/>
-                            <constraint firstItem="Gv3-aR-oat" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="Qp3-bO-I3j"/>
-                            <constraint firstAttribute="trailing" secondItem="Gv3-aR-oat" secondAttribute="trailing" id="c0c-pP-abo"/>
-                            <constraint firstItem="Jgt-4j-ZFs" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.1" id="ign-YS-K3W"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Gv3-aR-oat" secondAttribute="bottom" id="t57-Ou-Fu8"/>
+                            <constraint firstAttribute="trailing" secondItem="lfu-hq-PEG" secondAttribute="trailing" id="1Im-Mh-pl7"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Jgt-4j-ZFs" secondAttribute="bottom" constant="20" id="35c-vc-hdk"/>
+                            <constraint firstItem="lfu-hq-PEG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="O4f-br-5Y6"/>
+                            <constraint firstItem="Jgt-4j-ZFs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SR5-V5-1Z6"/>
+                            <constraint firstItem="TMN-mf-aEW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="YK9-Vx-Kl1"/>
+                            <constraint firstItem="lfu-hq-PEG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jS6-9w-EkT"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lfu-hq-PEG" secondAttribute="bottom" id="kgD-vl-5E1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TMN-mf-aEW" secondAttribute="trailing" constant="8" id="oYT-mW-Bva"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="AIB-wN-uwu" kind="presentation" identifier="ToEditView" modalTransitionStyle="crossDissolve" id="mbv-Ne-MFc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -75,6 +76,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOn-dm-Wdw">
                                                 <rect key="frame" x="16" y="21" width="30" height="32"/>
                                                 <state key="normal" title="X"/>
+                                                <connections>
+                                                    <action selector="CancelButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="7tu-lT-FwB"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-cf-Zad">
                                                 <rect key="frame" x="534" y="21" width="50" height="32"/>
@@ -84,16 +88,11 @@
                                         <edgeInsets key="layoutMargins" top="21" left="16" bottom="8" right="16"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
-                                        <rect key="frame" x="0.0" y="61" width="600" height="362"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4oO-z3-g1R">
-                                                <rect key="frame" x="99" y="126" width="240" height="128"/>
-                                            </imageView>
-                                        </subviews>
+                                        <rect key="frame" x="0.0" y="61" width="600" height="433"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-PE-9Wz">
-                                        <rect key="frame" x="0.0" y="423" width="600" height="117"/>
+                                        <rect key="frame" x="0.0" y="494" width="600" height="46"/>
                                         <connections>
                                             <segue destination="BZJ-cT-0Rw" kind="embed" id="pmK-ua-5nR"/>
                                         </connections>
@@ -133,12 +132,16 @@
         <scene sceneID="FRA-js-Q9i">
             <objects>
                 <viewController id="BZJ-cT-0Rw" customClass="RCT_ContainerViewController" customModule="Reacture" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tV2-3c-5UB"/>
+                        <viewControllerLayoutGuide type="bottom" id="zum-XO-imT"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="DRd-DO-mu5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="117"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="46"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UHf-sB-kob">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="117"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="46"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C5X-Qi-d5N">
                                     <size key="itemSize" width="58" height="52"/>
