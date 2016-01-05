@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AIB-wN-uwu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -17,12 +17,42 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Gv3-aR-oat">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-mf-aEW">
+                                        <rect key="frame" x="285" y="0.0" width="30" height="60"/>
+                                        <state key="normal" title="🔁"/>
+                                    </button>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-hq-PEG">
+                                        <rect key="frame" x="0.0" y="60" width="600" height="480"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-4j-ZFs">
+                                        <rect key="frame" x="285" y="540" width="30" height="60"/>
+                                        <state key="normal" title="📸 "/>
+                                        <connections>
+                                            <action selector="shutterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kLH-NL-DV7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TMN-mf-aEW" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.1" id="0ra-Z2-OKL"/>
+                            <constraint firstItem="Gv3-aR-oat" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FOt-ar-VOB"/>
+                            <constraint firstItem="Gv3-aR-oat" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="Qp3-bO-I3j"/>
+                            <constraint firstAttribute="trailing" secondItem="Gv3-aR-oat" secondAttribute="trailing" id="c0c-pP-abo"/>
+                            <constraint firstItem="Jgt-4j-ZFs" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.1" id="ign-YS-K3W"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Gv3-aR-oat" secondAttribute="bottom" id="t57-Ou-Fu8"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="171" y="394"/>
+            <point key="canvasLocation" x="42" y="394"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="bJa-TL-fS9">

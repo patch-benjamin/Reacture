@@ -22,6 +22,36 @@ class RCT_CameraViewController: UIViewController {
     }
     
 
+    // MARK: Variables
+    
+    
+    
+    
+    // MARK: Functions
+    
+    
+    
+    
+    // MARK: Outlets
+    
+    
+    
+    
+    
+    // MARK: Actions
+    
+    @IBAction func shutterButtonTapped(sender: AnyObject) {
+    
+        
+    
+    }
+    
+    
+    
+    
+    
+    
+
     /*
     // MARK: - Navigation
 
