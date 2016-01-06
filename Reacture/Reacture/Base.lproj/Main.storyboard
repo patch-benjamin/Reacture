@@ -71,28 +71,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="8L8-GF-PZR">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="61"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="59"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOn-dm-Wdw">
-                                                <rect key="frame" x="16" y="21" width="30" height="32"/>
+                                                <rect key="frame" x="16" y="21" width="30" height="30"/>
                                                 <state key="normal" title="X"/>
                                                 <connections>
                                                     <action selector="CancelButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="7tu-lT-FwB"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-cf-Zad">
-                                                <rect key="frame" x="534" y="21" width="50" height="32"/>
+                                                <rect key="frame" x="534" y="21" width="50" height="30"/>
                                                 <state key="normal" title="Upload"/>
                                             </button>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="21" left="16" bottom="8" right="16"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
-                                        <rect key="frame" x="0.0" y="61" width="600" height="433"/>
+                                        <rect key="frame" x="0.0" y="59" width="600" height="447"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-PE-9Wz">
-                                        <rect key="frame" x="0.0" y="494" width="600" height="46"/>
+                                        <rect key="frame" x="0.0" y="506" width="600" height="34"/>
                                         <connections>
                                             <segue destination="BZJ-cT-0Rw" kind="embed" id="pmK-ua-5nR"/>
                                         </connections>
@@ -104,8 +104,6 @@
                                             <barButtonItem title="Layout" id="Jxs-yj-rgW"/>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="yWJ-RZ-igh"/>
                                             <barButtonItem title="Filter" id="R8C-Lz-DjJ"/>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="qrP-rS-XcK"/>
-                                            <barButtonItem title="  Emojis " id="qyw-Ry-iYj"/>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="2n0-j1-FbY"/>
                                         </items>
                                     </toolbar>
@@ -123,6 +121,9 @@
                             <constraint firstItem="8L8-GF-PZR" firstAttribute="height" secondItem="Ccv-AG-wNT" secondAttribute="height" multiplier="0.1" id="bJh-O5-D4z"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="rCTImageView" destination="bps-GF-H7p" id="5q0-4x-W9q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nsu-dD-PNJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -137,11 +138,11 @@
                         <viewControllerLayoutGuide type="bottom" id="zum-XO-imT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="DRd-DO-mu5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="46"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UHf-sB-kob">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="46"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="C5X-Qi-d5N">
                                     <size key="itemSize" width="58" height="52"/>
