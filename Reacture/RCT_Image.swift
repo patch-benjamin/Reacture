@@ -8,13 +8,6 @@
 
 import Foundation
 
-enum Layout: Int {
-    case leftRight = 0,
-    topBottom,
-    topRightBottomLeft,
-    pictureInPicture
-}
-
 class RCT_Image {
     
     let imageFront: NSData // Front is faceTime Camera

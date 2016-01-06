@@ -20,6 +20,9 @@ class RCT_ImageController {
         return image
     }
     
+    
+    // MARK: Read
+    
     static func dataToImage(imageData: NSData) -> UIImage? {
         
         guard let image = UIImage(data: imageData) else {
@@ -41,15 +44,20 @@ class RCT_ImageController {
     }
     
     
-    // MARK: Read
-    
-    
     
     // MARK: Update
     
-    
+    static func updateToOriginal(rCTImage: RCT_Image) {
+        
+        print("test: updated image to original")
+        
+    }
     
     // MARK: Delete
     
+    
+    static func deleteRCTImage(rCTImage: RCT_Image) {
+        print("test: Deleted image")
+    }
     
 }
