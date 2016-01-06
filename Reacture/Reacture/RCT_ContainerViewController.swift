@@ -27,10 +27,19 @@ class RCT_ContainerViewController: UIViewController {
 
     func handleReloadCollectionNotification() {
         print("Collection View Reloaded")
+        if kIsLayoutSelected == true {
+            self.itemCount = self.arrayOfLayoutTitles.count
+        } else {
+            // Filter Selected
+            self.itemCount = self.arrayOfFilterTitles.count
+        }
         collectionView.reloadData()
     }
 
     func setupCollectionView() {
+
+        collectionView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
+
         if kIsLayoutSelected == true {
             print("Layout is Selected, Present Layout Options")
             self.itemCount = self.arrayOfLayoutTitles.count
@@ -47,22 +56,34 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OptionItemCell", forIndexPath: indexPath) as! RCT_OptionItemCollectionViewCell
         if kIsLayoutSelected == true {
             cell.label.text = arrayOfLayoutTitles[indexPath.item]
-            cell.imageView.backgroundColor = UIColor.blueColor()
+            cell.imageView.backgroundColor = UIColor.whiteColor()
         } else {
             // Filter Selected
             cell.label.text = self.arrayOfFilterTitles[indexPath.item]
-            cell.imageView.backgroundColor = UIColor.yellowColor()
+            cell.imageView.backgroundColor = UIColor.whiteColor()
         }
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if kIsLayoutSelected == true {
-            self.itemCount = self.arrayOfLayoutTitles.count
-        } else {
-            // Filter Selected
-            self.itemCount = self.arrayOfFilterTitles.count
-        }
+//        if kIsLayoutSelected == true {
+//            self.itemCount = self.arrayOfLayoutTitles.count
+//        } else {
+//            // Filter Selected
+//            self.itemCount = self.arrayOfFilterTitles.count
+//        }
         return self.itemCount
     }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let indexPath = indexPath.item
+        if kIsLayoutSelected == true {
+            print("\(arrayOfLayoutTitles[indexPath]) was Selected")
+        } else {
+            // Filter Selected
+            print("\(arrayOfFilterTitles[indexPath]) was Selected")
+        }
+    }
+
+
+
 }
