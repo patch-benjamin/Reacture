@@ -93,7 +93,7 @@ class RCT_EditViewController: UIViewController {
 
     @IBOutlet weak var filterButton: UIBarButtonItem!
 
-//    @IBOutlet weak var cVToptoToolbarTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cVToptoToolbarTopConstraint: NSLayoutConstraint!
 //
 //    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
 
@@ -130,7 +130,7 @@ class RCT_EditViewController: UIViewController {
 //                self.cVHeightContraint.constant = 0
 //            }
 
-            if self.
+
             if self.cVToptoToolbarTopConstraint.constant == 100 {
                 self.cVToptoToolbarTopConstraint.constant = 0
             } else {
