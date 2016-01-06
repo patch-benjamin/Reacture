@@ -87,12 +87,9 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
 
     @IBOutlet weak var rCTImageView: UIView!
-
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
-
     @IBOutlet weak var filterButton: UIBarButtonItem!
-
     @IBOutlet weak var cVToptoToolbarTopConstraint: NSLayoutConstraint!
 //
 //    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
@@ -113,24 +110,27 @@ class RCT_EditViewController: UIViewController {
     }
 
     @IBAction func layoutButtonTapped(sender: AnyObject) {
-        animateContainerView()
         print("Layout Button Tapped")
+        animateContainerView()
+        // Send Collection View "isLayoutSelected" == true
+        kIsLayoutSelected = true
+        // Reload Collection View Data
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.postNotificationName("reloadCollectionView", object: self)
     }
 
     @IBAction func filterButtonTapped(sender: AnyObject) {
-        animateContainerView()
         print("Filter Button Tapped")
+        animateContainerView()
+        // Send Collection View "isLayoutSelected" == false
+        kIsLayoutSelected = false
+        // Reload Collection View Data
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.postNotificationName("reloadCollectionView", object: self)
     }
 
     func animateContainerView() {
         UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [.CurveEaseInOut], animations: { () -> Void in
-//            if self.cVHeightContraint.constant == 0 {
-//                self.cVHeightContraint.constant = 100
-//            } else {
-//                self.cVHeightContraint.constant = 0
-//            }
-
-
             if self.cVToptoToolbarTopConstraint.constant == 100 {
                 self.cVToptoToolbarTopConstraint.constant = 0
             } else {
