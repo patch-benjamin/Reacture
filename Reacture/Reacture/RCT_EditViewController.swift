@@ -130,9 +130,16 @@ class RCT_EditViewController: UIViewController {
     }
 
     func animateContainerView() {
+        
+        if self.cVToptoToolbarTopConstraint.constant == 100 {
+            self.containerView.alpha = 0
+        } else {
+            self.containerView.alpha = 1
+        }
+        
         UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [.CurveEaseInOut], animations: { () -> Void in
             if self.cVToptoToolbarTopConstraint.constant == 100 {
-                self.cVToptoToolbarTopConstraint.constant = 0
+                self.cVToptoToolbarTopConstraint.constant = 0.1
             } else {
                 self.cVToptoToolbarTopConstraint.constant = 100
             }
