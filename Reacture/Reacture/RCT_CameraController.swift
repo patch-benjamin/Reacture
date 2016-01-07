@@ -36,7 +36,7 @@ class RCT_CameraController {
         
         // call take front picture
         // call take back picture (in correct order...)
-        
+
         print("test: RCTImage taken")
         completion(rCTImage: nil)
         
@@ -45,17 +45,13 @@ class RCT_CameraController {
     static func switchCamera(completion: () -> Void) {
         completion()
     }
-    
-    static func setFlash(flashOn: Bool) {
-        
-    }
-    
-    
-    // METHODS FOR ENABLING/DISABLING/SWITCHING THE PREVIEW???
-    
-    
-    // METHODS FOR SET FOCUS????
 
-    
+    static func setFlash(flashOn: Bool) {
+
+    }
+
+    // METHODS FOR ENABLING/DISABLING/SWITCHING THE PREVIEW???
+
+    // METHODS FOR SET FOCUS????
     
 }

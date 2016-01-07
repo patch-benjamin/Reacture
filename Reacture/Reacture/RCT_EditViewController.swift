@@ -2,8 +2,8 @@
 //  RCT_EditViewController.swift
 //  Reacture
 //
-//  Created by Skyler Tanner on 1/5/16.
-//  Copyright © 2016 PatchWork. All rights reserved.
+//  Created by Ben Patch on 1/5/16.
+//  Copyright © 2016 BAEP. All rights reserved.
 //
 
 import UIKit
@@ -19,19 +19,14 @@ class RCT_EditViewController: UIViewController {
     }
     
     func SetMockData() {
-        let frontImage = UIImage(named: "Selfie")
-        let backImage = UIImage(named: "Landscape")
-
+        let frontImage = UIImage(named: "mock_selfie")
+        let backImage = UIImage(named: "mock_landscape")
         let frontImageData = RCT_ImageController.imageToData(frontImage!)!
         let backImageData = RCT_ImageController.imageToData(backImage!)!
-
-        // Do any additional setup after loading the view.
         let image1 = RCT_ImageController.dataToImage(frontImageData)!
         let image2 = RCT_ImageController.dataToImage(backImageData)!
         //rCTImageView.backgroundColor = UIColor(patternImage: image)
-
         setUpImages(image1, back: image2)
-
     }
 
 
@@ -44,7 +39,6 @@ class RCT_EditViewController: UIViewController {
     var rCTImage: RCT_Image?
     var containerViewController: RCT_ContainerViewController?
 
-
     //////////////////////////////
     //////////////////////////////
     // MARK: Functions
@@ -52,31 +46,23 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
 
     func setupController(rCTImage: RCT_Image) {
-
         self.rCTImage = rCTImage
     }
 
     func setUpImages(front: UIImage, back: UIImage){
-
         let image1View = UIImageView()
         image1View.frame.origin.x = self.view.frame.origin.x
         image1View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
         image1View.contentMode = .ScaleAspectFit
         self.view.addSubview(image1View)
-
         let image2View = UIImageView()
         image2View.frame.origin.x = self.view.frame.width / 2
         image2View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
         image2View.contentMode = .ScaleAspectFit
         self.view.addSubview(image2View)
-
-
-
         image1View.image = front
         image2View.image = back
-
     }
-
 
     //////////////////////////////
     //////////////////////////////
@@ -89,8 +75,8 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var cVToptoToolbarTopConstraint: NSLayoutConstraint!
-//
-//    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
+    //
+    //    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
 
     //////////////////////////////
     //////////////////////////////
@@ -129,13 +115,11 @@ class RCT_EditViewController: UIViewController {
     }
 
     func animateContainerView() {
-        
         if self.cVToptoToolbarTopConstraint.constant == 100 {
             self.containerView.alpha = 0
         } else {
             self.containerView.alpha = 1
         }
-        
         UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [.CurveEaseInOut], animations: { () -> Void in
             if self.cVToptoToolbarTopConstraint.constant == 100 {
                 self.cVToptoToolbarTopConstraint.constant = 0.1

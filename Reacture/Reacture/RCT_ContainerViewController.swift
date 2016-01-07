@@ -2,8 +2,8 @@
 //  ContainerViewController.swift
 //  Reacture
 //
-//  Created by Skyler Tanner on 1/5/16.
-//  Copyright © 2016 PatchWork. All rights reserved.
+//  Created by Eric Mead on 1/5/16.
+//  Copyright © 2016 BAEP. All rights reserved.
 //
 
 import UIKit
@@ -15,8 +15,6 @@ protocol RCT_ContainerViewControllerProtocol {
 }
 
 class RCT_ContainerViewController: UIViewController {
-    
-    @IBOutlet weak var collectionView: UICollectionView!
 
 //    var itemCount: Int = 0
 //    var arrayOfItems: [AnyObject] = []
@@ -24,9 +22,8 @@ class RCT_ContainerViewController: UIViewController {
 //    var arrayOfFilterTitles: [String] = ["None", "Sepia", "B&W", "Tinted", "Modern", "Rebel", "Water", "Brick", "Galaxy"]
     
     var delegate: RCT_ContainerViewControllerProtocol?
-    
+
     override func viewDidLoad() {
-        
         setupCollectionView()
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: "handleReloadCollectionNotification", name: "reloadCollectionView", object: nil)
@@ -44,9 +41,7 @@ class RCT_ContainerViewController: UIViewController {
     }
 
     func setupCollectionView() {
-
         collectionView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
-
         if kIsLayoutSelected == true {
             print("Layout is Selected, Present Layout Options")
 //            self.itemCount = self.arrayOfLayoutTitles.count
@@ -58,7 +53,7 @@ class RCT_ContainerViewController: UIViewController {
 }
 
 extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OptionItemCell", forIndexPath: indexPath) as! RCT_OptionItemCollectionViewCell
         if kIsLayoutSelected == true {
@@ -71,7 +66,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         }
         return cell
     }
-    
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if kIsLayoutSelected == true {
             return Layout.count.rawValue
@@ -80,49 +75,38 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
             return Filter.count.rawValue
         }
     }
+
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         delegate?.itemSelected(indexPath)
 
     }
-    
+
     func handleItemTapped(title: String) {
         //["Top & Bottom", "Side to Side", "Diagonal", "Picture in Picture", "Center"]
-        
+
         //Layout Item Options:
-        
         if title == "Top & Bottom" {
             print("perform \(title) functions here")
-            
         }
-        
         if title == "Side to Side" {
-           print("perform \(title) functions here")        }
-        
+            print("perform \(title) functions here")        }
         if title == "Diagonal" {
             print("perform \(title) functions here")
         }
-        
         if title == "Picture in Picture" {
             print("perform \(title) functions here")
         }
-        
         if title == "Center" {
-           print("perform \(title) functions here")
+            print("perform \(title) functions here")
         }
-        
+
         //Filter Item Options:
         if title == "Sepia" {
             print("perform \(title) functions here")
         }
-        
         if title == "B&W" {
             print("perform \(title) functions here")
         }
-        
-        
     }
-
-
-
 }
