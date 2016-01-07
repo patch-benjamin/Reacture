@@ -8,11 +8,21 @@
 
 import UIKit
 
-class RCT_EditViewController: UIViewController {
+class RCT_EditViewController: UIViewController, RCT_ContainerViewControllerProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.cVToptoToolbarTopConstraint.constant = 100
+        self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
+        self.containerViewController?.delegate = self
         SetMockData()
+    }
+    
+    func itemSelected(indexPath: NSIndexPath) {
+        print(kIsLayoutSelected)
+        print("item selected at \(indexPath.item)")
+        
+        
     }
 
     func SetMockData() {
@@ -45,6 +55,7 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
 
     var rCTImage: RCT_Image?
+    var containerViewController: RCT_ContainerViewController?
 
 
     //////////////////////////////
@@ -111,7 +122,7 @@ class RCT_EditViewController: UIViewController {
 
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
-        animateContainerView()
+        //animateContainerView()
         // Send Collection View "isLayoutSelected" == true
         kIsLayoutSelected = true
         // Reload Collection View Data
@@ -121,7 +132,7 @@ class RCT_EditViewController: UIViewController {
 
     @IBAction func filterButtonTapped(sender: AnyObject) {
         print("Filter Button Tapped")
-        animateContainerView()
+        //animateContainerView()
         // Send Collection View "isLayoutSelected" == false
         kIsLayoutSelected = false
         // Reload Collection View Data

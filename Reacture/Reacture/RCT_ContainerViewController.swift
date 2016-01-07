@@ -10,16 +10,23 @@ import UIKit
 
 var kIsLayoutSelected: Bool? = false
 
+protocol RCT_ContainerViewControllerProtocol {
+    func itemSelected(indexPath: NSIndexPath)
+}
+
 class RCT_ContainerViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
 
     var itemCount: Int = 0
     var arrayOfItems: [AnyObject] = []
-    var arrayOfLayoutTitles: [String] = ["Top & Bottom", "Side to Side", "Diagonal", "Picture in Picture"]
-    var arrayOfFilterTitles: [String] = ["None", "Sepia", "B&W", "Tinted", "Modern", "Rebel", "Water"]
-
+    var arrayOfLayoutTitles: [String] = ["Top & Bottom", "Side to Side", "Diagonal", "Picture in Picture", "Center"]
+    var arrayOfFilterTitles: [String] = ["None", "Sepia", "B&W", "Tinted", "Modern", "Rebel", "Water", "Brick", "Galaxy"]
+    
+    var delegate: RCT_ContainerViewControllerProtocol?
+    
     override func viewDidLoad() {
+        
         setupCollectionView()
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: "handleReloadCollectionNotification", name: "reloadCollectionView", object: nil)
@@ -75,13 +82,55 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         return self.itemCount
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let indexPath = indexPath.item
-        if kIsLayoutSelected == true {
-            print("\(arrayOfLayoutTitles[indexPath]) was Selected")
-        } else {
-            // Filter Selected
-            print("\(arrayOfFilterTitles[indexPath]) was Selected")
+        //let indexPath = indexPath.item
+        
+        delegate?.itemSelected(indexPath)
+        
+//        if kIsLayoutSelected == true {
+//            print("\(arrayOfLayoutTitles[indexPath]) was Selected")
+//            handleItemTapped(arrayOfLayoutTitles[indexPath])
+//        } else {
+//            // Filter Selected
+//            print("\(arrayOfFilterTitles[indexPath]) was Selected")
+//            handleItemTapped(arrayOfFilterTitles[indexPath])
+//        }
+    }
+    
+    func handleItemTapped(title: String) {
+        //["Top & Bottom", "Side to Side", "Diagonal", "Picture in Picture", "Center"]
+        
+        //Layout Item Options:
+        
+        if title == "Top & Bottom" {
+            print("perform \(title) functions here")
+            
         }
+        
+        if title == "Side to Side" {
+           print("perform \(title) functions here")        }
+        
+        if title == "Diagonal" {
+            print("perform \(title) functions here")
+        }
+        
+        if title == "Picture in Picture" {
+            print("perform \(title) functions here")
+        }
+        
+        if title == "Center" {
+           print("perform \(title) functions here")
+        }
+        
+        //Filter Item Options:
+        if title == "Sepia" {
+            print("perform \(title) functions here")
+        }
+        
+        if title == "B&W" {
+            print("perform \(title) functions here")
+        }
+        
+        
     }
 
 
