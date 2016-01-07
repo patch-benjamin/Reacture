@@ -74,17 +74,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="8L8-GF-PZR">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOn-dm-Wdw">
-                                                <rect key="frame" x="16" y="21" width="48" height="27"/>
+                                                <rect key="frame" x="16" y="21" width="48" height="26"/>
                                                 <state key="normal" title="Cancel"/>
                                                 <connections>
                                                     <action selector="CancelButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="7tu-lT-FwB"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-cf-Zad">
-                                                <rect key="frame" x="544" y="21" width="40" height="27"/>
+                                                <rect key="frame" x="544" y="21" width="40" height="26"/>
                                                 <state key="normal" title="Share"/>
                                                 <connections>
                                                     <action selector="shareButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="L02-Yj-y1m"/>
@@ -94,7 +94,7 @@
                                         <edgeInsets key="layoutMargins" top="21" left="16" bottom="8" right="16"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
-                                        <rect key="frame" x="0.0" y="56" width="600" height="485"/>
+                                        <rect key="frame" x="0.0" y="55" width="600" height="485"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-PE-9Wz">
@@ -224,7 +224,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="100"/>
                     <connections>
-                        <outlet property="collectionView" destination="UHf-sB-kob" id="z8C-nq-dRd"/>
+                        <outlet property="collectionView" destination="UHf-sB-kob" id="zoq-oE-Zow"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m2P-GJ-1jg" userLabel="First Responder" sceneMemberID="firstResponder"/>
