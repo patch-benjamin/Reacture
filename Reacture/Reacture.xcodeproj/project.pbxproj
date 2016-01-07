@@ -302,7 +302,7 @@
 				INFOPLIST_FILE = Reacture/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pkadams67.reacture;
+				PRODUCT_BUNDLE_IDENTIFIER = io.pkadams67.reacture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -315,7 +315,7 @@
 				INFOPLIST_FILE = Reacture/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pkadams67.reacture;
+				PRODUCT_BUNDLE_IDENTIFIER = io.pkadams67.reacture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
