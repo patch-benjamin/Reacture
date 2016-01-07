@@ -53,12 +53,24 @@ class RCT_CameraViewController: UIViewController {
     
     @IBAction func shutterButtonTapped(sender: AnyObject) {
     
+        RCT_CameraController.takeRCTImage { (rCTImage) -> Void in
+            // Do Something
+        }
+        
         setMockImage()
         performSegueWithIdentifier("ToEditView", sender: self)
     
     }
     
-    
+    @IBAction func switchCameraButtonTapped(sender: AnyObject) {
+        
+        print("test: Camera Switched")
+        
+        RCT_CameraController.switchCamera { () -> Void in
+            
+        }
+        
+    }
     
     
     

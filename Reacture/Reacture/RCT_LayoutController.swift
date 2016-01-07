@@ -9,7 +9,7 @@
 import UIKit
 
 
-class LayoutController {
+class RCT_LayoutController {
     
     // MARK: U
     

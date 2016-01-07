@@ -9,35 +9,41 @@
 import Foundation
 
 
-class CameraController {
+class RCT_CameraController {
     
-    static func takeFrontPicture() -> NSData {
+    static func setupCamera(completion: () -> Void) {
+        
+        print("test: Camera setup.")
+        completion()
+
+    }
+    
+    static func takeFrontPicture(completion: (imageData: NSData) -> Void) {
         
         print("test: Front picture taken")
-        return NSData()
+        completion(imageData: NSData())
         
     }
     
-    static func takeBackPicture() -> NSData {
+    static func takeBackPicture(completion: (imageData: NSData) -> Void) {
     
         print("test: Back picture taken")
-        return NSData()
+        completion(imageData: NSData())
     
     }
     
-    static func takeRCTImage() -> RCT_Image? {
-        // TODO: remove optional value of RCT_Image?
+    static func takeRCTImage(completion: (rCTImage: RCT_Image?) -> Void) { // TODO: REMOVE optional value of RCT_Image?
         
         // call take front picture
         // call take back picture (in correct order...)
         
         print("test: RCTImage taken")
-        return nil
+        completion(rCTImage: nil)
         
     }
     
-    static func switchCamera() {
-        
+    static func switchCamera(completion: () -> Void) {
+        completion()
     }
     
     static func setFlash(flashOn: Bool) {

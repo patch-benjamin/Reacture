@@ -9,11 +9,11 @@
 import UIKit
 
 
-class FiltersController {
+class RCT_FiltersController {
     
-    static func updateWithFilter(filter: Filter, rCTImage: RCT_Image, originalRCTImage: RCT_Image) {
+    static func updateWithFilter(filter: Filter, rCTImage: RCT_Image) {
         
-        print("filter '\(filter)' applied to image")
+        print("test: filter '\(filter)' applied to image")
         
         // create a new image from original
         // apply filter to new image

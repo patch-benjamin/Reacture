@@ -13,7 +13,8 @@ enum Layout: Int {
     case leftRight = 0,
     topBottom,
     topRightBottomLeft,
-    pictureInPicture
+    pictureInPicture,
+    count
 
 }
 
