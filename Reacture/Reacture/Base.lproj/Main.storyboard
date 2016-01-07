@@ -104,13 +104,13 @@
                                         <rect key="frame" x="0.0" y="540" width="600" height="60"/>
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="Hrk-74-gZP"/>
-                                            <barButtonItem image="topBottomUnselected" id="Jxs-yj-rgW">
+                                            <barButtonItem image="layout_corner" id="Jxs-yj-rgW">
                                                 <connections>
                                                     <action selector="layoutButtonTapped:" destination="AIB-wN-uwu" id="thK-SO-8ru"/>
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="yWJ-RZ-igh"/>
-                                            <barButtonItem image="filterIconUnselected" id="R8C-Lz-DjJ">
+                                            <barButtonItem image="filter_icon" id="R8C-Lz-DjJ">
                                                 <connections>
                                                     <action selector="filterButtonTapped:" destination="AIB-wN-uwu" id="iKD-53-QdL"/>
                                                 </connections>
@@ -230,7 +230,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="filterIconUnselected" width="44" height="44"/>
-        <image name="topBottomUnselected" width="44" height="44"/>
+        <image name="filter_icon" width="22" height="22"/>
+        <image name="layout_corner" width="22" height="22"/>
     </resources>
 </document>

@@ -24,8 +24,8 @@ class RCT_EditViewController: UIViewController, RCT_ContainerViewControllerProto
     }
 
     func SetMockData() {
-        let frontImage = UIImage(named: "Selfie")
-        let backImage = UIImage(named: "Landscape")
+        let frontImage = UIImage(named: "mock_selfie")
+        let backImage = UIImage(named: "mock_landscape")
         let frontImageData = RCT_ImageController.imageToData(frontImage!)!
         let backImageData = RCT_ImageController.imageToData(backImage!)!
         let image1 = RCT_ImageController.dataToImage(frontImageData)!

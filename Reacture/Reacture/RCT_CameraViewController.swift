@@ -31,8 +31,8 @@ class RCT_CameraViewController: UIViewController {
 
     func setMockImage() {
 
-        let frontImage = UIImage(named: "Selfie")
-        let backImage = UIImage(named: "Landscape")
+        let frontImage = UIImage(named: "mock_selfie")
+        let backImage = UIImage(named: "mock_landscape")
 
         let frontImageData = RCT_ImageController.imageToData(frontImage!)!
         let backImageData = RCT_ImageController.imageToData(backImage!)!

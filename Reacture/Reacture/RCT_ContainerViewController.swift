@@ -19,8 +19,8 @@ class RCT_ContainerViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var itemCount: Int = 0
     var arrayOfItems: [AnyObject] = []
-    var arrayOfLayoutTitles: [String] = ["Top & Bottom", "Side to Side", "Diagonal", "Picture in Picture", "Center"]
-    var arrayOfFilterTitles: [String] = ["None", "Sepia", "B&W", "Tinted", "Modern", "Rebel", "Water", "Brick", "Galaxy"]
+    var arrayOfLayoutTitles: [String] = ["Corner", "Top", "Side", "Diagonal", "Center"]
+    var arrayOfFilterTitles: [String] = ["None", "Retro", "Water", "Sepia", "Blue", "B&W", "Mono"]
     var delegate: RCT_ContainerViewControllerProtocol?
 
     override func viewDidLoad() {

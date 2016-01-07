@@ -14,7 +14,6 @@
 		716D6A281C3C462B00B762F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6A271C3C462B00B762F9 /* AppDelegate.swift */; };
 		716D6A2D1C3C462B00B762F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 716D6A2B1C3C462B00B762F9 /* Main.storyboard */; };
 		716D6A2F1C3C462B00B762F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 716D6A2E1C3C462B00B762F9 /* Assets.xcassets */; };
-		716D6A321C3C462B00B762F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 716D6A301C3C462B00B762F9 /* LaunchScreen.storyboard */; };
 		7192243F1C3C80D600CEE9E4 /* RCT_Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7192243E1C3C80D600CEE9E4 /* RCT_Image.swift */; };
 		719224451C3C886B00CEE9E4 /* ImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719224441C3C886B00CEE9E4 /* ImageController.swift */; };
 		719224471C3D862300CEE9E4 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719224461C3D862300CEE9E4 /* CameraController.swift */; };
@@ -32,7 +31,6 @@
 		716D6A271C3C462B00B762F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		716D6A2C1C3C462B00B762F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		716D6A2E1C3C462B00B762F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		716D6A311C3C462B00B762F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		716D6A331C3C462B00B762F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7192243E1C3C80D600CEE9E4 /* RCT_Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RCT_Image.swift; path = ../RCT_Image.swift; sourceTree = "<group>"; };
 		719224441C3C886B00CEE9E4 /* ImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageController.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 				24B871751C3C5CCB0019DB37 /* ViewControllers */,
 				24B871771C3C5CFE0019DB37 /* Controllers */,
 				716D6A2E1C3C462B00B762F9 /* Assets.xcassets */,
-				716D6A301C3C462B00B762F9 /* LaunchScreen.storyboard */,
 				716D6A331C3C462B00B762F9 /* Info.plist */,
 				716D6A271C3C462B00B762F9 /* AppDelegate.swift */,
 			);
@@ -174,7 +171,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				716D6A321C3C462B00B762F9 /* LaunchScreen.storyboard in Resources */,
 				716D6A2F1C3C462B00B762F9 /* Assets.xcassets in Resources */,
 				716D6A2D1C3C462B00B762F9 /* Main.storyboard in Resources */,
 			);
@@ -210,14 +206,6 @@
 				716D6A2C1C3C462B00B762F9 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		716D6A301C3C462B00B762F9 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				716D6A311C3C462B00B762F9 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -314,7 +302,7 @@
 				INFOPLIST_FILE = Reacture/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pkadams67.Reacture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkadams67.reacture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -327,7 +315,7 @@
 				INFOPLIST_FILE = Reacture/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pkadams67.Reacture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkadams67.reacture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
