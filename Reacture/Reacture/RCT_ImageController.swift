@@ -6,7 +6,6 @@
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class RCT_ImageController {
