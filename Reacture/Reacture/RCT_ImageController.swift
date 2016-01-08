@@ -39,14 +39,17 @@ class RCT_ImageController {
     // MARK: Update
 
     static func updateToOriginal(rCTImage: RCT_Image) {
+        rCTImage.layout = Layout.topBottom
+        rCTImage.imageBackCIImage = rCTImage.originalImageBackCIImage
+        rCTImage.imageFrontCIImage = rCTImage.originalImageFrontCIImage
         print("Test: Updated Image to Original")
     }
 
-    // MARK: Delete
-
-    static func deleteRCTImage(rCTImage: RCT_Image) {
-        print("Test: Deleted Image")
-    }
+//    // MARK: Delete
+//
+//    static func deleteRCTImage(rCTImage: RCT_Image) {
+//        print("Test: Deleted Image")
+//    }
 }
 
 /*
