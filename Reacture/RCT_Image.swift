@@ -26,7 +26,7 @@ class RCT_Image {
     var imageFrontNSData: NSData { return RCT_ImageController.imageToData(self.imageFrontUIImage)! }
     var imageBackNSData: NSData { return RCT_ImageController.imageToData(self.imageBackUIImage)! }
     
-    let layout: Layout
+    var layout: Layout
     
     convenience init(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.topBottom) {
         
