@@ -7,11 +7,39 @@
 //
 
 import Foundation
+import AVFoundation
 
 
 class RCT_CameraController {
     
+    
+    
+    //////////////////////////////
+    //////////////////////////////
+    //Testing ground
+    //////////////////////////////
+    //////////////////////////////
+    
+    var captureSession: AVCaptureSession?
+    var stillImageOutput: AVCaptureStillImageOutput?
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    
+    
+    
+    let availableCameraDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
+    
+    
+    //////////////////////////////
+    //////////////////////////////
+    //Testing ground
+    //////////////////////////////
+    //////////////////////////////
+    
+    
+    
     static func setupCamera(completion: () -> Void) {
+        
+        
         
         print("test: Camera setup.")
         completion()

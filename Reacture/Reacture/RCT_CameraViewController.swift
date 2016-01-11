@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RCT_CameraViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupCamera()
+        setupButtons()
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +27,15 @@ class RCT_CameraViewController: UIViewController {
     // MARK: Variables
 
     var rCTImage: RCT_Image? = nil
-
+    
+    //Buttons
+    let shutterButton = UIButton()
+    
+    var captureSesson = AVCaptureSession()
+    var frontCaptureDevice: AVCaptureDevice?
+    var backCaptureDevice: AVCaptureDevice?
+    var stillImageOutput = AVCaptureStillImageOutput()
+    var previewLayer = AVCaptureVideoPreviewLayer()
 
     // MARK: Functions
 
@@ -42,11 +52,14 @@ class RCT_CameraViewController: UIViewController {
     }
 
     // MARK: Outlets
+    
 
     // MARK: Actions
 
     @IBAction func shutterButtonTapped(sender: AnyObject) {
     
+        print("Shutter Button Tapped")
+        
         RCT_CameraController.takeRCTImage { (rCTImage) -> Void in
             // Do Something
         }
@@ -65,10 +78,23 @@ class RCT_CameraViewController: UIViewController {
         
     }
     
+    // MARK: - Setup UI
     
+    func setupButtons() {
+        
+        var width = self.view.frame.width / 6
+        
+        shutterButton.frame.size = CGSize(width: width, height: width)
+        shutterButton.center.x = self.view.center.x
+        shutterButton.frame.origin.y = self.view.frame.size.height - shutterButton.frame.size.height - 20
+        shutterButton.layer.borderColor = UIColor.whiteColor().CGColor
+        shutterButton.layer.borderWidth = 1
+        shutterButton.layer.cornerRadius = width / 2
+        shutterButton.backgroundColor = UIColor.blueColor()
+        shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(shutterButton)
+    }
     
-    
-
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -82,5 +108,74 @@ class RCT_CameraViewController: UIViewController {
             editVC.setupController(self.rCTImage!)
             
         }
+    }
+}
+
+extension RCT_CameraViewController {
+    
+    // MARK: - Setting up camera
+    
+    func setupCamera() {
+        
+        print("Setting up Camera")
+        var error: NSError?
+        self.captureSesson.sessionPreset = AVCaptureSessionPresetPhoto
+        stillImageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+        
+        
+        let devices = AVCaptureDevice.devices()
+        
+        print(devices.count)
+        
+        for device in devices {
+            if (device.hasMediaType(AVMediaTypeVideo)) {
+                if (device.position == AVCaptureDevicePosition.Back) {
+                    backCaptureDevice = device as? AVCaptureDevice
+                    print("has back camera")
+                }
+                if (device.position == AVCaptureDevicePosition.Front) {
+                    frontCaptureDevice = device as? AVCaptureDevice
+                    print("has front camera")
+                }
+            }
+        }
+        
+        if let backCamera = backCaptureDevice {
+            
+            do {
+                let input = try AVCaptureDeviceInput(device: backCamera)
+                
+                if self.captureSesson.canAddInput(input) {
+                    self.captureSesson.addInput(input)
+                    captureSesson.addOutput(stillImageOutput)
+                    
+                    setupPreview()
+                    captureSesson.startRunning()
+                    print("Session has started")
+                }
+            } catch {
+                error
+                print("error getting input from back")
+            }
+            
+        }
+        
+        
+    }
+    
+    func setupPreview() {
+        
+        let previewView = UIView()
+        
+        // Setting size of preview
+        previewView.frame = self.view.frame
+        self.view.addSubview(previewView)
+        self.view.bringSubviewToFront(previewView)
+        
+        
+        print("Setting up priview")
+        previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSesson)
+        previewView.layer.addSublayer(self.previewLayer)
+        previewLayer.frame = self.view.layer.frame
     }
 }
