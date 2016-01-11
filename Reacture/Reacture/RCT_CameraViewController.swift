@@ -32,6 +32,8 @@ class RCT_CameraViewController: UIViewController {
     let shutterButton = UIButton()
     
     var captureSesson = AVCaptureSession()
+    var frontInput: AVCaptureDeviceInput?
+    var backInput: AVCaptureDeviceInput?
     var frontCaptureDevice: AVCaptureDevice?
     var backCaptureDevice: AVCaptureDevice?
     var stillImageOutput = AVCaptureStillImageOutput()
@@ -67,27 +69,56 @@ class RCT_CameraViewController: UIViewController {
         
         print("Shutter Button Tapped")
         
+        self.previewLayer.removeFromSuperlayer()
+        
         if let backCamera = backCaptureDevice {
             
             takePic(backCamera, session: captureSesson, completion: { (data) -> Void in
-                if let data = data {
+                if let backData = data {
                     
                     print("back camera data is here")
                     
 //                    TODO: - Refactor
-                    self.backImage = UIImage(data: data)!
+                    self.backImage = UIImage(data: backData)!
                     
-                    let image1View = UIImageView()
-                    image1View.frame.origin.x = self.view.frame.origin.x
-                    image1View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
-                    image1View.contentMode = .ScaleAspectFit
-                    image1View.image = self.backImage
-//                    self.view.addSubview(image1View)
+                    self.captureSesson.beginConfiguration()
                     
-                    let layout = Layout.topBottom
+                    self.captureSesson.removeInput(self.backInput)
+                    self.captureSesson.addInput(self.frontInput)
                     
-                    self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.backImage, imageBack: self.backImage, layout: layout)
-                    self.performSegueWithIdentifier("ToEditView", sender: self)
+                    self.captureSesson.commitConfiguration()
+                    
+                    //TODO: - possibly add KVO
+                    sleep(1)
+                    
+                    if let frontCamera = self.frontCaptureDevice {
+                        
+                        self.takePic(frontCamera, session: self.captureSesson, completion: { (data) -> Void in
+                            
+                            if let frontData = data {
+                                
+                                self.frontImage = UIImage(data: frontData)!
+                                
+                                print("front camera data is here")
+                                
+                                let layout = Layout.topBottom
+                                
+                                self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.frontImage, imageBack: self.backImage, layout: layout)
+                                self.performSegueWithIdentifier("ToEditView", sender: self)
+                                
+                                self.captureSesson.beginConfiguration()
+                                
+                                self.captureSesson.removeInput(self.frontInput)
+                                self.captureSesson.addInput(self.backInput)
+                                
+                                self.captureSesson.commitConfiguration()
+                                self.view.layer.addSublayer(self.previewLayer)
+                                self.view.bringSubviewToFront(self.shutterButton)
+                                
+                            }
+                            
+                        })
+                    }
                     
                 }
                 
@@ -116,6 +147,7 @@ class RCT_CameraViewController: UIViewController {
     func takePic(device: AVCaptureDevice, session: AVCaptureSession, completion: (data: NSData?) -> Void) {
         
         var data: NSData?
+        
         
         dispatch_async(sessionQueue) { () -> Void in
             
@@ -198,6 +230,8 @@ extension RCT_CameraViewController {
                 if (device.position == AVCaptureDevicePosition.Front) {
                     frontCaptureDevice = device as? AVCaptureDevice
                     print("has front camera")
+                    
+                    getFrontInput()
                 }
             }
         }
@@ -206,6 +240,8 @@ extension RCT_CameraViewController {
             
             do {
                 let input = try AVCaptureDeviceInput(device: backCamera)
+                
+                self.backInput = input
                 
                 if self.captureSesson.canAddInput(input) {
                     self.captureSesson.addInput(input)
@@ -231,6 +267,23 @@ extension RCT_CameraViewController {
         }
         
         
+    }
+    
+    
+    func getFrontInput() {
+        
+        if let frontCamera = frontCaptureDevice {
+            
+            do {
+                
+                let input = try AVCaptureDeviceInput(device: frontCamera)
+                
+                self.frontInput = input
+                
+            } catch {
+                error
+            }
+        }
     }
     
     func setupPreview() {
