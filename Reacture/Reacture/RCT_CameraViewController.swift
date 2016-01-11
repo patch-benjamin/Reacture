@@ -74,10 +74,19 @@ class RCT_CameraViewController: UIViewController {
                     
                     print("back camera data is here")
                     
-                    // TODO: - Refactor
-                    //backImage = UIImage(data: data!)!
+//                    TODO: - Refactor
+                    self.backImage = UIImage(data: data)!
                     
-                    self.rCTImage = RCT_ImageController.createRCTImage(data, imageBack: data)
+                    let image1View = UIImageView()
+                    image1View.frame.origin.x = self.view.frame.origin.x
+                    image1View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
+                    image1View.contentMode = .ScaleAspectFit
+                    image1View.image = self.backImage
+//                    self.view.addSubview(image1View)
+                    
+                    let layout = Layout.topBottom
+                    
+                    self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.backImage, imageBack: self.backImage, layout: layout)
                     self.performSegueWithIdentifier("ToEditView", sender: self)
                     
                 }
@@ -114,10 +123,10 @@ class RCT_CameraViewController: UIViewController {
             if let connection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
                 
                 print("connection established")
-//                connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
+                connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
                 
                 //TODO: change code to allow landscape
-                connection.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
+//                connection.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
 //                connection.video
                 print(UIDevice.currentDevice().orientation.rawValue)
                 self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (cmSampleBuffer, error) -> Void in
