@@ -12,10 +12,9 @@ class RCT_EditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.cVToptoToolbarTopConstraint.constant = 100
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         self.containerViewController?.delegate = self
-//        SetMockData()
+
         if let rCTImage = self.rCTImage {
 //            self.setupZoomableImageViews(rCTImage)
             self.frontImageView.image = rCTImage.imageFrontUIImage
@@ -24,12 +23,22 @@ class RCT_EditViewController: UIViewController {
         } else {
             print("ERROR: rCTImage is nil!")
         }
+
+//        setupController(self.rCTImage)
         
-        self.frontImageScrollView.minimumZoomScale = 1.0
+        let frontImageMinZoomScale = rCTImageView.frame.width / (frontImageView.image?.size.width)!
+        self.frontImageScrollView.minimumZoomScale = frontImageMinZoomScale
         self.frontImageScrollView.maximumZoomScale = 5.0
+        self.frontImageScrollView.zoomScale = frontImageMinZoomScale
+        self.frontImageScrollView.addSubview(frontImageView)
+
         
-        self.backImageScrollView.minimumZoomScale = 1.0
+        let backImageMinZoomScale = rCTImageView.frame.width / (backImageView.image?.size.width)!
+        self.backImageScrollView.minimumZoomScale = backImageMinZoomScale
         self.backImageScrollView.maximumZoomScale = 5.0
+        self.backImageScrollView.zoomScale = backImageMinZoomScale
+        self.backImageScrollView.addSubview(backImageView)
+
         
     }
     
@@ -53,7 +62,10 @@ class RCT_EditViewController: UIViewController {
 
     var rCTImage: RCT_Image?
     var containerViewController: RCT_ContainerViewController?
-
+    var frontImageView = UIImageView()
+    var backImageView = UIImageView()
+    
+    
 //    let frontImageZoomableView: UIView = UIView()
 //    let backImageZoomableView: UIView = UIView()
 //    let frontImageScrollView = UIScrollView()
@@ -69,6 +81,8 @@ class RCT_EditViewController: UIViewController {
 
     func setupController(rCTImage: RCT_Image) {
         self.rCTImage = rCTImage
+        self.frontImageView = UIImageView(image: rCTImage.imageFrontUIImage)
+        self.backImageView = UIImageView(image: rCTImage.imageBackUIImage)
     }
 
     func setUpImages(front: UIImage, back: UIImage){
@@ -101,10 +115,10 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var rCTImageView: UIView!
     @IBOutlet weak var frontImageZoomableView: UIView!
     @IBOutlet weak var frontImageScrollView: UIScrollView!
-    @IBOutlet weak var frontImageView: UIImageView!
+//    @IBOutlet weak var frontImageView: UIImageView!
     @IBOutlet weak var backImageZoomableView: UIView!
     @IBOutlet weak var backImageScrollView: UIScrollView!
-    @IBOutlet weak var backImageView: UIImageView!
+//    @IBOutlet weak var backImageView: UIImageView!
 
     
     // Constraint Outlets

@@ -126,19 +126,6 @@
                                                 <subviews>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="4x9-My-hZt">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
-                                                        <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="THL-yg-q8l">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="THL-yg-q8l" firstAttribute="leading" secondItem="4x9-My-hZt" secondAttribute="leading" id="5ia-YM-zkj"/>
-                                                            <constraint firstItem="THL-yg-q8l" firstAttribute="centerX" secondItem="4x9-My-hZt" secondAttribute="centerX" id="M1E-Yy-8In"/>
-                                                            <constraint firstAttribute="bottom" secondItem="THL-yg-q8l" secondAttribute="bottom" id="Nit-Xe-Veh"/>
-                                                            <constraint firstItem="THL-yg-q8l" firstAttribute="centerY" secondItem="4x9-My-hZt" secondAttribute="centerY" id="UQ1-x9-UmY"/>
-                                                            <constraint firstItem="THL-yg-q8l" firstAttribute="top" secondItem="4x9-My-hZt" secondAttribute="top" id="cbd-r5-hK0"/>
-                                                            <constraint firstAttribute="trailing" secondItem="THL-yg-q8l" secondAttribute="trailing" id="eZY-dF-2WX"/>
-                                                        </constraints>
                                                         <connections>
                                                             <outlet property="delegate" destination="AIB-wN-uwu" id="iTx-uj-1qX"/>
                                                         </connections>
@@ -157,19 +144,6 @@
                                                 <subviews>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Xkt-fU-ajC">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
-                                                        <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g7f-M4-OZk">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="g7f-M4-OZk" firstAttribute="top" secondItem="Xkt-fU-ajC" secondAttribute="top" id="0GA-Cl-Yb5"/>
-                                                            <constraint firstAttribute="trailing" secondItem="g7f-M4-OZk" secondAttribute="trailing" id="M7K-bG-Jsl"/>
-                                                            <constraint firstItem="g7f-M4-OZk" firstAttribute="centerY" secondItem="Xkt-fU-ajC" secondAttribute="centerY" id="b9X-wb-nOt"/>
-                                                            <constraint firstAttribute="bottom" secondItem="g7f-M4-OZk" secondAttribute="bottom" id="hxk-Bq-kcS"/>
-                                                            <constraint firstItem="g7f-M4-OZk" firstAttribute="leading" secondItem="Xkt-fU-ajC" secondAttribute="leading" id="qTH-Bb-ut1"/>
-                                                            <constraint firstItem="g7f-M4-OZk" firstAttribute="centerX" secondItem="Xkt-fU-ajC" secondAttribute="centerX" id="zUB-lu-ISq"/>
-                                                        </constraints>
                                                         <connections>
                                                             <outlet property="delegate" destination="AIB-wN-uwu" id="rr3-qX-oh5"/>
                                                         </connections>
@@ -238,7 +212,6 @@
                         <outlet property="backImageScrollView" destination="Xkt-fU-ajC" id="OYY-h6-9J9"/>
                         <outlet property="backImageTopConstraint" destination="tH2-kX-eTj" id="Ll4-wU-Iy3"/>
                         <outlet property="backImageTrailingConstraint" destination="7l2-1h-sw7" id="R1S-4z-bxF"/>
-                        <outlet property="backImageView" destination="g7f-M4-OZk" id="H6C-cO-e0q"/>
                         <outlet property="backImageWidthConstraint" destination="2lT-Kq-REq" id="goo-Dz-QSk"/>
                         <outlet property="backImageZoomableView" destination="hTc-NQ-pjG" id="c8u-nr-QFF"/>
                         <outlet property="containerView" destination="Qpj-PE-9Wz" id="jjA-NK-jL9"/>
@@ -249,7 +222,6 @@
                         <outlet property="frontImageScrollView" destination="4x9-My-hZt" id="A3L-Ve-eFf"/>
                         <outlet property="frontImageTopConstraint" destination="Swg-45-aKa" id="ECs-mT-SCL"/>
                         <outlet property="frontImageTrailingConstraint" destination="agk-lC-uCN" id="hev-Tl-gGi"/>
-                        <outlet property="frontImageView" destination="THL-yg-q8l" id="0fn-QZ-xM2"/>
                         <outlet property="frontImageWidthConstraint" destination="VrT-ec-mpV" id="daG-dX-gbe"/>
                         <outlet property="frontImageZoomableView" destination="OsU-33-awx" id="wZD-FX-Wki"/>
                         <outlet property="layoutButton" destination="Jxs-yj-rgW" id="Vvg-jy-Wov"/>
