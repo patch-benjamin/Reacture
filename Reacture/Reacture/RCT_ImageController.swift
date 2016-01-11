@@ -14,7 +14,7 @@ class RCT_ImageController {
 
     static func createRCTImage(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.topBottom) -> RCT_Image {
         
-        let image = RCT_Image(imageFront: imageFront, imageBack: imageBack, layout: layout)
+        let image = RCT_Image(imageFront: UIImage(data: imageFront)!, imageBack: UIImage(data: imageBack)!, layout: layout)
         return image
     }
     

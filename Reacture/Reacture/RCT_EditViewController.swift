@@ -63,12 +63,14 @@ class RCT_EditViewController: UIViewController {
         image2View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
         image2View.contentMode = .ScaleAspectFit
         self.view.addSubview(image2View)
-        let front : UIImage = (rCTImage?.imageFront)!
-        let back : UIImage = (rCTImage?.imageBack)!
+        let front : UIImage = rCTImage!.imageFrontUIImage
+        let back : UIImage = rCTImage!.imageBackUIImage
+        
 //        let front: UIImage = UIImage(data: rctImage.imageBackNSData)!
 //        let back: UIImage = UIImage(data: rctImage.imageFrontNSData)!
         image1View.image = front
         image2View.image = back
+//        image2View.contentMode = .
     }
 
     func imageCapture() -> UIImage {
