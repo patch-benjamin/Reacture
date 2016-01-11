@@ -10,22 +10,22 @@ import UIKit
 import AVFoundation
 
 class RCT_CameraViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupCamera()
         setupButtons()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
     // MARK: Variables
-
+    
     var rCTImage: RCT_Image? = nil
     
     //Buttons
@@ -36,36 +36,62 @@ class RCT_CameraViewController: UIViewController {
     var backCaptureDevice: AVCaptureDevice?
     var stillImageOutput = AVCaptureStillImageOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
-
+    
+    // Session Queue
+    let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
+    
+    // Image Variables
+    var frontImage = UIImage()
+    var backImage = UIImage()
+    
     // MARK: Functions
-
+    
     func setMockImage() {
-
+        
         let frontImage = UIImage(named: "mock_selfie")
         let backImage = UIImage(named: "mock_landscape")
-
+        
         let frontImageData = RCT_ImageController.imageToData(frontImage!)!
         let backImageData = RCT_ImageController.imageToData(backImage!)!
-
+        
         self.rCTImage = RCT_ImageController.createRCTImage(frontImageData, imageBack: backImageData)
-
+        
     }
-
+    
     // MARK: Outlets
     
-
-    // MARK: Actions
-
-    @IBAction func shutterButtonTapped(sender: AnyObject) {
     
+    // MARK: Actions
+    
+    @IBAction func shutterButtonTapped(sender: AnyObject) {
+        
         print("Shutter Button Tapped")
+        
+        if let backCamera = backCaptureDevice {
+            
+            takePic(backCamera, session: captureSesson, completion: { (data) -> Void in
+                if let data = data {
+                    
+                    print("back camera data is here")
+                    
+                    // TODO: - Refactor
+                    //backImage = UIImage(data: data!)!
+                    
+                    self.rCTImage = RCT_ImageController.createRCTImage(data, imageBack: data)
+                    self.performSegueWithIdentifier("ToEditView", sender: self)
+                    
+                }
+                
+            })
+            
+        }
         
         RCT_CameraController.takeRCTImage { (rCTImage) -> Void in
             // Do Something
         }
         
-        setMockImage()
-        performSegueWithIdentifier("ToEditView", sender: self)
+        //setMockImage()
+        //performSegueWithIdentifier("ToEditView", sender: self)
     }
     
     @IBAction func switchCameraButtonTapped(sender: AnyObject) {
@@ -76,6 +102,33 @@ class RCT_CameraViewController: UIViewController {
             
         }
         
+    }
+    
+    func takePic(device: AVCaptureDevice, session: AVCaptureSession, completion: (data: NSData?) -> Void) {
+        
+        var data: NSData?
+        
+        dispatch_async(sessionQueue) { () -> Void in
+            
+            //session.sessionPreset = AVCaptureSessionPresetPhoto
+            if let connection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
+                
+                print("connection established")
+//                connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
+                
+                //TODO: change code to allow landscape
+                connection.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
+//                connection.video
+                print(UIDevice.currentDevice().orientation.rawValue)
+                self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (cmSampleBuffer, error) -> Void in
+
+                    
+                        if let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(cmSampleBuffer) {
+                            completion(data: imageData)
+                    }
+                })
+            }
+        }
     }
     
     // MARK: - Setup UI
@@ -96,13 +149,13 @@ class RCT_CameraViewController: UIViewController {
     }
     
     // MARK: - Navigation
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
+        
         if segue.identifier == "ToEditView" {
-
+            
             let editVC = segue.destinationViewController as! RCT_EditViewController
-
+            
             //            editVC.loadView()
             //
             editVC.setupController(self.rCTImage!)
@@ -147,11 +200,19 @@ extension RCT_CameraViewController {
                 
                 if self.captureSesson.canAddInput(input) {
                     self.captureSesson.addInput(input)
-                    captureSesson.addOutput(stillImageOutput)
+                    print("back camera input was added")
                     
-                    setupPreview()
-                    captureSesson.startRunning()
-                    print("Session has started")
+                    
+                    if captureSesson.canAddOutput(stillImageOutput) {
+                        
+                        captureSesson.addOutput(stillImageOutput)
+                        print("back camera output was added")
+                        
+                        
+                        setupPreview()
+                        captureSesson.startRunning()
+                        print("Session has started")
+                    }
                 }
             } catch {
                 error
@@ -173,7 +234,7 @@ extension RCT_CameraViewController {
         self.view.bringSubviewToFront(previewView)
         
         
-        print("Setting up priview")
+        print("Setting up preview")
         previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSesson)
         previewView.layer.addSublayer(self.previewLayer)
         previewLayer.frame = self.view.layer.frame
