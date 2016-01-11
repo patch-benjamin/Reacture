@@ -24,6 +24,7 @@ class RCT_ImageController {
             print("No Image from Data")
             return nil
         }
+        
         return image
     }
 
