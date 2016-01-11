@@ -13,8 +13,16 @@ class RCT_ImageController {
     // MARK: Create
 
     static func createRCTImage(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.topBottom) -> RCT_Image {
+        
         let image = RCT_Image(imageFront: imageFront, imageBack: imageBack, layout: layout)
         return image
+    }
+    
+    static func createRCTImageFromImages(imageFront: UIImage, imageBack: UIImage, layout: Layout = Layout.topBottom) -> RCT_Image? {
+        
+        var rctImage = RCT_Image(imageFront: imageFront, imageBack: imageBack, layout: layout)
+        
+        return rctImage
     }
 
     // MARK: Read
