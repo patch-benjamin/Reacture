@@ -110,7 +110,9 @@ class RCT_EditViewController: UIViewController {
         print("Share Button Tapped")
         let shareTextRCTImage = "Shared with #reacture"
         let shareImageRCTImage: UIImage = UIImage(named: "mock_selfie")!
-        let shareViewController: UIActivityViewController = UIActivityViewController(activityItems: [(shareImageRCTImage), shareTextRCTImage], applicationActivities: nil)
+        let shareViewController = UIActivityViewController(activityItems: [(shareImageRCTImage), shareTextRCTImage], applicationActivities: nil)
+        shareViewController.popoverPresentationController?.sourceView = self.view
+        
         self.presentViewController(shareViewController, animated: true, completion: nil)
     }
     

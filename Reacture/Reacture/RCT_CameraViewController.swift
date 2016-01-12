@@ -26,10 +26,7 @@ class RCT_CameraViewController: UIViewController {
         setupCamera()
         setupButtons()
         
-        delay(seconds: 10) { () -> () in
-            
-            self.switchCameraButtonTapped(self)
-        }
+    
     }
     
     override func didReceiveMemoryWarning() {
@@ -200,9 +197,7 @@ class RCT_CameraViewController: UIViewController {
     
     @IBAction func switchCameraButtonTapped(sender: AnyObject) {
         
-        print("test: Camera Switched")
-        
-        backCameraIsPreview = !backCameraIsPreview
+        print("Camera Switched")
         
         if backCameraIsPreview == true {
             
@@ -215,6 +210,7 @@ class RCT_CameraViewController: UIViewController {
             self.captureSesson.addInput(self.frontInput)
             
             self.captureSesson.commitConfiguration()
+            backCameraIsPreview = false
             
         } else {
             //front is preview, switching to back
@@ -222,11 +218,11 @@ class RCT_CameraViewController: UIViewController {
             self.captureSesson.beginConfiguration()
             
             // This is questionable if we need to do this switch
-            self.captureSesson.removeInput(self.backInput)
-            self.captureSesson.addInput(self.frontInput)
+            self.captureSesson.removeInput(self.frontInput)
+            self.captureSesson.addInput(self.backInput)
             
             self.captureSesson.commitConfiguration()
-            
+            backCameraIsPreview = true
         }
         
     }
@@ -276,12 +272,8 @@ class RCT_CameraViewController: UIViewController {
         
         self.view.layer.addSublayer(self.previewLayer)
         self.view.bringSubviewToFront(self.shutterButton)
-
-        
-
-        
-        
-        
+        self.view.bringSubviewToFront(self.switchCameraButton)
+     
     }
     
     func setDarkBackground() {
@@ -319,7 +311,7 @@ class RCT_CameraViewController: UIViewController {
     
     func setupButtons() {
         
-        var width = self.view.frame.width / 6
+        let width = self.view.frame.width / 6
         
         shutterButton.frame.size = CGSize(width: width, height: width)
         shutterButton.center.x = self.view.center.x
@@ -455,6 +447,7 @@ extension RCT_CameraViewController {
         previewView.layer.addSublayer(self.previewLayer)
         previewLayer.frame = self.view.layer.frame
         
+        self.view.bringSubviewToFront(switchCameraButton)
         
     }
 }

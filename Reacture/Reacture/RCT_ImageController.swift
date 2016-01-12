@@ -20,7 +20,7 @@ class RCT_ImageController {
     
     static func createRCTImageFromImages(imageFront: UIImage, imageBack: UIImage, layout: Layout = Layout.topBottom) -> RCT_Image? {
         
-        var rctImage = RCT_Image(imageFront: imageFront, imageBack: imageBack, layout: layout)
+        let rctImage = RCT_Image(imageFront: imageFront, imageBack: imageBack, layout: layout)
         
         return rctImage
     }
