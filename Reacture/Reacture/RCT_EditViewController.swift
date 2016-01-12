@@ -2,7 +2,7 @@
 //  RCT_EditViewController.swift
 //  Reacture
 //
-//  Created by Ben Patch on 1/5/16.
+//  Created by Ben Patch on 1/5/16. Amended by Paul Adams on 1/12/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
@@ -17,7 +17,7 @@ class RCT_EditViewController: UIViewController {
         self.containerViewController?.delegate = self
         SetMockData()
     }
-    
+
     func SetMockData() {
         let frontImage = UIImage(named: "mock_selfie")
         let backImage = UIImage(named: "mock_landscape")
@@ -64,6 +64,14 @@ class RCT_EditViewController: UIViewController {
         image2View.image = back
     }
 
+    func imageCapture() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(rCTImageView.frame.size, view.opaque, 0.0)
+        rCTImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let imageToManipulate: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return imageToManipulate
+    }
+
     //////////////////////////////
     //////////////////////////////
     // MARK: Outlets
@@ -96,11 +104,11 @@ class RCT_EditViewController: UIViewController {
         let shareViewController: UIActivityViewController = UIActivityViewController(activityItems: [(shareImageRCTImage), shareTextRCTImage], applicationActivities: nil)
         self.presentViewController(shareViewController, animated: true, completion: nil)
     }
-    
+
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
         //animateContainerView()
-        
+
         // Send Collection View "isLayoutSelected" == true
         kIsLayoutSelected = true
         // Reload Collection View Data
@@ -137,25 +145,15 @@ class RCT_EditViewController: UIViewController {
 
 }
 
-
 extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
-    
+
     func itemSelected(indexPath: NSIndexPath) {
-        
         if kIsLayoutSelected! {
-            
             let layoutSelected = Layout(rawValue: indexPath.item)!
-            
             RCT_LayoutController.updateWithLayout(layoutSelected, image: self.rCTImage!, view: self.rCTImageView)
-            
         } else {
-            
             let filterSelected = Filter(rawValue: indexPath.item)!
-            
             RCT_FiltersController.updateWithFilter(filterSelected, rCTImage: self.rCTImage!)
-            
         }
-        
     }
-    
 }
