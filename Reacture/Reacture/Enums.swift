@@ -9,26 +9,46 @@
 import Foundation
 
 enum Layout: Int {
+    
+    case LeftRight = 0,
+    TopBottom,
+    TopRightBottomLeft,
+    TopLeftBottomRight,
+    PictureInPictureTopRight,
+    PictureInPictureBottomRight,
+    PictureInPictureTopLeft,
+    PictureInPictureBottomLeft,
+    Count
+    
+}
 
-    case leftRight = 0,
-    topBottom,
-    topRightBottomLeft,
-    pictureInPicture,
-    count
-
+enum MaskLayout: Int {
+    case None = 0,
+    TopRight,
+    BottomLeft,
+    TopLeft,
+    BottomRight,
+    Top,
+    Bottom,
+    Left,
+    Right,
+    SmallPictureBottomRight,
+    SmallPictureBottomLeft,
+    SmallPictureTopRight,
+    SmallPictureTopLeft
 }
 
 enum Filter: Int {
     
-    case none = 0,
-    mono,
-    tonal,
-    noir,
-    fade,
-    chrome,
-    process,
-    transfer,
-    instant,
-    count
+    case None = 0,
+    Mono,
+    Tonal,
+    Noir,
+    Fade,
+    Chrome,
+    Process,
+    Transfer,
+    Instant,
+    Count
     
 }

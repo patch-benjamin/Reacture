@@ -28,7 +28,7 @@ class RCT_Image {
     
     var layout: Layout
     
-    convenience init(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.topBottom) {
+    convenience init(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.TopBottom) {
         
         let UIImageFront = RCT_ImageController.dataToImage(imageFront)!
         let UIImageBack = RCT_ImageController.dataToImage(imageBack)!
@@ -36,7 +36,7 @@ class RCT_Image {
         self.init(imageFrontCIImage: CIImage(image: UIImageFront)!, imageBackCIImage: CIImage(image: UIImageBack)!, layout: layout)
     }
     
-    init(imageFrontCIImage: CIImage, imageBackCIImage: CIImage, layout: Layout = Layout.topBottom) {
+    init(imageFrontCIImage: CIImage, imageBackCIImage: CIImage, layout: Layout = Layout.TopBottom) {
     
         self.imageFrontCIImage = imageFrontCIImage
         self.imageBackCIImage = imageBackCIImage

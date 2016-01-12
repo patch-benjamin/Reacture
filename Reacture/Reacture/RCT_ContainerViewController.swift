@@ -72,10 +72,10 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if kIsLayoutSelected == true {
-            return Layout.count.rawValue
+            return Layout.Count.rawValue
         } else {
             // Filter Selected
-            return Filter.count.rawValue
+            return Filter.Count.rawValue
         }
     }
 
@@ -83,33 +83,5 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         
         delegate?.itemSelected(indexPath)
 
-    }
-
-    func handleItemTapped(title: String) {
-        //["Top & Bottom", "Side to Side", "Diagonal", "Picture in Picture", "Center"]
-
-        //Layout Item Options:
-        if title == "Top & Bottom" {
-            print("perform \(title) functions here")
-        }
-        if title == "Side to Side" {
-            print("perform \(title) functions here")        }
-        if title == "Diagonal" {
-            print("perform \(title) functions here")
-        }
-        if title == "Picture in Picture" {
-            print("perform \(title) functions here")
-        }
-        if title == "Center" {
-            print("perform \(title) functions here")
-        }
-
-        //Filter Item Options:
-        if title == "Sepia" {
-            print("perform \(title) functions here")
-        }
-        if title == "B&W" {
-            print("perform \(title) functions here")
-        }
     }
 }
