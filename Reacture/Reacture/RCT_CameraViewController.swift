@@ -25,6 +25,11 @@ class RCT_CameraViewController: UIViewController {
         
         setupCamera()
         setupButtons()
+        
+        delay(seconds: 10) { () -> () in
+            
+            self.switchCameraButtonTapped(self)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,6 +40,9 @@ class RCT_CameraViewController: UIViewController {
     
     // MARK: -  Variables
     
+    //bool for switching previews
+    var backCameraIsPreview: Bool = true
+    
     var rCTImage: RCT_Image? = nil
     var captureSesson = AVCaptureSession()
     var frontInput: AVCaptureDeviceInput?
@@ -44,6 +52,10 @@ class RCT_CameraViewController: UIViewController {
     var stillImageOutput = AVCaptureStillImageOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
     
+    // Flash Variables
+    let flashView = UIView()
+    let currentBrightness = UIScreen.mainScreen().brightness
+    
     // Image Variables
     var frontImage = UIImage()
     var backImage = UIImage()
@@ -52,6 +64,8 @@ class RCT_CameraViewController: UIViewController {
     let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
     
     // MARK: - Outlets
+    
+    @IBOutlet weak var switchCameraButton: UIButton!
     
     // MARK: - Buttons
     let shutterButton = UIButton()
@@ -64,14 +78,13 @@ class RCT_CameraViewController: UIViewController {
         print("Shutter Button Tapped")
         
         self.previewLayer.removeFromSuperlayer()
-        setDarkBackground()
+        //setDarkBackground()
         
-        delay(seconds: 0.01) { () -> () in
-            
             // Flash screen
-            self.frontFlash()
-        }
+        self.frontFlash()
         
+        if backCameraIsPreview == true {
+            
         if let backCamera = backCaptureDevice {
             
             takePic(backCamera, session: captureSesson, completion: { (data) -> Void in
@@ -124,17 +137,95 @@ class RCT_CameraViewController: UIViewController {
             })
             
         }
-        
-        RCT_CameraController.takeRCTImage { (rCTImage) -> Void in
-            // Do Something
+        } else {
+            
+            //Front camera should be on preview layer already
+            if let frontCamera = frontCaptureDevice {
+                
+                takePic(frontCamera, session: captureSesson, completion: { (data) -> Void in
+                    if let frontData = data {
+                        
+                        print("front camera data is here")
+                        
+                        // TODO: - Refactor
+                        self.frontImage = UIImage(data: frontData)!
+                        
+                        self.captureSesson.beginConfiguration()
+                        
+                        self.captureSesson.removeInput(self.frontInput)
+                        self.captureSesson.addInput(self.backInput)
+                        
+                        self.captureSesson.commitConfiguration()
+                        
+                        //TODO: - possibly add KVO
+                        delay(seconds: 0.1, completion: { () -> () in
+                            
+                            if let backCamera = self.backCaptureDevice {
+                                
+                                self.takePic(backCamera, session: self.captureSesson, completion: { (data) -> Void in
+                                    
+                                    if let backData = data {
+                                        
+                                        self.backImage = UIImage(data: backData)!
+                                        
+                                        print("back camera data is here")
+                                        
+                                        let layout = Layout.topBottom
+                                        
+                                        self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.frontImage, imageBack: self.backImage, layout: layout)
+                                        self.performSegueWithIdentifier("ToEditView", sender: self)
+                                        
+                                        self.captureSesson.beginConfiguration()
+                                        
+                                        // This is questionable if we need to do this switch
+                                        self.captureSesson.removeInput(self.backInput)
+                                        self.captureSesson.addInput(self.frontInput)
+                                        
+                                        self.captureSesson.commitConfiguration()
+                                    }
+                                    
+                                })
+                            }
+                        }) // End of delay closure
+                        
+                    }
+                    
+                })
+                
+            }
         }
+        
+
     }
     
     @IBAction func switchCameraButtonTapped(sender: AnyObject) {
         
         print("test: Camera Switched")
         
-        RCT_CameraController.switchCamera { () -> Void in
+        backCameraIsPreview = !backCameraIsPreview
+        
+        if backCameraIsPreview == true {
+            
+            //back is preview, switching to front
+            print("switching to front preview")
+            self.captureSesson.beginConfiguration()
+            
+            // This is questionable if we need to do this switch
+            self.captureSesson.removeInput(self.backInput)
+            self.captureSesson.addInput(self.frontInput)
+            
+            self.captureSesson.commitConfiguration()
+            
+        } else {
+            //front is preview, switching to back
+            print("switching to back preview")
+            self.captureSesson.beginConfiguration()
+            
+            // This is questionable if we need to do this switch
+            self.captureSesson.removeInput(self.backInput)
+            self.captureSesson.addInput(self.frontInput)
+            
+            self.captureSesson.commitConfiguration()
             
         }
         
@@ -168,8 +259,7 @@ class RCT_CameraViewController: UIViewController {
                 connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
                 
                 //TODO: change code to allow landscape
-                //                connection.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
-                //                connection.video
+             
                 print(UIDevice.currentDevice().orientation.rawValue)
                 self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (cmSampleBuffer, error) -> Void in
                     
@@ -186,6 +276,12 @@ class RCT_CameraViewController: UIViewController {
         
         self.view.layer.addSublayer(self.previewLayer)
         self.view.bringSubviewToFront(self.shutterButton)
+
+        
+
+        
+        
+        
     }
     
     func setDarkBackground() {
@@ -202,21 +298,21 @@ class RCT_CameraViewController: UIViewController {
     func frontFlash() {
         
         let rect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        let flashView = UIView()
-        let currentBrightness = UIScreen.mainScreen().brightness
         
         flashView.frame = rect
+        //flashView.backgroundColor = UIColor(red: 1, green: 0.718, blue: 0.318, alpha: 0.75)
         flashView.backgroundColor = UIColor.whiteColor()
         flashView.alpha = 1.0
         self.view.addSubview(flashView)
         
-        UIScreen.mainScreen().brightness = 1.0
-        
-        delay(seconds: 0.15) { () -> () in
+        delay(seconds: 0.1) { () -> () in
             
-            UIScreen.mainScreen().brightness = currentBrightness
-            flashView.removeFromSuperview()
+            UIScreen.mainScreen().brightness = 1.0
+            
+         
         }
+        
+        
     }
     
     // MARK: - Setup UI
@@ -239,6 +335,17 @@ class RCT_CameraViewController: UIViewController {
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        UIView.animateWithDuration(3, animations: { () -> Void in
+            
+            UIScreen.mainScreen().brightness = self.currentBrightness
+            self.flashView.alpha = 0
+            
+            }, completion: { _ in
+                self.flashView.alpha = 1
+                self.flashView.removeFromSuperview()
+                
+        })
         
         if segue.identifier == "ToEditView" {
             
@@ -347,5 +454,7 @@ extension RCT_CameraViewController {
         previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSesson)
         previewView.layer.addSublayer(self.previewLayer)
         previewLayer.frame = self.view.layer.frame
+        
+        
     }
 }

@@ -26,6 +26,9 @@ class RCT_Image {
 //    var imageFrontNSData: NSData { return RCT_ImageController.imageToData(self.imageFrontUIImage)! }
 //    var imageBackNSData: NSData { return RCT_ImageController.imageToData(self.imageBackUIImage)! }
     
+//    var imageFrontData: NSData
+//    var imageBackData: NSData
+    
     var layout: Layout
     
 //    convenience init(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.topBottom) {
@@ -35,6 +38,22 @@ class RCT_Image {
 //        
 //        self.init(imageFrontCIImage: CIImage(image: UIImageFront)!, imageBackCIImage: CIImage(image: UIImageBack)!, layout: layout)
 //    }
+    
+//    init(imageFrontData: NSData, imageBackData: NSData, layout: Layout = Layout.topBottom) {
+//        
+//        self.imageFrontUIImage = imageFrontData
+//        self.imageBackUIImage = imageBackData
+//        
+//        
+//        self.imageFrontCIImage = CIImage(image: imageFrontData)!
+//        self.imageBackCIImage = CIImage(image: imageBackData)!
+//        
+//        self.originalImageFrontCIImage = imageFrontCIImage.copy() as! CIImage
+//        self.originalImageBackCIImage = imageBackCIImage.copy() as! CIImage
+//        
+//        self.layout = layout
+//    }
+
     
     init(imageFront: UIImage, imageBack: UIImage, layout: Layout = Layout.topBottom) {
         
