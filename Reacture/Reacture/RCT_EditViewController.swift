@@ -100,8 +100,12 @@ class RCT_EditViewController: UIViewController {
 
     @IBAction func shareButtonTapped(sender: AnyObject) {
         print("Share Button Tapped")
+        let shareTextRCTImage = "Shared with #reacture"
+        let shareImageRCTImage: UIImage = UIImage(named: "mock_selfie")!
+        let shareViewController: UIActivityViewController = UIActivityViewController(activityItems: [(shareImageRCTImage), shareTextRCTImage], applicationActivities: nil)
+        self.presentViewController(shareViewController, animated: true, completion: nil)
     }
-
+    
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
         //animateContainerView()

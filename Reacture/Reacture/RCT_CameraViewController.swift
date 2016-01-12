@@ -24,13 +24,9 @@ class RCT_CameraViewController: UIViewController {
     }
     
     
-    // MARK: Variables
+    // MARK: -  Variables
     
     var rCTImage: RCT_Image? = nil
-    
-    //Buttons
-    let shutterButton = UIButton()
-    
     var captureSesson = AVCaptureSession()
     var frontInput: AVCaptureDeviceInput?
     var backInput: AVCaptureDeviceInput?
@@ -39,31 +35,20 @@ class RCT_CameraViewController: UIViewController {
     var stillImageOutput = AVCaptureStillImageOutput()
     var previewLayer = AVCaptureVideoPreviewLayer()
     
-    // Session Queue
-    let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
-    
     // Image Variables
     var frontImage = UIImage()
     var backImage = UIImage()
     
-    // MARK: Functions
+    // Session Queue
+    let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
     
-    func setMockImage() {
-        
-        let frontImage = UIImage(named: "mock_selfie")
-        let backImage = UIImage(named: "mock_landscape")
-        
-        let frontImageData = RCT_ImageController.imageToData(frontImage!)!
-        let backImageData = RCT_ImageController.imageToData(backImage!)!
-        
-        self.rCTImage = RCT_ImageController.createRCTImage(frontImageData, imageBack: backImageData)
-        
-    }
+    // MARK: - Outlets
     
-    // MARK: Outlets
+    // MARK: - Buttons
+    let shutterButton = UIButton()
     
     
-    // MARK: Actions
+    // MARK: - Actions
     
     @IBAction func shutterButtonTapped(sender: AnyObject) {
         
@@ -129,9 +114,6 @@ class RCT_CameraViewController: UIViewController {
         RCT_CameraController.takeRCTImage { (rCTImage) -> Void in
             // Do Something
         }
-        
-        //setMockImage()
-        //performSegueWithIdentifier("ToEditView", sender: self)
     }
     
     @IBAction func switchCameraButtonTapped(sender: AnyObject) {
@@ -141,6 +123,20 @@ class RCT_CameraViewController: UIViewController {
         RCT_CameraController.switchCamera { () -> Void in
             
         }
+        
+    }
+    
+    // MARK: Functions
+    
+    func setMockImage() {
+        
+        let frontImage = UIImage(named: "mock_selfie")
+        let backImage = UIImage(named: "mock_landscape")
+        
+        let frontImageData = RCT_ImageController.imageToData(frontImage!)!
+        let backImageData = RCT_ImageController.imageToData(backImage!)!
+        
+        self.rCTImage = RCT_ImageController.createRCTImage(frontImageData, imageBack: backImageData)
         
     }
     
