@@ -113,7 +113,7 @@ class RCT_EditViewController: UIViewController {
         let shareViewController: UIActivityViewController = UIActivityViewController(activityItems: [(shareImageRCTImage), shareTextRCTImage], applicationActivities: nil)
         self.presentViewController(shareViewController, animated: true, completion: nil)
     }
-
+    
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
         //animateContainerView()

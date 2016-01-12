@@ -58,5 +58,4 @@ class RCT_ImageController {
 //    static func deleteRCTImage(rCTImage: RCT_Image) {
 //        print("Test: Deleted Image")
 //    }
-
 }
