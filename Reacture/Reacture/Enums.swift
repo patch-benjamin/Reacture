@@ -10,8 +10,8 @@ import Foundation
 
 enum Layout: Int {
     
-    case LeftRight = 0,
-    TopBottom,
+    case TopBottom = 0,
+    LeftRight,
     PictureInPicture,
     Count
     
