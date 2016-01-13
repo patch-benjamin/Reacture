@@ -15,8 +15,8 @@ class RCT_EditViewController: UIViewController {
         self.cVToptoToolbarTopConstraint.constant = 100
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         self.containerViewController?.delegate = self
-//        SetMockData()
-        
+        //        SetMockData()
+
         setUpImages(self.rCTImage!)
     }
 
@@ -28,7 +28,7 @@ class RCT_EditViewController: UIViewController {
         let image1 = RCT_ImageController.dataToImage(frontImageData)!
         let image2 = RCT_ImageController.dataToImage(backImageData)!
         //rCTImageView.backgroundColor = UIColor(patternImage: image)
-//        setUpImages(image1, back: image2)
+        //        setUpImages(image1, back: image2)
     }
 
 
@@ -38,6 +38,7 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
     //////////////////////////////
 
+    var imageToSend: UIImage?
     var rCTImage: RCT_Image?
     var containerViewController: RCT_ContainerViewController?
 
@@ -51,34 +52,33 @@ class RCT_EditViewController: UIViewController {
         self.rCTImage = rCTImage
     }
 
-    
     func setUpImages(rctImage: RCT_Image) {
         let image1View = UIImageView()
         image1View.frame.origin.x = self.view.frame.origin.x
         image1View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
         image1View.contentMode = .ScaleAspectFit
-        self.view.addSubview(image1View)
+        self.rCTImageView.addSubview(image1View)
         let image2View = UIImageView()
         image2View.frame.origin.x = self.view.frame.width / 2
         image2View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
         image2View.contentMode = .ScaleAspectFit
-        self.view.addSubview(image2View)
+        self.rCTImageView.addSubview(image2View)
         let front : UIImage = rCTImage!.imageFrontUIImage
         let back : UIImage = rCTImage!.imageBackUIImage
-        
-//        let front: UIImage = UIImage(data: rctImage.imageBackNSData)!
-//        let back: UIImage = UIImage(data: rctImage.imageFrontNSData)!
+
+        //        let front: UIImage = UIImage(data: rctImage.imageBackNSData)!
+        //        let back: UIImage = UIImage(data: rctImage.imageFrontNSData)!
         image1View.image = front
         image2View.image = back
-//        image2View.contentMode = .
+        //        image2View.contentMode = .
     }
 
-    func imageCapture() -> UIImage {
+    func imageCapture() {
+        print("Attempted Image Capture")
         UIGraphicsBeginImageContextWithOptions(rCTImageView.frame.size, view.opaque, 0.0)
         rCTImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let imageToManipulate: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        self.imageToSend = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return imageToManipulate
     }
 
     //////////////////////////////
@@ -107,15 +107,17 @@ class RCT_EditViewController: UIViewController {
     }
 
     @IBAction func shareButtonTapped(sender: AnyObject) {
+        imageCapture()
         print("Share Button Tapped")
         let shareTextRCTImage = "Shared with #reacture"
-        let shareImageRCTImage: UIImage = UIImage(named: "mock_selfie")!
-        let shareViewController = UIActivityViewController(activityItems: [(shareImageRCTImage), shareTextRCTImage], applicationActivities: nil)
-        shareViewController.popoverPresentationController?.sourceView = self.view
-        
-        self.presentViewController(shareViewController, animated: true, completion: nil)
+        if let image = self.imageToSend {
+            print("Sending Image")
+            let shareViewController = UIActivityViewController(activityItems: [image, shareTextRCTImage], applicationActivities: nil)
+            shareViewController.popoverPresentationController?.sourceView = self.view
+            self.presentViewController(shareViewController, animated: true, completion: nil)
+        }
     }
-    
+
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
         //animateContainerView()
