@@ -23,7 +23,6 @@ class RCT_EditViewController: UIViewController {
             print("ERROR: rCTImage is nil!")
         }
         
-        self.loadView()
         setupScrollViews()
 //        updateWithLayout(Layout(rawValue: 0)!)
         
