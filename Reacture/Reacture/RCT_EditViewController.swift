@@ -2,11 +2,12 @@
 //  RCT_EditViewController.swift
 //  Reacture
 //
-//  Created by Ben Patch on 1/5/16. Amended by Paul Adams on 1/12/16.
+//  Created by Ben Patch on 1/5/16. Amended by Paul Adams on 1/12/16. Amended by Eric Mead on 1/13/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
 import UIKit
+import CoreImage
 
 class RCT_EditViewController: UIViewController {
 
@@ -18,14 +19,12 @@ class RCT_EditViewController: UIViewController {
         if let rCTImage = self.rCTImage {
             self.frontImageView.image = rCTImage.imageFrontUIImage
             self.backImageView.image = rCTImage.imageBackUIImage
-            
         } else {
             print("ERROR: rCTImage is nil!")
         }
         
         setupScrollViews()
-//        updateWithLayout(Layout(rawValue: 0)!)
-        
+        setupFilters()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -47,7 +46,6 @@ class RCT_EditViewController: UIViewController {
         //        setUpImages(image1, back: image2)
     }
 
-
     //////////////////////////////
     //////////////////////////////
     // MARK: Variables
@@ -59,15 +57,22 @@ class RCT_EditViewController: UIViewController {
     var containerViewController: RCT_ContainerViewController?
     var frontImageView = UIImageView()
     var backImageView = UIImageView()
-    
-    
-//    let frontImageZoomableView: UIView = UIView()
-//    let backImageZoomableView: UIView = UIView()
-//    let frontImageScrollView = UIScrollView()
-//    let backImageScrollView = UIScrollView()
-//    let frontImageView = UIImageView()
-//    let backImageView = UIImageView()
-    
+
+    // MARK: Filter Variables
+
+    let context = CIContext()
+    var originalFrontImage: UIImage?
+    var originalBackImage: UIImage?
+
+    // End Filter Variables
+
+    //    let frontImageZoomableView: UIView = UIView()
+    //    let backImageZoomableView: UIView = UIView()
+    //    let frontImageScrollView = UIScrollView()
+    //    let backImageScrollView = UIScrollView()
+    //    let frontImageView = UIImageView()
+    //    let backImageView = UIImageView()
+
     //////////////////////////////
     //////////////////////////////
     // MARK: Functions
@@ -98,9 +103,9 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.maximumZoomScale = 5.0
         self.backImageScrollView.zoomScale = backImageMinZoomScale
         self.backImageScrollView.addSubview(backImageView)
-        
+
     }
-    
+
     func updateScrollViews() {
         
         print("rctImageView width: \(rCTImageView.frame.width), rctImageView height: \(rCTImageView.frame.height)")
@@ -115,7 +120,7 @@ class RCT_EditViewController: UIViewController {
         
         self.frontImageScrollView.minimumZoomScale = frontImageMinZoomScale
         self.frontImageScrollView.maximumZoomScale = 5.0
-        
+
         if frontImageScrollView.zoomScale < frontImageMinZoomScale {
             self.frontImageScrollView.zoomScale = frontImageMinZoomScale
         }
@@ -136,7 +141,7 @@ class RCT_EditViewController: UIViewController {
         }
 
     }
-    
+
     func setupController(rCTImage: RCT_Image) {
         self.rCTImage = rCTImage
         self.frontImageView = UIImageView(image: rCTImage.imageFrontUIImage)
@@ -144,18 +149,18 @@ class RCT_EditViewController: UIViewController {
     }
 
     func setUpImages(front: UIImage, back: UIImage){
-//        let image1View = UIImageView()
-//        image1View.frame.origin.x = self.view.frame.origin.x
-//        image1View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
-//        image1View.contentMode = .ScaleAspectFit
-//        self.view.addSubview(image1View)
-//        let image2View = UIImageView()
-//        image2View.frame.origin.x = self.view.frame.width / 2
-//        image2View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
-//        image2View.contentMode = .ScaleAspectFit
-//        self.view.addSubview(image2View)
-//        image1View.image = front
-//        image2View.image = back
+        //        let image1View = UIImageView()
+        //        image1View.frame.origin.x = self.view.frame.origin.x
+        //        image1View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
+        //        image1View.contentMode = .ScaleAspectFit
+        //        self.view.addSubview(image1View)
+        //        let image2View = UIImageView()
+        //        image2View.frame.origin.x = self.view.frame.width / 2
+        //        image2View.frame.size = CGSize(width: self.view.frame.width / CGFloat(2) , height: self.view.frame.height)
+        //        image2View.contentMode = .ScaleAspectFit
+        //        self.view.addSubview(image2View)
+        //        image1View.image = front
+        //        image2View.image = back
     }
 
     func imageCapture() {
@@ -175,28 +180,28 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIBarButtonItem!
-//    @IBOutlet weak var cVToptoToolbarTopConstraint: NSLayoutConstraint!
+    //    @IBOutlet weak var cVToptoToolbarTopConstraint: NSLayoutConstraint!
     //
     //    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var rCTImageView: UIView!
     @IBOutlet weak var frontImageZoomableView: UIView!
     @IBOutlet weak var frontImageScrollView: UIScrollView!
-//    @IBOutlet weak var frontImageView: UIImageView!
+    //    @IBOutlet weak var frontImageView: UIImageView!
     @IBOutlet weak var backImageZoomableView: UIView!
     @IBOutlet weak var backImageScrollView: UIScrollView!
-//    @IBOutlet weak var backImageView: UIImageView!
+    //    @IBOutlet weak var backImageView: UIImageView!
 
-    
+
     // Constraint Outlets
     @IBOutlet weak var frontImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontImageWidthConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet weak var frontImageLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontImageTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontImageTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontImageBottomConstraint: NSLayoutConstraint!
-    
-    
+
+
     @IBOutlet weak var backImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var backImageWidthConstraint: NSLayoutConstraint!
 
@@ -204,8 +209,8 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var backImageTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var backImageTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var backImageBottomConstraint: NSLayoutConstraint!
-    
-    
+
+
     //////////////////////////////
     //////////////////////////////
     // MARK: Actions
@@ -251,22 +256,21 @@ class RCT_EditViewController: UIViewController {
     }
 
     func animateContainerView() {
-//        if self.cVToptoToolbarTopConstraint.constant == 100 {
-//            self.containerView.alpha = 0
-//        } else {
-//            self.containerView.alpha = 1
-//        }
-//        UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [.CurveEaseInOut], animations: { () -> Void in
-//            if self.cVToptoToolbarTopConstraint.constant == 100 {
-//                self.cVToptoToolbarTopConstraint.constant = 0.1
-//            } else {
-//                self.cVToptoToolbarTopConstraint.constant = 100
-//            }
-//            }, completion: {_ in
-//                print("Container View Animation Complete")
-//        })
+        //        if self.cVToptoToolbarTopConstraint.constant == 100 {
+        //            self.containerView.alpha = 0
+        //        } else {
+        //            self.containerView.alpha = 1
+        //        }
+        //        UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: [.CurveEaseInOut], animations: { () -> Void in
+        //            if self.cVToptoToolbarTopConstraint.constant == 100 {
+        //                self.cVToptoToolbarTopConstraint.constant = 0.1
+        //            } else {
+        //                self.cVToptoToolbarTopConstraint.constant = 100
+        //            }
+        //            }, completion: {_ in
+        //                print("Container View Animation Complete")
+        //        })
     }
-
 }
 
 extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
@@ -274,18 +278,140 @@ extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
     func itemSelected(indexPath: NSIndexPath) {
         if kIsLayoutSelected! {
             let layoutSelected = Layout(rawValue: indexPath.item)!
-            
             updateWithLayout(layoutSelected)
-            
         } else {
             let filterSelected = Filter(rawValue: indexPath.item)!
-            RCT_FiltersController.updateWithFilter(filterSelected, rCTImage: self.rCTImage!)
+            updateWithFilter(filterSelected)
         }
     }
-    
 }
 
+// MARK: Filter Methods
 
+extension RCT_EditViewController {
+
+    func updateWithFilter(filter: Filter) {
+
+        let monoFilterName = "CIPhotoEffectMono"
+        let tonalFilterName = "CIPhotoEffectTonal"
+        let noirFilterName = "CIPhotoEffectNoir"
+        let fadeFilterName = "CIPhotoEffectFade"
+        let chromeFilterName = "CIPhotoEffectChrome"
+        let comicFilterName = "CIComicEffect"
+        let posterizeFilterName = "CIColorPosterize"
+
+        // Possible Future Filters Not in Use:
+//        let processFilterName = ""
+//        let transferFilterName = ""
+//        let instantFilterName = ""
+
+        if self.rCTImage != nil {
+
+            switch filter {
+
+            case .None:
+                print("None Filter Selected")
+                self.frontImageView.image = self.originalFrontImage
+                self.backImageView.image = self.originalBackImage
+            case .Mono:
+                print("Mono Filter Selected")
+                performFilter(monoFilterName)
+            case .Tonal:
+                print("Tonal Filter Selected")
+                performFilter(tonalFilterName)
+            case .Noir:
+                print("Noir Filter Selected")
+                performFilter(noirFilterName)
+            case .Fade:
+                print("Fade Filter Selected")
+                performFilter(fadeFilterName)
+            case .Chrome:
+                print("Chrome Filter Selected")
+                performFilter(chromeFilterName)
+            case .Comic:
+                print("Comic Filter Selected")
+                performFilter(comicFilterName)
+            case .Posterize:
+                print("Posterize Filter Selected")
+                performFilter(posterizeFilterName)
+//            case .Process:
+//                print("Process Filter Selected")
+//                performFilter(processFilterName)
+//            case .Transfer:
+//                print("Transfer Filter Selected")
+//                performFilter(transferFilterName)
+//            case .Instant:
+//                print("Instant Filter Selected")
+//                performFilter(instantFilterName)
+            case .Count:
+                print("Count Enum")
+                break
+            }
+        }
+    }
+
+    func setupFilters() {
+        if let rCTImage = self.rCTImage {
+            self.originalFrontImage = rCTImage.imageFrontUIImage
+            self.originalBackImage = rCTImage.imageBackUIImage
+        }
+    }
+
+    func performFilter(filterName: String) {
+        var scale: CGFloat?
+        var orientation: UIImageOrientation?
+        var beginFrontImage: CIImage?
+        var beginBackImage: CIImage?
+
+        if let frontImage = self.originalFrontImage as UIImage! {
+            scale = frontImage.scale
+            orientation = frontImage.imageOrientation
+
+            // Getting CI Image
+            beginFrontImage = CIImage(image: frontImage)
+        }
+        if let backImage = self.originalBackImage as UIImage! {
+            // Getting CI Image
+            beginBackImage = CIImage(image: backImage)
+        }
+
+        var options: [String: AnyObject]?
+        if filterName == "CISepiaTone" {
+            options = ["inputIntensity": 0.8]
+        }
+
+        // Getting Output Using Filter Name Parameter and Options
+
+        // Front Image:
+        if let outputImage = beginFrontImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
+            print("We Have a Front Output Image")
+            let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
+            self.rCTImage?.imageFrontUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: orientation!)
+            // Completed UI Images Update on RCT_Image Model
+            // Reloading Front Image View
+            self.frontImageView.image = self.rCTImage!.imageFrontUIImage
+        }
+
+        // Back Image:
+        if let outputImage = beginBackImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
+            print("We Have a Back Output Image")
+            let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
+            self.rCTImage?.imageBackUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: orientation!)
+            // Completed UI Images Update on RCT_Image Model
+            // Reloading Back Image View
+            self.backImageView.image = self.rCTImage!.imageBackUIImage
+        }
+    }
+
+    func logAllFilters() {
+        let properties = CIFilter.filterNamesInCategory(kCICategoryStillImage)
+        print("These are all Apple's available filters:\n\(properties)")
+        for filterName in properties {
+            let filter = CIFilter(name: filterName as String)
+            print("\(filter?.attributes)")
+        }
+    }
+}
 
 // MARK: Layout Methods
 extension RCT_EditViewController {

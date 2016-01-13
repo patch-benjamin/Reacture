@@ -80,8 +80,6 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
         delegate?.itemSelected(indexPath)
-
     }
 }
