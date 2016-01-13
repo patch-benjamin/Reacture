@@ -112,7 +112,7 @@ class RCT_CameraViewController: UIViewController {
                                     
                                     print("front camera data is here")
                                     
-                                    let layout = Layout.topBottom
+                                    let layout = Layout.TopBottom
                                     
                                     self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.frontImage, imageBack: self.backImage, layout: layout)
                                     self.performSegueWithIdentifier("ToEditView", sender: self)
@@ -167,7 +167,7 @@ class RCT_CameraViewController: UIViewController {
                                         
                                         print("back camera data is here")
                                         
-                                        let layout = Layout.topBottom
+                                        let layout = Layout.TopBottom
                                         
                                         self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.frontImage, imageBack: self.backImage, layout: layout)
                                         self.performSegueWithIdentifier("ToEditView", sender: self)
