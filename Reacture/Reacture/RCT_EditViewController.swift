@@ -26,13 +26,10 @@ class RCT_EditViewController: UIViewController {
             //            self.setupZoomableImageViews(rCTImage)
             self.frontImageView.image = rCTImage.imageFrontUIImage
             self.backImageView.image = rCTImage.imageBackUIImage
-
         } else {
             print("ERROR: rCTImage is nil!")
         }
-
         //        setupController(self.rCTImage)
-
         setupScrollViews()
         setupFilters()
     }
@@ -291,7 +288,7 @@ extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
             let layoutSelected = Layout(rawValue: indexPath.item)!
             updateWithLayout(layoutSelected)
         } else {
-//            RCT_FiltersController.updateWithFilter(filterSelected, rCTImage: self.rCTImage!)
+            //            RCT_FiltersController.updateWithFilter(filterSelected, rCTImage: self.rCTImage!)
             let filterSelected = Filter(rawValue: indexPath.item)!
             updateWithFilter(filterSelected)
         }
