@@ -2,7 +2,7 @@
 //  RCT_EditViewController.swift
 //  Reacture
 //
-//  Created by Ben Patch on 1/5/16.
+//  Created by Ben Patch on 1/5/16. Amended by Paul Adams on 1/12/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
@@ -29,8 +29,7 @@ class RCT_EditViewController: UIViewController {
         setupScrollViews()
         
     }
-    
-    
+
     func SetMockData() {
         let frontImage = UIImage(named: "mock_selfie")
         let backImage = UIImage(named: "mock_landscape")
@@ -39,7 +38,7 @@ class RCT_EditViewController: UIViewController {
         let image1 = RCT_ImageController.dataToImage(frontImageData)!
         let image2 = RCT_ImageController.dataToImage(backImageData)!
         //rCTImageView.backgroundColor = UIColor(patternImage: image)
-        setUpImages(image1, back: image2)
+        //        setUpImages(image1, back: image2)
     }
 
 
@@ -49,6 +48,7 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
     //////////////////////////////
 
+    var imageToSend: UIImage?
     var rCTImage: RCT_Image?
     var containerViewController: RCT_ContainerViewController?
     var frontImageView = UIImageView()
@@ -126,6 +126,14 @@ class RCT_EditViewController: UIViewController {
 //        image2View.image = back
     }
 
+    func imageCapture() {
+        print("Attempted Image Capture")
+        UIGraphicsBeginImageContextWithOptions(rCTImageView.frame.size, view.opaque, 0.0)
+        rCTImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        self.imageToSend = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+    }
+
     //////////////////////////////
     //////////////////////////////
     // MARK: Outlets
@@ -178,17 +186,21 @@ class RCT_EditViewController: UIViewController {
     }
 
     @IBAction func shareButtonTapped(sender: AnyObject) {
+        imageCapture()
         print("Share Button Tapped")
         let shareTextRCTImage = "Shared with #reacture"
-        let shareImageRCTImage: UIImage = UIImage(named: "mock_selfie")!
-        let shareViewController: UIActivityViewController = UIActivityViewController(activityItems: [(shareImageRCTImage), shareTextRCTImage], applicationActivities: nil)
-        self.presentViewController(shareViewController, animated: true, completion: nil)
+        if let image = self.imageToSend {
+            print("Sending Image")
+            let shareViewController = UIActivityViewController(activityItems: [image, shareTextRCTImage], applicationActivities: nil)
+            shareViewController.popoverPresentationController?.sourceView = self.view
+            self.presentViewController(shareViewController, animated: true, completion: nil)
+        }
     }
-    
+
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
         //animateContainerView()
-        
+
         // Send Collection View "isLayoutSelected" == true
         kIsLayoutSelected = true
         // Reload Collection View Data
@@ -225,25 +237,18 @@ class RCT_EditViewController: UIViewController {
 
 }
 
-
 extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
-    
+
     func itemSelected(indexPath: NSIndexPath) {
-        
         if kIsLayoutSelected! {
-            
             let layoutSelected = Layout(rawValue: indexPath.item)!
             
             updateWithLayout(layoutSelected)
             
         } else {
-            
             let filterSelected = Filter(rawValue: indexPath.item)!
-            
             RCT_FiltersController.updateWithFilter(filterSelected, rCTImage: self.rCTImage!)
-            
         }
-        
     }
     
 }

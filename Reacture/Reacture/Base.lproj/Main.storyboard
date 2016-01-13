@@ -52,6 +52,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="switchCameraButton" destination="TMN-mf-aEW" id="3sc-V5-mN2"/>
                         <segue destination="AIB-wN-uwu" kind="presentation" identifier="ToEditView" modalTransitionStyle="crossDissolve" id="mbv-Ne-MFc"/>
                     </connections>
                 </viewController>
