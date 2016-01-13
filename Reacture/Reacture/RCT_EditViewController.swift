@@ -2,11 +2,12 @@
 //  RCT_EditViewController.swift
 //  Reacture
 //
-//  Created by Ben Patch on 1/5/16. Amended by Paul Adams on 1/12/16.
+//  Created by Ben Patch on 1/5/16. Amended by Paul Adams on 1/12/16. Amended by Eric Mead on 1/13/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
 import UIKit
+import CoreImage
 
 class RCT_EditViewController: UIViewController {
 
@@ -19,15 +20,12 @@ class RCT_EditViewController: UIViewController {
             //            self.setupZoomableImageViews(rCTImage)
             self.frontImageView.image = rCTImage.imageFrontUIImage
             self.backImageView.image = rCTImage.imageBackUIImage
-
         } else {
             print("ERROR: rCTImage is nil!")
         }
-
         //        setupController(self.rCTImage)
-
         setupScrollViews()
-
+        setupFilters()
     }
 
     func SetMockData() {
@@ -52,6 +50,14 @@ class RCT_EditViewController: UIViewController {
     var containerViewController: RCT_ContainerViewController?
     var frontImageView = UIImageView()
     var backImageView = UIImageView()
+
+    // MARK: Filter Variables
+
+    let context = CIContext()
+    var originalFrontImage: UIImage?
+    var originalBackImage: UIImage?
+
+    // End Filter Variables
 
     //    let frontImageZoomableView: UIView = UIView()
     //    let backImageZoomableView: UIView = UIView()
@@ -232,7 +238,6 @@ class RCT_EditViewController: UIViewController {
         //                print("Container View Animation Complete")
         //        })
     }
-
 }
 
 extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
@@ -242,26 +247,9 @@ extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
             let layoutSelected = Layout(rawValue: indexPath.item)!
             updateWithLayout(layoutSelected)
         } else {
-//            RCT_FiltersController.updateWithFilter(filterSelected, rCTImage: self.rCTImage!)
+            //            RCT_FiltersController.updateWithFilter(filterSelected, rCTImage: self.rCTImage!)
             let filterSelected = Filter(rawValue: indexPath.item)!
             updateWithFilter(filterSelected)
-
-            /*
-
-            enum Filter: Int {
-            case None = 0,
-            Mono,
-            Tonal,
-            Noir,
-            Fade,
-            Chrome,
-            Process,
-            Transfer,
-            Instant,
-            Count
-            }
-
-            */
         }
     }
 }
@@ -271,34 +259,126 @@ extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
 extension RCT_EditViewController {
 
     func updateWithFilter(filter: Filter) {
-        switch filter {
-        case .None:
-            print("None Filter Selected")
-        case .Mono:
-            print("Mono Filter Selected")
-        case .Tonal:
-            print("Tonal Filter Selected")
-        case .Noir:
-            print("Noir Filter Selected")
-        case .Fade:
-            print("Fade Filter Selected")
-        case .Chrome:
-            print("Chrome Filter Selected")
-        case .Process:
-            print("Process Filter Selected")
-        case .Transfer:
-            print("Transfer Filter Selected")
-        case .Instant:
-            print("Instant Filter Selected")
-        case .Count:
-            print("Count Filter Selected")
-            break
+
+        let monoFilterName = "CIPhotoEffectMono"
+        let tonalFilterName = "CIPhotoEffectTonal"
+        let noirFilterName = "CIPhotoEffectNoir"
+        let fadeFilterName = "CIPhotoEffectFade"
+        let chromeFilterName = "CIPhotoEffectChrome"
+        let comicFilterName = "CIComicEffect"
+        let posterizeFilterName = "CIColorPosterize"
+
+        // Possible Future Filters Not in Use:
+//        let processFilterName = ""
+//        let transferFilterName = ""
+//        let instantFilterName = ""
+
+        if self.rCTImage != nil {
+
+            switch filter {
+
+            case .None:
+                print("None Filter Selected")
+                self.frontImageView.image = self.originalFrontImage
+                self.backImageView.image = self.originalBackImage
+            case .Mono:
+                print("Mono Filter Selected")
+                performFilter(monoFilterName)
+            case .Tonal:
+                print("Tonal Filter Selected")
+                performFilter(tonalFilterName)
+            case .Noir:
+                print("Noir Filter Selected")
+                performFilter(noirFilterName)
+            case .Fade:
+                print("Fade Filter Selected")
+                performFilter(fadeFilterName)
+            case .Chrome:
+                print("Chrome Filter Selected")
+                performFilter(chromeFilterName)
+            case .Comic:
+                print("Comic Filter Selected")
+                performFilter(comicFilterName)
+            case .Posterize:
+                print("Posterize Filter Selected")
+                performFilter(posterizeFilterName)
+//            case .Process:
+//                print("Process Filter Selected")
+//                performFilter(processFilterName)
+//            case .Transfer:
+//                print("Transfer Filter Selected")
+//                performFilter(transferFilterName)
+//            case .Instant:
+//                print("Instant Filter Selected")
+//                performFilter(instantFilterName)
+            case .Count:
+                print("Count Enum")
+                break
+            }
         }
     }
-}
 
-func setupFilters() {
+    func setupFilters() {
+        if let rCTImage = self.rCTImage {
+            self.originalFrontImage = rCTImage.imageFrontUIImage
+            self.originalBackImage = rCTImage.imageBackUIImage
+        }
+    }
 
+    func performFilter(filterName: String) {
+        var scale: CGFloat?
+        var orientation: UIImageOrientation?
+        var beginFrontImage: CIImage?
+        var beginBackImage: CIImage?
+
+        if let frontImage = self.originalFrontImage as UIImage! {
+            scale = frontImage.scale
+            orientation = frontImage.imageOrientation
+
+            // Getting CI Image
+            beginFrontImage = CIImage(image: frontImage)
+        }
+        if let backImage = self.originalBackImage as UIImage! {
+            // Getting CI Image
+            beginBackImage = CIImage(image: backImage)
+        }
+
+        var options: [String: AnyObject]?
+        if filterName == "CISepiaTone" {
+            options = ["inputIntensity": 0.8]
+        }
+
+        // Getting Output Using Filter Name Parameter and Options
+
+        // Front Image:
+        if let outputImage = beginFrontImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
+            print("We Have a Front Output Image")
+            let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
+            self.rCTImage?.imageFrontUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: orientation!)
+            // Completed UI Images Update on RCT_Image Model
+            // Reloading Front Image View
+            self.frontImageView.image = self.rCTImage!.imageFrontUIImage
+        }
+
+        // Back Image:
+        if let outputImage = beginBackImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
+            print("We Have a Back Output Image")
+            let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
+            self.rCTImage?.imageBackUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: orientation!)
+            // Completed UI Images Update on RCT_Image Model
+            // Reloading Back Image View
+            self.backImageView.image = self.rCTImage!.imageBackUIImage
+        }
+    }
+
+    func logAllFilters() {
+        let properties = CIFilter.filterNamesInCategory(kCICategoryStillImage)
+        print("These are all Apple's available filters:\n\(properties)")
+        for filterName in properties {
+            let filter = CIFilter(name: filterName as String)
+            print("\(filter?.attributes)")
+        }
+    }
 }
 
 // MARK: Layout Methods

@@ -2,19 +2,18 @@
 //  Enums.swift
 //  Reacture
 //
-//  Created by Benjamin Patch on 1/6/16.
+//  Created by Benjamin Patch on 1/6/16. Amended by Eric Mead on 1/13/16. Amended by Paul Adams on 1/13/16.
 //  Copyright © 2016 PatchWork. All rights reserved.
 //
 
 import Foundation
 
 enum Layout: Int {
-    
+
     case LeftRight = 0,
     TopBottom,
     PictureInPicture,
     Count
-    
 }
 
 enum MaskLayout: Int {
@@ -34,16 +33,16 @@ enum MaskLayout: Int {
 }
 
 enum Filter: Int {
-    
     case None = 0,
     Mono,
     Tonal,
     Noir,
     Fade,
     Chrome,
-    Process,
-    Transfer,
-    Instant,
+    Comic,
+    Posterize,
+    //    Process,
+    //    Transfer,
+    //    Instant,
     Count
-    
 }
