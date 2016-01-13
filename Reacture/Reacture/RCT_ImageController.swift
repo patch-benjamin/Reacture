@@ -12,13 +12,13 @@ class RCT_ImageController {
 
     // MARK: Create
 
-    static func createRCTImage(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.topBottom) -> RCT_Image {
+    static func createRCTImage(imageFront: NSData, imageBack: NSData, layout: Layout = Layout.TopBottom) -> RCT_Image {
         
         let image = RCT_Image(imageFront: UIImage(data: imageFront)!, imageBack: UIImage(data: imageBack)!, layout: layout)
         return image
     }
     
-    static func createRCTImageFromImages(imageFront: UIImage, imageBack: UIImage, layout: Layout = Layout.topBottom) -> RCT_Image? {
+    static func createRCTImageFromImages(imageFront: UIImage, imageBack: UIImage, layout: Layout = Layout.TopBottom) -> RCT_Image? {
         
         let rctImage = RCT_Image(imageFront: imageFront, imageBack: imageBack, layout: layout)
         
@@ -47,7 +47,7 @@ class RCT_ImageController {
     // MARK: Update
 
     static func updateToOriginal(rCTImage: RCT_Image) {
-        rCTImage.layout = Layout.topBottom
+        rCTImage.layout = Layout.TopBottom
         rCTImage.imageBackCIImage = rCTImage.originalImageBackCIImage
         rCTImage.imageFrontCIImage = rCTImage.originalImageFrontCIImage
         print("Test: Updated Image to Original")
