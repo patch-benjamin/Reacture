@@ -13,6 +13,9 @@ class RCT_EditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //        logAllFilters() // Uncomment to retrieve filter strings
+
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         self.containerViewController?.delegate = self
         
@@ -34,10 +37,8 @@ class RCT_EditViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
         updateWithLayout(Layout(rawValue: 0)!)
         print("veiwDidAppear: rctImageView width: \(rCTImageView.frame.width), rctImageView height: \(rCTImageView.frame.height)")
-
     }
 
     func SetMockData() {
@@ -47,7 +48,7 @@ class RCT_EditViewController: UIViewController {
         //        let backImageData = RCT_ImageController.imageToData(backImage!)!
         //        let image1 = RCT_ImageController.dataToImage(frontImageData)!
         //        let image2 = RCT_ImageController.dataToImage(backImageData)!
-        //rCTImageView.backgroundColor = UIColor(patternImage: image)
+        //        rCTImageView.backgroundColor = UIColor(patternImage: image)
         //        setUpImages(image1, back: image2)
     }
 
@@ -197,7 +198,6 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var backImageScrollView: UIScrollView!
     //    @IBOutlet weak var backImageView: UIImageView!
 
-
     // Constraint Outlets
     @IBOutlet weak var frontImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontImageWidthConstraint: NSLayoutConstraint!
@@ -206,7 +206,6 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var frontImageTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontImageTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var frontImageBottomConstraint: NSLayoutConstraint!
-
 
     @IBOutlet weak var backImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var backImageWidthConstraint: NSLayoutConstraint!
@@ -310,6 +309,7 @@ extension RCT_EditViewController {
         let chromeFilterName = "CIPhotoEffectChrome"
         let comicFilterName = "CIComicEffect"
         let posterFilterName = "CIColorPosterize"
+        let prismFilterName = "CIKaleidoscope"
 
         // Possible Future Filters Not in Use:
         //        let processFilterName = ""
@@ -345,15 +345,9 @@ extension RCT_EditViewController {
             case .Poster:
                 print("Poster Filter Selected")
                 performFilter(posterFilterName)
-                //            case .Process:
-                //                print("Process Filter Selected")
-                //                performFilter(processFilterName)
-                //            case .Transfer:
-                //                print("Transfer Filter Selected")
-                //                performFilter(transferFilterName)
-                //            case .Instant:
-                //                print("Instant Filter Selected")
-                //                performFilter(instantFilterName)
+            case .Prism:
+                print("Prism Filter Selected")
+                performFilter(prismFilterName)
             case .Count:
                 print("Count Enum")
                 break
@@ -400,6 +394,7 @@ extension RCT_EditViewController {
         let chromeFilterName = "CIPhotoEffectChrome"
         let comicFilterName = "CIComicEffect"
         let posterFilterName = "CIColorPosterize"
+        let prismFilterName = "CIKaleidoscope"
 
         if self.rCTImage != nil {
 
@@ -429,6 +424,9 @@ extension RCT_EditViewController {
             case .Poster:
                 print("Poster Filter Selected")
                 performThumbnailFilter(posterFilterName)
+            case .Prism:
+                print("Prism Filter Selected")
+                performThumbnailFilter(prismFilterName)
             case .Count:
                 print("Count Enum")
                 break
@@ -602,7 +600,6 @@ extension RCT_EditViewController {
             frontImageTopConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: rCTImageView, attribute: .Top, multiplier: 1.0, constant: 0)
             //            frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Bottom, relatedBy: .Equal, toItem: backImageZoomableView, attribute: .Top, multiplier: 1.0, constant: 0)
 
-
             backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 0.5, constant: 0)
             //            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
 
@@ -618,14 +615,12 @@ extension RCT_EditViewController {
 
             backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
 
-
             frontImageHeightConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 0.5, constant: 0)
             frontImageWidthConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 0.5, constant: 0)
 
             frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: NSLayoutAttribute.CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.5, constant: 0)
 
             frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.5, constant: 0)
-
 
             //            backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
             //            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
@@ -638,13 +633,10 @@ extension RCT_EditViewController {
         case .Count:
             break
         }
-
         addLayoutConstraints()
-
     }
 
     func removeLayoutConstraints() {
-
 
         [self.frontImageHeightConstraint, self.frontImageWidthConstraint, self.frontImageLeadingConstraint, self.frontImageTrailingConstraint, self.frontImageTopConstraint, self.frontImageBottomConstraint, self.backImageHeightConstraint, self.backImageWidthConstraint, self.backImageLeadingConstraint, self.backImageTrailingConstraint, self.backImageTopConstraint, self.backImageBottomConstraint].forEach { (constraint) -> () in
             if constraint != nil {
@@ -664,9 +656,7 @@ extension RCT_EditViewController {
         
         updateScrollViews()
     }
-    
 }
-
 
 extension RCT_EditViewController: UIScrollViewDelegate {
     
