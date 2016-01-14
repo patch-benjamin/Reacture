@@ -24,7 +24,12 @@ class PanGestureView: UIView {
         if isMoveableView == nil {
             
             let view = UIView(frame: self.bounds)
-            view.backgroundColor = UIColor.orangeColor()
+            let imageView = UIImageView(image: UIImage(named: "move_arrows")!)
+            imageView.contentMode = .ScaleAspectFill
+            view.addSubview(imageView)
+            imageView.frame = CGRectMake(view.bounds.width/4, view.bounds.height/4, view.bounds.width/2, view.bounds.height/2)
+            view.backgroundColor = UIColor.whiteColor()
+            view.alpha = 0.2
             view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "detectPan:"))
             isMoveableView = view
             self.addSubview(isMoveableView!)

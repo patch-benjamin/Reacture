@@ -433,7 +433,7 @@ extension RCT_EditViewController: PanGestureViewProtocol {
     
     func detectLongPress(recognizer: UILongPressGestureRecognizer) {
         
-        if recognizer.state.rawValue == 3 {
+        if recognizer.state.rawValue == 1 {
             frontImageZoomableView.toggleIsMoveable()
             print("Long press ended")
         }

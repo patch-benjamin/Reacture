@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2491CDC01C46FF3C00748664 /* PanGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491CDBF1C46FF3C00748664 /* PanGestureView.swift */; };
+		2491CDC21C4736B200748664 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2491CDC11C4736B200748664 /* Icon-60@2x.png */; };
 		24B871721C3C5B7E0019DB37 /* RCT_ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B871711C3C5B7E0019DB37 /* RCT_ContainerViewController.swift */; };
 		24B871741C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B871731C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift */; };
 		24B871791C3C5D8A0019DB37 /* RCT_CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B871781C3C5D8A0019DB37 /* RCT_CameraViewController.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		2491CDBF1C46FF3C00748664 /* PanGestureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanGestureView.swift; sourceTree = "<group>"; };
+		2491CDC11C4736B200748664 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
 		24B871711C3C5B7E0019DB37 /* RCT_ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_ContainerViewController.swift; sourceTree = "<group>"; };
 		24B871731C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_OptionItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		24B871781C3C5D8A0019DB37 /* RCT_CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_CameraViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				716D6A261C3C462B00B762F9 /* Reacture */,
 				716D6A251C3C462B00B762F9 /* Products */,
+				2491CDC11C4736B200748664 /* Icon-60@2x.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,6 +179,7 @@
 			files = (
 				716D6A2F1C3C462B00B762F9 /* Assets.xcassets in Resources */,
 				716D6A2D1C3C462B00B762F9 /* Main.storyboard in Resources */,
+				2491CDC21C4736B200748664 /* Icon-60@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
