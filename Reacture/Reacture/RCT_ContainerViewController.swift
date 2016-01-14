@@ -12,24 +12,34 @@ var kIsLayoutSelected: Bool? = true
 
 protocol RCT_ContainerViewControllerProtocol {
     func itemSelected(indexPath: NSIndexPath)
+    
 }
 
 class RCT_ContainerViewController: UIViewController {
 
-//    var itemCount: Int = 0
-//    var arrayOfItems: [AnyObject] = []
-//    var arrayOfLayoutTitles: [String] = ["Top & Bottom", "Side to Side", "Diagonal", "Picture in Picture", "Center"]
-//    var arrayOfFilterTitles: [String] = ["None", "Sepia", "B&W", "Tinted", "Modern", "Rebel", "Water", "Brick", "Galaxy"]
-    
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
+    // Filter Button Images
+    var arrayOfFilterButtonImageViews: [UIImageView] = []
+
     var delegate: RCT_ContainerViewControllerProtocol?
 
     override func viewDidLoad() {
         setupCollectionView()
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: "handleReloadCollectionNotification", name: "reloadCollectionView", object: nil)
+        nc.addObserver(self, selector: "handleFilterButtonImagesNotification:", name: "Filter Button Images Complete", object: nil)
+    }
+
+    func handleFilterButtonImagesNotification(notification: NSNotification) {
+        print("Handling Filter Button Images")
+        if let userInfo = notification.userInfo {
+            let arrayOfImageViews = userInfo["filterButtonImageViews"]
+            self.arrayOfFilterButtonImageViews = arrayOfImageViews as! [UIImageView]
+            self.collectionView.backgroundColor = UIColor.whiteColor()
+            self.collectionView.reloadData()
+            print("Reloading Collection View")
+        }
     }
 
     func handleReloadCollectionNotification() {
@@ -65,7 +75,11 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         } else {
             // Filter Selected
             cell.label.text = String(Filter(rawValue: indexPath.item)!)
-            cell.imageView.backgroundColor = UIColor.whiteColor()
+            cell.imageView.backgroundColor = UIColor.blackColor()
+            // Setting Images for Filter Buttons
+            if self.arrayOfFilterButtonImageViews.count == Filter.Count.rawValue {
+                cell.addSubview(arrayOfFilterButtonImageViews[indexPath.item])
+            }
         }
         return cell
     }
