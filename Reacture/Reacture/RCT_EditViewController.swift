@@ -300,7 +300,7 @@ extension RCT_EditViewController {
         let fadeFilterName = "CIPhotoEffectFade"
         let chromeFilterName = "CIPhotoEffectChrome"
         let comicFilterName = "CIComicEffect"
-        let posterizeFilterName = "CIColorPosterize"
+        let posterFilterName = "CIColorPosterize"
 
         // Possible Future Filters Not in Use:
         //        let processFilterName = ""
@@ -333,9 +333,9 @@ extension RCT_EditViewController {
             case .Comic:
                 print("Comic Filter Selected")
                 performFilter(comicFilterName)
-            case .Posterize:
-                print("Posterize Filter Selected")
-                performFilter(posterizeFilterName)
+            case .Poster:
+                print("Poster Filter Selected")
+                performFilter(posterFilterName)
                 //            case .Process:
                 //                print("Process Filter Selected")
                 //                performFilter(processFilterName)
@@ -390,7 +390,7 @@ extension RCT_EditViewController {
         let fadeFilterName = "CIPhotoEffectFade"
         let chromeFilterName = "CIPhotoEffectChrome"
         let comicFilterName = "CIComicEffect"
-        let posterizeFilterName = "CIColorPosterize"
+        let posterFilterName = "CIColorPosterize"
 
         if self.rCTImage != nil {
 
@@ -417,9 +417,9 @@ extension RCT_EditViewController {
             case .Comic:
                 print("Comic Filter Selected")
                 performThumbnailFilter(comicFilterName)
-            case .Posterize:
-                print("Posterize Filter Selected")
-                performThumbnailFilter(posterizeFilterName)
+            case .Poster:
+                print("Poster Filter Selected")
+                performThumbnailFilter(posterFilterName)
             case .Count:
                 print("Count Enum")
                 break
