@@ -8,7 +8,7 @@
 
 import UIKit
 
-var kIsLayoutSelected: Bool? = false
+var kIsLayoutSelected: Bool? = true
 
 protocol RCT_ContainerViewControllerProtocol {
     func itemSelected(indexPath: NSIndexPath)

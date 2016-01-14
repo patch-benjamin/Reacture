@@ -14,6 +14,12 @@ class RCT_EditViewController: UIViewController {
         super.viewDidLoad()
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         self.containerViewController?.delegate = self
+        
+        self.frontImageZoomableView.delegate = self
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "detectLongPress:")
+//        UIGestureRecognizerState.e
+        frontImageZoomableView.gestureRecognizers = [longPressRecognizer]
+
 
         if let rCTImage = self.rCTImage {
             self.frontImageView.image = rCTImage.imageFrontUIImage
@@ -179,7 +185,7 @@ class RCT_EditViewController: UIViewController {
     //
     //    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var rCTImageView: UIView!
-    @IBOutlet weak var frontImageZoomableView: UIView!
+    @IBOutlet weak var frontImageZoomableView: PanGestureView!
     @IBOutlet weak var frontImageScrollView: UIScrollView!
 //    @IBOutlet weak var frontImageView: UIImageView!
     @IBOutlet weak var backImageZoomableView: UIView!
@@ -299,7 +305,9 @@ extension RCT_EditViewController {
         
         frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
         backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
+//        frontImageZoomableView.translatesAutoresizingMaskIntoConstraints = true
 
+        
         switch layout {
         case .LeftRight:
             
@@ -349,6 +357,7 @@ extension RCT_EditViewController {
 
         case .PictureInPicture:
 
+//            frontImageZoomableView.translatesAutoresizingMaskIntoConstraints = false
             frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width/2, rCTImageView.frame.height/2)
             
             backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
@@ -415,6 +424,41 @@ extension RCT_EditViewController: UIScrollViewDelegate {
             return self.backImageView
         }
     }
+    
+}
+
+// MARK: - PanGestureViewProtocol
+
+extension RCT_EditViewController: PanGestureViewProtocol {
+    
+    func detectLongPress(recognizer: UILongPressGestureRecognizer) {
+        
+        if recognizer.state.rawValue == 3 {
+            frontImageZoomableView.toggleIsMoveable()
+            print("Long press ended")
+        }
+    }
+    
+    func panDetected(center: CGPoint) {
+        
+//        print("rctimageview center: \(rCTImageView.center); pan center: \(center); frontImageView center: \(rCTImageView.frame.width - rCTImageView.frame.width/4), \(rCTImageView.frame.height - rCTImageView.frame.height/4)")
+        [self.frontImageLeadingConstraint, self.frontImageTrailingConstraint].forEach { (constraint) -> () in
+            if constraint != nil {
+                rCTImageView.removeConstraint(constraint)
+            }
+        }
+
+        frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: (center.x - rCTImageView.center.x))
+        
+        frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: (center.y - rCTImageView.center.y))
+        
+//        print("\(frontImageBottomConstraint)\n\(frontImageBottomConstraint)")
+        rCTImageView.addConstraints([self.frontImageBottomConstraint, self.frontImageTrailingConstraint])
+    }
+    
+    
+    
+    
     
 }
 
