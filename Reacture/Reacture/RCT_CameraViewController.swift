@@ -22,11 +22,10 @@ class RCT_CameraViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupCamera()
         setupButtons()
-        
-    
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -315,11 +314,11 @@ class RCT_CameraViewController: UIViewController {
         
         shutterButton.frame.size = CGSize(width: width, height: width)
         shutterButton.center.x = self.view.center.x
-        shutterButton.frame.origin.y = self.view.frame.size.height - shutterButton.frame.size.height - 20
+        shutterButton.frame.origin.y = self.view.frame.size.height - shutterButton.frame.size.height - 10
         shutterButton.layer.borderColor = UIColor.whiteColor().CGColor
         shutterButton.layer.borderWidth = 1
         shutterButton.layer.cornerRadius = width / 2
-        shutterButton.backgroundColor = UIColor.blueColor()
+        shutterButton.backgroundColor = UIColor.redColor()
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(shutterButton)
     }

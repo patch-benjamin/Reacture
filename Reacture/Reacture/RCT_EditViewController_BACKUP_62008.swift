@@ -300,9 +300,12 @@ extension RCT_EditViewController {
 
     func updateWithFilter(filter: Filter) {
 
+<<<<<<< HEAD
         frontImageZoomableView.removeIsMovableView()
         
         let monoFilterName = "CIPhotoEffectMono"
+=======
+>>>>>>> Cleaned out redundant filters
         let tonalFilterName = "CIPhotoEffectTonal"
         let noirFilterName = "CIPhotoEffectNoir"
         let fadeFilterName = "CIPhotoEffectFade"

@@ -36,9 +36,17 @@ enum Filter: Int {
     case None = 0,
     Fade,
     Chrome,
+<<<<<<< HEAD
     Poster,
     Comic,
     Tonal,
     Noir,
+=======
+    Comic,
+    Posterize,
+    //    Process,
+    //    Transfer,
+    //    Instant,
+>>>>>>> develop
     Count
 }

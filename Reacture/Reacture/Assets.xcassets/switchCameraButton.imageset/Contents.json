@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "layout_diagonal.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "switchCameraButton-1.png",
       "scale" : "2x"
     },
     {

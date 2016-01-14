@@ -34,11 +34,15 @@ enum MaskLayout: Int {
 
 enum Filter: Int {
     case None = 0,
-    Fade,
-    Chrome,
-    Poster,
-    Comic,
+    Mono,
     Tonal,
     Noir,
+    Fade,
+    Chrome,
+    Comic,
+    Posterize,
+    //    Process,
+    //    Transfer,
+    //    Instant,
     Count
 }
