@@ -24,15 +24,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-4j-ZFs">
-                                <rect key="frame" x="285" y="520" width="30" height="60"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-4j-ZFs">
+                                <rect key="frame" x="285" y="550" width="30" height="30"/>
                                 <state key="normal" title="📸 "/>
                                 <connections>
                                     <action selector="shutterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kLH-NL-DV7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-mf-aEW">
-                                <rect key="frame" x="533" y="30" width="49" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-mf-aEW">
+                                <rect key="frame" x="540" y="28" width="60" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="AI9-0S-O92"/>
+                                    <constraint firstAttribute="height" constant="50" id="OgF-pR-8cI"/>
+                                </constraints>
                                 <state key="normal" image="switchCameraButton"/>
                                 <connections>
                                     <action selector="switchCameraButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iIi-4d-pQC"/>
@@ -48,7 +52,7 @@
                             <constraint firstItem="TMN-mf-aEW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="YK9-Vx-Kl1"/>
                             <constraint firstItem="lfu-hq-PEG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jS6-9w-EkT"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lfu-hq-PEG" secondAttribute="bottom" id="kgD-vl-5E1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="TMN-mf-aEW" secondAttribute="trailing" constant="8" id="oYT-mW-Bva"/>
+                            <constraint firstAttribute="trailing" secondItem="TMN-mf-aEW" secondAttribute="trailing" id="oYT-mW-Bva"/>
                         </constraints>
                     </view>
                     <connections>
@@ -320,6 +324,6 @@
     <resources>
         <image name="filter_icon" width="22" height="22"/>
         <image name="layout_corner" width="22" height="22"/>
-        <image name="switchCameraButton" width="27" height="25"/>
+        <image name="switchCameraButton" width="250" height="250"/>
     </resources>
 </document>
