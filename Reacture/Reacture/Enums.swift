@@ -41,5 +41,6 @@ enum Filter: Int {
     Tonal,
     Mono,
     Noir,
+    Prism,
     Count
 }
