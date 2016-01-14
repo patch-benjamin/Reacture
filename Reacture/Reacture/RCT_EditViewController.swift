@@ -22,26 +22,25 @@ class RCT_EditViewController: UIViewController {
         } else {
             print("ERROR: rCTImage is nil!")
         }
-        
         setupScrollViews()
         setupFilters()
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         updateWithLayout(Layout(rawValue: 0)!)
         print("veiwDidAppear: rctImageView width: \(rCTImageView.frame.width), rctImageView height: \(rCTImageView.frame.height)")
 
     }
 
     func SetMockData() {
-//        let frontImage = UIImage(named: "mock_selfie")
-//        let backImage = UIImage(named: "mock_landscape")
-//        let frontImageData = RCT_ImageController.imageToData(frontImage!)!
-//        let backImageData = RCT_ImageController.imageToData(backImage!)!
-//        let image1 = RCT_ImageController.dataToImage(frontImageData)!
-//        let image2 = RCT_ImageController.dataToImage(backImageData)!
+        //        let frontImage = UIImage(named: "mock_selfie")
+        //        let backImage = UIImage(named: "mock_landscape")
+        //        let frontImageData = RCT_ImageController.imageToData(frontImage!)!
+        //        let backImageData = RCT_ImageController.imageToData(backImage!)!
+        //        let image1 = RCT_ImageController.dataToImage(frontImageData)!
+        //        let image2 = RCT_ImageController.dataToImage(backImageData)!
         //rCTImageView.backgroundColor = UIColor(patternImage: image)
         //        setUpImages(image1, back: image2)
     }
@@ -63,6 +62,7 @@ class RCT_EditViewController: UIViewController {
     let context = CIContext()
     var originalFrontImage: UIImage?
     var originalBackImage: UIImage?
+    var arrayOfFilterButtonImageViews: [UIImageView] = []
 
     // End Filter Variables
 
@@ -80,23 +80,23 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
 
     func setupScrollViews() {
-        
+
         let frontImageZoomScaleWidth = frontImageZoomableView.frame.width / (frontImageView.image?.size.width)!
         let frontImageZoomScaleHeight = frontImageZoomableView.frame.height / (frontImageView.image?.size.height)!
         let frontImageMinZoomScale: CGFloat
-        
+
         frontImageZoomScaleWidth > frontImageZoomScaleHeight ? (frontImageMinZoomScale = frontImageZoomScaleWidth) : (frontImageMinZoomScale = frontImageZoomScaleHeight)
 
         self.frontImageScrollView.minimumZoomScale = frontImageMinZoomScale
         self.frontImageScrollView.maximumZoomScale = 5.0
         self.frontImageScrollView.zoomScale = frontImageMinZoomScale
         self.frontImageScrollView.addSubview(frontImageView)
-        
-        
+
+
         let backImageZoomScaleWidth = backImageZoomableView.frame.width / (backImageView.image?.size.width)!
         let backImageZoomScaleHeight = backImageZoomableView.frame.height / (backImageView.image?.size.height)!
         let backImageMinZoomScale: CGFloat
-        
+
         backImageZoomScaleWidth > backImageZoomScaleHeight ? (backImageMinZoomScale = backImageZoomScaleWidth) : (backImageMinZoomScale = backImageZoomScaleHeight)
 
         self.backImageScrollView.minimumZoomScale = backImageMinZoomScale
@@ -107,32 +107,32 @@ class RCT_EditViewController: UIViewController {
     }
 
     func updateScrollViews() {
-        
+
         print("rctImageView width: \(rCTImageView.frame.width), rctImageView height: \(rCTImageView.frame.height)")
-        
+
         let frontImageZoomScaleWidth = frontImageZoomableView.frame.width / (frontImageView.image?.size.width)!
         let frontImageZoomScaleHeight = frontImageZoomableView.frame.height / (frontImageView.image?.size.height)!
         let frontImageMinZoomScale: CGFloat
-        
+
         print("frontWidth: \(frontImageZoomableView.frame.width) / \(frontImageView.image?.size.width) = \(frontImageZoomScaleWidth), frontHeight: \(frontImageZoomableView.frame.height) / \(frontImageView.image?.size.height) = \(frontImageZoomScaleHeight)")
-        
+
         frontImageZoomScaleWidth > frontImageZoomScaleHeight ? (frontImageMinZoomScale = frontImageZoomScaleWidth) : (frontImageMinZoomScale = frontImageZoomScaleHeight)
-        
+
         self.frontImageScrollView.minimumZoomScale = frontImageMinZoomScale
         self.frontImageScrollView.maximumZoomScale = 5.0
 
         if frontImageScrollView.zoomScale < frontImageMinZoomScale {
             self.frontImageScrollView.zoomScale = frontImageMinZoomScale
         }
-        
+
         let backImageZoomScaleWidth = backImageZoomableView.frame.width / (backImageView.image?.size.width)!
         let backImageZoomScaleHeight = backImageZoomableView.frame.height / (backImageView.image?.size.height)!
         let backImageMinZoomScale: CGFloat
-        
+
         print("backWidth: \(backImageZoomableView.frame.width) / \(backImageView.image?.size.width) = \(backImageZoomScaleWidth), backHeight: \(backImageZoomableView.frame.height) / \(backImageView.image?.size.height) = \(backImageZoomScaleHeight)")
 
         backImageZoomScaleWidth > backImageZoomScaleHeight ? (backImageMinZoomScale = backImageZoomScaleWidth) : (backImageMinZoomScale = backImageZoomScaleHeight)
-        
+
         self.backImageScrollView.minimumZoomScale = backImageMinZoomScale
         self.backImageScrollView.maximumZoomScale = 5.0
 
@@ -216,6 +216,8 @@ class RCT_EditViewController: UIViewController {
     // MARK: Actions
     //////////////////////////////
     //////////////////////////////
+
+    // TODO: camelCase CancelButtonTapped
 
     @IBAction func CancelButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -301,9 +303,9 @@ extension RCT_EditViewController {
         let posterizeFilterName = "CIColorPosterize"
 
         // Possible Future Filters Not in Use:
-//        let processFilterName = ""
-//        let transferFilterName = ""
-//        let instantFilterName = ""
+        //        let processFilterName = ""
+        //        let transferFilterName = ""
+        //        let instantFilterName = ""
 
         if self.rCTImage != nil {
 
@@ -334,15 +336,15 @@ extension RCT_EditViewController {
             case .Posterize:
                 print("Posterize Filter Selected")
                 performFilter(posterizeFilterName)
-//            case .Process:
-//                print("Process Filter Selected")
-//                performFilter(processFilterName)
-//            case .Transfer:
-//                print("Transfer Filter Selected")
-//                performFilter(transferFilterName)
-//            case .Instant:
-//                print("Instant Filter Selected")
-//                performFilter(instantFilterName)
+                //            case .Process:
+                //                print("Process Filter Selected")
+                //                performFilter(processFilterName)
+                //            case .Transfer:
+                //                print("Transfer Filter Selected")
+                //                performFilter(transferFilterName)
+                //            case .Instant:
+                //                print("Instant Filter Selected")
+                //                performFilter(instantFilterName)
             case .Count:
                 print("Count Enum")
                 break
@@ -355,6 +357,130 @@ extension RCT_EditViewController {
             self.originalFrontImage = rCTImage.imageFrontUIImage
             self.originalBackImage = rCTImage.imageBackUIImage
         }
+        setupFilterThumbnails()
+    }
+
+    func setupFilterThumbnails() {
+
+        // TODO: Put on Background Thread (asynch)
+
+        let filterButtonsCount = Filter.Count.rawValue
+        print("Filter Button Count is: \(Filter.Count.rawValue)")
+        for var filterButtonIndex = 0; filterButtonIndex <= filterButtonsCount;
+            filterButtonIndex++ {
+
+                if filterButtonIndex == filterButtonsCount {
+                    // All button images complete
+                    // Pass to Container View to populate buttons and reload
+                    let nc = NSNotificationCenter.defaultCenter()
+                    nc.postNotificationName("Filter Button Images Complete", object: self, userInfo: ["filterButtonImageViews": self.arrayOfFilterButtonImageViews])
+                }
+
+                let filterRawValue = filterButtonIndex
+                if let filterSelected = Filter(rawValue: filterRawValue) {
+                    filterAllThumbnails(filterSelected)
+                }
+        }
+    }
+
+    func filterAllThumbnails(filter: Filter) {
+        let monoFilterName = "CIPhotoEffectMono"
+        let tonalFilterName = "CIPhotoEffectTonal"
+        let noirFilterName = "CIPhotoEffectNoir"
+        let fadeFilterName = "CIPhotoEffectFade"
+        let chromeFilterName = "CIPhotoEffectChrome"
+        let comicFilterName = "CIComicEffect"
+        let posterizeFilterName = "CIColorPosterize"
+
+        if self.rCTImage != nil {
+
+            switch filter {
+
+            case .None:
+                print("None Filter Selected")
+                performThumbnailFilter("None")
+            case .Mono:
+                print("Mono Filter Selected")
+                performThumbnailFilter(monoFilterName)
+            case .Tonal:
+                print("Tonal Filter Selected")
+                performThumbnailFilter(tonalFilterName)
+            case .Noir:
+                print("Noir Filter Selected")
+                performThumbnailFilter(noirFilterName)
+            case .Fade:
+                print("Fade Filter Selected")
+                performThumbnailFilter(fadeFilterName)
+            case .Chrome:
+                print("Chrome Filter Selected")
+                performThumbnailFilter(chromeFilterName)
+            case .Comic:
+                print("Comic Filter Selected")
+                performThumbnailFilter(comicFilterName)
+            case .Posterize:
+                print("Posterize Filter Selected")
+                performThumbnailFilter(posterizeFilterName)
+            case .Count:
+                print("Count Enum")
+                break
+            }
+        }
+    }
+
+    func performThumbnailFilter(var filterName: String) {
+        var scale: CGFloat?
+        var thumbnailScale: CGFloat?
+        var orientation: UIImageOrientation?
+        var beginFrontImage: CIImage?
+        //            var beginBackImage: CIImage?
+
+        let thumbnailFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+
+        if let frontImage = self.originalFrontImage as UIImage! {
+            scale = frontImage.scale
+            orientation = frontImage.imageOrientation
+            let height = frontImage.size.height
+            let width = frontImage.size.width
+            thumbnailScale = thumbnailFrame.height / height // May need aspect adjustment to make square thumbnail
+            // Getting CI Image
+            beginFrontImage = CIImage(image: frontImage)
+        }
+        //            if let backImage = self.originalBackImage as UIImage! {
+        //                // Getting CI Image
+        //                beginBackImage = CIImage(image: backImage)
+        //            }
+
+        var options: [String: AnyObject]?
+        if filterName == "None" {
+            filterName = "CISepiaTone"
+            options = ["inputIntensity": 0]
+        }
+
+        // Getting Output Using Filter Name Parameter and Options
+
+        // Front Image:
+        if let outputImage = beginFrontImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
+            print("Front Thumbnail Image Name: \(filterName)")
+            let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
+            let image = UIImage(CGImage: cGImage, scale: thumbnailScale!, orientation: orientation!)
+            // Completed UI Images Update on RCT_Image Model
+            let filterButtonImageView = UIImageView()
+            filterButtonImageView.frame.size = thumbnailFrame.size
+            filterButtonImageView.contentMode = UIViewContentMode.ScaleAspectFill // Square?
+            filterButtonImageView.image = image
+            // Apending to Array of Image Buttons
+            arrayOfFilterButtonImageViews.append(filterButtonImageView)
+        }
+
+        // Back Image:
+        //            if let outputImage = beginBackImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
+        //                print("We Have a Back Output Image")
+        //                let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
+        //                self.rCTImage?.imageBackUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: orientation!)
+        //                // Completed UI Images Update on RCT_Image Model
+        //                // Reloading Back Image View
+        //                self.backImageView.image = self.rCTImage!.imageBackUIImage
+        //            }
     }
 
     func performFilter(filterName: String) {
@@ -414,83 +540,83 @@ extension RCT_EditViewController {
 }
 
 // MARK: Layout Methods
+
 extension RCT_EditViewController {
-    
-    
+
     func updateWithLayout(layout: Layout) {
-        
+
         self.rCTImage?.layout = layout
-        
+
         removeLayoutConstraints()
-        
+
         frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
         backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
 
         switch layout {
         case .LeftRight:
-            
+
             frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width/2, rCTImageView.frame.height)
-            
+
             backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width/2, rCTImageView.frame.height)
-            
-//            frontImageHeightConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
+
+            //            frontImageHeightConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
             frontImageWidthConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 0.5, constant: 0)
-            
+
             frontImageLeadingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: rCTImageView, attribute: .Leading, multiplier: 1.0, constant: 0)
-//            frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Trailing, relatedBy: .Equal, toItem: backImageZoomableView, attribute: .Leading, multiplier: 1.0, constant: 0)
+            //            frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Trailing, relatedBy: .Equal, toItem: backImageZoomableView, attribute: .Leading, multiplier: 1.0, constant: 0)
             frontImageTopConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: rCTImageView, attribute: .Top, multiplier: 1.0, constant: 0)
             frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Bottom, relatedBy: .Equal, toItem: rCTImageView, attribute: .Bottom, multiplier: 1.0, constant: 0)
-            
-            
-//            backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
+
+
+            //            backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
             backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 0.5, constant: 0)
-            
-//            backImageLeadingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: frontImageZoomableView, attribute: .Trailing, multiplier: 1.0, constant: 0)
+
+            //            backImageLeadingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: frontImageZoomableView, attribute: .Trailing, multiplier: 1.0, constant: 0)
             backImageTrailingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Trailing, relatedBy: .Equal, toItem: rCTImageView, attribute: .Trailing, multiplier: 1.0, constant: 0)
             backImageTopConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: rCTImageView, attribute: .Top, multiplier: 1.0, constant: 0)
             backImageBottomConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Bottom, relatedBy: .Equal, toItem: rCTImageView, attribute: .Bottom, multiplier: 1.0, constant: 0)
-            
+
         case .TopBottom:
-            
+
             frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height/2)
-            
+
             backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height/2)
-            
+
             frontImageHeightConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 0.5, constant: 0)
-//            frontImageWidthConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
-            
+            //            frontImageWidthConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
+
             frontImageLeadingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: rCTImageView, attribute: .Leading, multiplier: 1.0, constant: 0)
             frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Trailing, relatedBy: .Equal, toItem: rCTImageView, attribute: .Trailing, multiplier: 1.0, constant: 1)
             frontImageTopConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: rCTImageView, attribute: .Top, multiplier: 1.0, constant: 0)
-//            frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Bottom, relatedBy: .Equal, toItem: backImageZoomableView, attribute: .Top, multiplier: 1.0, constant: 0)
-            
-            
+            //            frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Bottom, relatedBy: .Equal, toItem: backImageZoomableView, attribute: .Top, multiplier: 1.0, constant: 0)
+
+
             backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 0.5, constant: 0)
-//            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
-            
+            //            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
+
             backImageLeadingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: rCTImageView, attribute: .Leading, multiplier: 1.0, constant: 0)
             backImageTrailingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Trailing, relatedBy: .Equal, toItem: rCTImageView, attribute: .Trailing, multiplier: 1.0, constant: 0)
-//            backImageTopConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: frontImageZoomableView, attribute: .Bottom, multiplier: 1.0, constant: 0)
+            //            backImageTopConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: frontImageZoomableView, attribute: .Bottom, multiplier: 1.0, constant: 0)
             backImageBottomConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Bottom, relatedBy: .Equal, toItem: rCTImageView, attribute: .Bottom, multiplier: 1.0, constant: 0)
 
         case .PictureInPicture:
 
             frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width/2, rCTImageView.frame.height/2)
-            
+
             backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
 
-            
+
             frontImageHeightConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 0.5, constant: 0)
             frontImageWidthConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 0.5, constant: 0)
-            
+
             frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: NSLayoutAttribute.CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.5, constant: 0)
-            
+
             frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.5, constant: 0)
-            
-            
-//            backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
-//            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
-            
+
+
+            //            backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
+            //            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
+
             backImageLeadingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: rCTImageView, attribute: .Leading, multiplier: 1.0, constant: 0)
             backImageTrailingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Trailing, relatedBy: .Equal, toItem: rCTImageView, attribute: .Trailing, multiplier: 1.0, constant: 0)
             backImageTopConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: rCTImageView, attribute: .Top, multiplier: 1.0, constant: 0)
@@ -499,35 +625,32 @@ extension RCT_EditViewController {
         case .Count:
             break
         }
-        
+
         addLayoutConstraints()
-        
+
     }
-    
+
     func removeLayoutConstraints() {
-        
-       
+
+
         [self.frontImageHeightConstraint, self.frontImageWidthConstraint, self.frontImageLeadingConstraint, self.frontImageTrailingConstraint, self.frontImageTopConstraint, self.frontImageBottomConstraint, self.backImageHeightConstraint, self.backImageWidthConstraint, self.backImageLeadingConstraint, self.backImageTrailingConstraint, self.backImageTopConstraint, self.backImageBottomConstraint].forEach { (constraint) -> () in
             if constraint != nil {
                 rCTImageView.removeConstraint(constraint)
             }
         }
     }
-    
+
     func addLayoutConstraints() {
-        
+
         [self.frontImageHeightConstraint, self.frontImageWidthConstraint, self.frontImageLeadingConstraint, self.frontImageTrailingConstraint, self.frontImageTopConstraint, self.frontImageBottomConstraint, self.backImageHeightConstraint, self.backImageWidthConstraint, self.backImageLeadingConstraint, self.backImageTrailingConstraint, self.backImageTopConstraint, self.backImageBottomConstraint].forEach { (constraint) -> () in
             if constraint != nil {
                 rCTImageView.addConstraint(constraint)
             }
         }
-//        print("frontView width: \(frontImageZoomableView.frame.size.width), scrollView width: \(frontImageScrollView.frame.size.width), rctImageView width: \(rCTImageView.frame.size.width)")
+        //        print("frontView width: \(frontImageZoomableView.frame.size.width), scrollView width: \(frontImageScrollView.frame.size.width), rctImageView width: \(rCTImageView.frame.size.width)")
         
         updateScrollViews()
     }
-    
-    
-    
     
 }
 
