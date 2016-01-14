@@ -22,11 +22,10 @@ class RCT_CameraViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupCamera()
         setupButtons()
-        
-    
+
     }
     
     override func didReceiveMemoryWarning() {
