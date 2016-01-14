@@ -122,7 +122,7 @@ class RCT_EditViewController: UIViewController {
         self.frontImageScrollView.minimumZoomScale = frontImageMinZoomScale
         self.frontImageScrollView.maximumZoomScale = 5.0
         
-        if frontImageScrollView.zoomScale < frontImageMinZoomScale {
+        if frontImageScrollView.zoomScale < frontImageMinZoomScale || rCTImage?.layout == Layout.PictureInPicture {
             self.frontImageScrollView.zoomScale = frontImageMinZoomScale
         }
         
@@ -137,7 +137,7 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.minimumZoomScale = backImageMinZoomScale
         self.backImageScrollView.maximumZoomScale = 5.0
 
-        if backImageScrollView.zoomScale < backImageMinZoomScale {
+        if backImageScrollView.zoomScale < backImageMinZoomScale || rCTImage?.layout == Layout.PictureInPicture {
             self.backImageScrollView.zoomScale = backImageMinZoomScale
         }
 
@@ -224,6 +224,7 @@ class RCT_EditViewController: UIViewController {
     }
 
     @IBAction func shareButtonTapped(sender: AnyObject) {
+        frontImageZoomableView.removeIsMovableView()
         imageCapture()
         print("Share Button Tapped")
         let shareTextRCTImage = "Shared with #reacture"
@@ -302,6 +303,7 @@ extension RCT_EditViewController {
         self.rCTImage?.layout = layout
         
         removeLayoutConstraints()
+        frontImageZoomableView.removeIsMovableView()
         
         frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
         backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)

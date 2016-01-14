@@ -41,6 +41,15 @@ class PanGestureView: UIView {
         }
     }
     
+    func removeIsMovableView() {
+        
+        if isMoveableView != nil {
+            
+            self.isMoveableView!.removeFromSuperview()
+            self.isMoveableView = nil
+        }
+    }
+    
     func detectPan(recognizer: UIPanGestureRecognizer) {
         print("Pan detected")
         
