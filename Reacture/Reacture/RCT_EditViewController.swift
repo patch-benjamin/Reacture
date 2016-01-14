@@ -292,14 +292,12 @@ extension RCT_EditViewController {
 
     func updateWithFilter(filter: Filter) {
 
-        let monoFilterName = "CIPhotoEffectMono"
         let tonalFilterName = "CIPhotoEffectTonal"
         let noirFilterName = "CIPhotoEffectNoir"
         let fadeFilterName = "CIPhotoEffectFade"
         let chromeFilterName = "CIPhotoEffectChrome"
         let comicFilterName = "CIComicEffect"
         let posterFilterName = "CIColorPosterize"
-        let prismFilterName = "CIKaleidoscope"
 
         // Possible Future Filters Not in Use:
         //        let processFilterName = ""
@@ -314,9 +312,6 @@ extension RCT_EditViewController {
                 print("None Filter Selected")
                 self.frontImageView.image = self.originalFrontImage
                 self.backImageView.image = self.originalBackImage
-            case .Mono:
-                print("Mono Filter Selected")
-                performFilter(monoFilterName)
             case .Tonal:
                 print("Tonal Filter Selected")
                 performFilter(tonalFilterName)
@@ -335,9 +330,6 @@ extension RCT_EditViewController {
             case .Poster:
                 print("Poster Filter Selected")
                 performFilter(posterFilterName)
-            case .Prism:
-                print("Prism Filter Selected")
-                performFilter(prismFilterName)
             case .Count:
                 print("Count Enum")
                 break
@@ -377,14 +369,12 @@ extension RCT_EditViewController {
     }
 
     func filterAllThumbnails(filter: Filter) {
-        let monoFilterName = "CIPhotoEffectMono"
         let tonalFilterName = "CIPhotoEffectTonal"
         let noirFilterName = "CIPhotoEffectNoir"
         let fadeFilterName = "CIPhotoEffectFade"
         let chromeFilterName = "CIPhotoEffectChrome"
         let comicFilterName = "CIComicEffect"
         let posterFilterName = "CIColorPosterize"
-        let prismFilterName = "CIKaleidoscope"
 
         if self.rCTImage != nil {
 
@@ -393,9 +383,6 @@ extension RCT_EditViewController {
             case .None:
                 print("None Filter Selected")
                 performThumbnailFilter("None")
-            case .Mono:
-                print("Mono Filter Selected")
-                performThumbnailFilter(monoFilterName)
             case .Tonal:
                 print("Tonal Filter Selected")
                 performThumbnailFilter(tonalFilterName)
@@ -414,9 +401,6 @@ extension RCT_EditViewController {
             case .Poster:
                 print("Poster Filter Selected")
                 performThumbnailFilter(posterFilterName)
-            case .Prism:
-                print("Prism Filter Selected")
-                performThumbnailFilter(prismFilterName)
             case .Count:
                 print("Count Enum")
                 break
