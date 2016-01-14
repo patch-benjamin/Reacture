@@ -39,8 +39,6 @@ enum Filter: Int {
     Poster,
     Comic,
     Tonal,
-    Mono,
     Noir,
-    Prism,
     Count
 }
