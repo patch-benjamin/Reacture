@@ -2,7 +2,7 @@
 //  ContainerViewController.swift
 //  Reacture
 //
-//  Created by Eric Mead on 1/5/16.
+//  Created by Eric Mead on 1/5/16. Amended by Paul Adams on 1/14/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
@@ -75,6 +75,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         if kIsLayoutSelected == true {
             //            cell.label.text = String(Layout(rawValue: indexPath.item)!)
             cell.label.text = ""
+            cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
             cell.imageView.backgroundColor = UIColor.whiteColor()
             let array: [UIImage] = [UIImage(named: "layout_top")!, UIImage(named: "layout_side")!, UIImage(named: "layout_southeast")!]
             cell.imageView.image = array[indexPath.item]
