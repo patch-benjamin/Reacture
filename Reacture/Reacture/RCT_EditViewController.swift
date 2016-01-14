@@ -441,16 +441,63 @@ extension RCT_EditViewController: PanGestureViewProtocol {
     
     func panDetected(center: CGPoint) {
         
-//        print("rctimageview center: \(rCTImageView.center); pan center: \(center); frontImageView center: \(rCTImageView.frame.width - rCTImageView.frame.width/4), \(rCTImageView.frame.height - rCTImageView.frame.height/4)")
-        [self.frontImageLeadingConstraint, self.frontImageTrailingConstraint].forEach { (constraint) -> () in
+        let relativeXPosition = (center.x - rCTImageView.bounds.width/2)
+        let relativeYPosition = (center.y - rCTImageView.bounds.height/2)
+        let leftmostBound = (-(rCTImageView.bounds.width/2) + frontImageZoomableView.bounds.width/2)
+        let rightmostBound = (rCTImageView.bounds.width/2 - frontImageZoomableView.bounds.width/2)
+        let uppermostBound = (rCTImageView.bounds.height/2 - frontImageZoomableView.bounds.height/2)
+        let lowermostBound = (-(rCTImageView.bounds.height/2) + (frontImageZoomableView.bounds.height/2))
+        
+        [self.frontImageBottomConstraint, self.frontImageTrailingConstraint].forEach { (constraint) -> () in
             if constraint != nil {
                 rCTImageView.removeConstraint(constraint)
             }
         }
 
-        frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: (center.x - rCTImageView.center.x))
         
-        frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: (center.y - rCTImageView.center.y))
+        if relativeXPosition > leftmostBound && relativeXPosition < rightmostBound {
+            
+            // Not out of bounds, constrain to relative X position
+            frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: relativeXPosition)
+            print("X is valid")
+
+        } else {
+            print("X is not valid")
+            if relativeXPosition > 0 {
+        
+                // Out of bounds on the right side, constrain to rightmost bound
+                frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: rightmostBound)
+            } else {
+                
+                // Out of bounds on the left side, constrain to leftmost bound
+                frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: leftmostBound)
+
+            }
+        }
+        
+        if relativeYPosition > lowermostBound  && relativeYPosition < uppermostBound {
+            
+            // Not out of bounds, constrain to relative Y position
+            frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: relativeYPosition)
+            print("Y is valid")
+        } else {
+            print("Y is not valid")
+            if relativeYPosition < 0 {
+                
+                // Out of bounds on the lower side, constrain to lowermost bound
+                frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: lowermostBound)
+
+            } else {
+                
+                // Out of bounds on the upper side, constrain to uppermost bound
+                frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: uppermostBound)
+
+            }
+        }
+        
+//        print("rctimageview center: \(rCTImageView.center); pan center: \(center); frontImageView center: \(rCTImageView.frame.width - rCTImageView.frame.width/4), \(rCTImageView.frame.height - rCTImageView.frame.height/4)")
+        
+        
         
 //        print("\(frontImageBottomConstraint)\n\(frontImageBottomConstraint)")
         rCTImageView.addConstraints([self.frontImageBottomConstraint, self.frontImageTrailingConstraint])

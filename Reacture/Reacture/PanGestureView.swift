@@ -47,6 +47,7 @@ class PanGestureView: UIView {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         print("Touches began")
+        print("center: \(self.center)")
         lastLocation = self.center
         
     }
