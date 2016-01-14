@@ -299,6 +299,8 @@ extension RCT_EditViewController {
 
     func updateWithFilter(filter: Filter) {
 
+        frontImageZoomableView.removeIsMovableView()
+        
         let monoFilterName = "CIPhotoEffectMono"
         let tonalFilterName = "CIPhotoEffectTonal"
         let noirFilterName = "CIPhotoEffectNoir"
@@ -561,7 +563,7 @@ extension RCT_EditViewController: PanGestureViewProtocol {
     
     func detectLongPress(recognizer: UILongPressGestureRecognizer) {
         
-        if recognizer.state.rawValue == 1 {
+        if recognizer.state.rawValue == 1 && rCTImage?.layout == Layout.PictureInPicture {
             frontImageZoomableView.toggleIsMoveable()
             print("Long press ended")
         }
