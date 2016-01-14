@@ -141,7 +141,7 @@
                                                     <constraint firstItem="Xkt-fU-ajC" firstAttribute="leading" secondItem="hTc-NQ-pjG" secondAttribute="leading" constant="-1" id="myD-m2-MI3"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OsU-33-awx">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OsU-33-awx" customClass="PanGestureView" customModule="Reacture" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
                                                 <subviews>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="4x9-My-hZt">

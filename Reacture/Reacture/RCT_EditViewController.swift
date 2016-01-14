@@ -18,6 +18,13 @@ class RCT_EditViewController: UIViewController {
 
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         self.containerViewController?.delegate = self
+        
+        self.frontImageZoomableView.delegate = self
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "detectLongPress:")
+//        UIGestureRecognizerState.e
+        frontImageZoomableView.gestureRecognizers = [longPressRecognizer]
+
+
         if let rCTImage = self.rCTImage {
             self.frontImageView.image = rCTImage.imageFrontUIImage
             self.backImageView.image = rCTImage.imageBackUIImage
@@ -82,23 +89,23 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
 
     func setupScrollViews() {
-
+        
         let frontImageZoomScaleWidth = frontImageZoomableView.frame.width / (frontImageView.image?.size.width)!
         let frontImageZoomScaleHeight = frontImageZoomableView.frame.height / (frontImageView.image?.size.height)!
         let frontImageMinZoomScale: CGFloat
-
+        
         frontImageZoomScaleWidth > frontImageZoomScaleHeight ? (frontImageMinZoomScale = frontImageZoomScaleWidth) : (frontImageMinZoomScale = frontImageZoomScaleHeight)
 
         self.frontImageScrollView.minimumZoomScale = frontImageMinZoomScale
         self.frontImageScrollView.maximumZoomScale = 5.0
         self.frontImageScrollView.zoomScale = frontImageMinZoomScale
         self.frontImageScrollView.addSubview(frontImageView)
-
-
+        
+        
         let backImageZoomScaleWidth = backImageZoomableView.frame.width / (backImageView.image?.size.width)!
         let backImageZoomScaleHeight = backImageZoomableView.frame.height / (backImageView.image?.size.height)!
         let backImageMinZoomScale: CGFloat
-
+        
         backImageZoomScaleWidth > backImageZoomScaleHeight ? (backImageMinZoomScale = backImageZoomScaleWidth) : (backImageMinZoomScale = backImageZoomScaleHeight)
 
         self.backImageScrollView.minimumZoomScale = backImageMinZoomScale
@@ -109,36 +116,36 @@ class RCT_EditViewController: UIViewController {
     }
 
     func updateScrollViews() {
-
+        
         print("rctImageView width: \(rCTImageView.frame.width), rctImageView height: \(rCTImageView.frame.height)")
-
+        
         let frontImageZoomScaleWidth = frontImageZoomableView.frame.width / (frontImageView.image?.size.width)!
         let frontImageZoomScaleHeight = frontImageZoomableView.frame.height / (frontImageView.image?.size.height)!
         let frontImageMinZoomScale: CGFloat
-
+        
         print("frontWidth: \(frontImageZoomableView.frame.width) / \(frontImageView.image?.size.width) = \(frontImageZoomScaleWidth), frontHeight: \(frontImageZoomableView.frame.height) / \(frontImageView.image?.size.height) = \(frontImageZoomScaleHeight)")
-
+        
         frontImageZoomScaleWidth > frontImageZoomScaleHeight ? (frontImageMinZoomScale = frontImageZoomScaleWidth) : (frontImageMinZoomScale = frontImageZoomScaleHeight)
-
+        
         self.frontImageScrollView.minimumZoomScale = frontImageMinZoomScale
         self.frontImageScrollView.maximumZoomScale = 5.0
-
-        if frontImageScrollView.zoomScale < frontImageMinZoomScale {
+        
+        if frontImageScrollView.zoomScale < frontImageMinZoomScale || rCTImage?.layout == Layout.PictureInPicture {
             self.frontImageScrollView.zoomScale = frontImageMinZoomScale
         }
-
+        
         let backImageZoomScaleWidth = backImageZoomableView.frame.width / (backImageView.image?.size.width)!
         let backImageZoomScaleHeight = backImageZoomableView.frame.height / (backImageView.image?.size.height)!
         let backImageMinZoomScale: CGFloat
-
+        
         print("backWidth: \(backImageZoomableView.frame.width) / \(backImageView.image?.size.width) = \(backImageZoomScaleWidth), backHeight: \(backImageZoomableView.frame.height) / \(backImageView.image?.size.height) = \(backImageZoomScaleHeight)")
 
         backImageZoomScaleWidth > backImageZoomScaleHeight ? (backImageMinZoomScale = backImageZoomScaleWidth) : (backImageMinZoomScale = backImageZoomScaleHeight)
-
+        
         self.backImageScrollView.minimumZoomScale = backImageMinZoomScale
         self.backImageScrollView.maximumZoomScale = 5.0
 
-        if backImageScrollView.zoomScale < backImageMinZoomScale {
+        if backImageScrollView.zoomScale < backImageMinZoomScale || rCTImage?.layout == Layout.PictureInPicture {
             self.backImageScrollView.zoomScale = backImageMinZoomScale
         }
 
@@ -186,12 +193,13 @@ class RCT_EditViewController: UIViewController {
     //
     //    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var rCTImageView: UIView!
-    @IBOutlet weak var frontImageZoomableView: UIView!
+    @IBOutlet weak var frontImageZoomableView: PanGestureView!
     @IBOutlet weak var frontImageScrollView: UIScrollView!
     //    @IBOutlet weak var frontImageView: UIImageView!
     @IBOutlet weak var backImageZoomableView: UIView!
     @IBOutlet weak var backImageScrollView: UIScrollView!
     //    @IBOutlet weak var backImageView: UIImageView!
+
 
     // Constraint Outlets
     @IBOutlet weak var frontImageHeightConstraint: NSLayoutConstraint!
@@ -225,6 +233,7 @@ class RCT_EditViewController: UIViewController {
     }
 
     @IBAction func shareButtonTapped(sender: AnyObject) {
+        frontImageZoomableView.removeIsMovableView()
         imageCapture()
         print("Share Button Tapped")
         let shareTextRCTImage = "Shared with #reacture"
@@ -531,18 +540,21 @@ extension RCT_EditViewController {
         self.rCTImage?.layout = layout
 
         removeLayoutConstraints()
-
+        frontImageZoomableView.removeIsMovableView()
+        
         frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
         backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
+//        frontImageZoomableView.translatesAutoresizingMaskIntoConstraints = true
 
+        
         switch layout {
         case .LeftRight:
-
+            
             frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width/2, rCTImageView.frame.height)
-
+            
             backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width/2, rCTImageView.frame.height)
-
-            //            frontImageHeightConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
+            
+//            frontImageHeightConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
             frontImageWidthConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 0.5, constant: 0)
 
             frontImageLeadingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: rCTImageView, attribute: .Leading, multiplier: 1.0, constant: 0)
@@ -583,6 +595,7 @@ extension RCT_EditViewController {
 
         case .PictureInPicture:
 
+//            frontImageZoomableView.translatesAutoresizingMaskIntoConstraints = false
             frontImageZoomableView.frame = CGRectMake(frontImageZoomableView.frame.minX, frontImageZoomableView.frame.minY, rCTImageView.frame.width/2, rCTImageView.frame.height/2)
 
             backImageZoomableView.frame = CGRectMake(backImageZoomableView.frame.minX, backImageZoomableView.frame.minY, rCTImageView.frame.width, rCTImageView.frame.height)
@@ -591,12 +604,13 @@ extension RCT_EditViewController {
             frontImageWidthConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 0.5, constant: 0)
 
             frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: NSLayoutAttribute.CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.5, constant: 0)
-
+            
             frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.5, constant: 0)
-
-            //            backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
-            //            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
-
+            
+            
+//            backImageHeightConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Height, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
+//            backImageWidthConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Width, multiplier: 1.0, constant: 0)
+            
             backImageLeadingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Leading, relatedBy: .Equal, toItem: rCTImageView, attribute: .Leading, multiplier: 1.0, constant: 0)
             backImageTrailingConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Trailing, relatedBy: .Equal, toItem: rCTImageView, attribute: .Trailing, multiplier: 1.0, constant: 0)
             backImageTopConstraint = NSLayoutConstraint(item: backImageZoomableView, attribute: .Top, relatedBy: .Equal, toItem: rCTImageView, attribute: .Top, multiplier: 1.0, constant: 0)
@@ -624,7 +638,7 @@ extension RCT_EditViewController {
                 rCTImageView.addConstraint(constraint)
             }
         }
-        //        print("frontView width: \(frontImageZoomableView.frame.size.width), scrollView width: \(frontImageScrollView.frame.size.width), rctImageView width: \(rCTImageView.frame.size.width)")
+//        print("frontView width: \(frontImageZoomableView.frame.size.width), scrollView width: \(frontImageScrollView.frame.size.width), rctImageView width: \(rCTImageView.frame.size.width)")
         
         updateScrollViews()
     }
@@ -639,4 +653,88 @@ extension RCT_EditViewController: UIScrollViewDelegate {
             return self.backImageView
         }
     }
+    
 }
+
+// MARK: - PanGestureViewProtocol
+
+extension RCT_EditViewController: PanGestureViewProtocol {
+    
+    func detectLongPress(recognizer: UILongPressGestureRecognizer) {
+        
+        if recognizer.state.rawValue == 1 && rCTImage?.layout == Layout.PictureInPicture {
+            frontImageZoomableView.toggleIsMoveable()
+            print("Long press ended")
+        }
+    }
+    
+    func panDetected(center: CGPoint) {
+        
+        let relativeXPosition = (center.x - rCTImageView.bounds.width/2)
+        let relativeYPosition = (center.y - rCTImageView.bounds.height/2)
+        let leftmostBound = (-(rCTImageView.bounds.width/2) + frontImageZoomableView.bounds.width/2)
+        let rightmostBound = (rCTImageView.bounds.width/2 - frontImageZoomableView.bounds.width/2)
+        let uppermostBound = (rCTImageView.bounds.height/2 - frontImageZoomableView.bounds.height/2)
+        let lowermostBound = (-(rCTImageView.bounds.height/2) + (frontImageZoomableView.bounds.height/2))
+        
+        [self.frontImageBottomConstraint, self.frontImageTrailingConstraint].forEach { (constraint) -> () in
+            if constraint != nil {
+                rCTImageView.removeConstraint(constraint)
+            }
+        }
+
+        
+        if relativeXPosition > leftmostBound && relativeXPosition < rightmostBound {
+            
+            // Not out of bounds, constrain to relative X position
+            frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: relativeXPosition)
+            print("X is valid")
+
+        } else {
+            print("X is not valid")
+            if relativeXPosition > 0 {
+        
+                // Out of bounds on the right side, constrain to rightmost bound
+                frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: rightmostBound)
+            } else {
+                
+                // Out of bounds on the left side, constrain to leftmost bound
+                frontImageTrailingConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterX, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterX, multiplier: 1.0, constant: leftmostBound)
+
+            }
+        }
+        
+        if relativeYPosition > lowermostBound  && relativeYPosition < uppermostBound {
+            
+            // Not out of bounds, constrain to relative Y position
+            frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: relativeYPosition)
+            print("Y is valid")
+        } else {
+            print("Y is not valid")
+            if relativeYPosition < 0 {
+                
+                // Out of bounds on the lower side, constrain to lowermost bound
+                frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: lowermostBound)
+
+            } else {
+                
+                // Out of bounds on the upper side, constrain to uppermost bound
+                frontImageBottomConstraint = NSLayoutConstraint(item: frontImageZoomableView, attribute: .CenterY, relatedBy: .Equal, toItem: rCTImageView, attribute: .CenterY, multiplier: 1.0, constant: uppermostBound)
+
+            }
+        }
+        
+//        print("rctimageview center: \(rCTImageView.center); pan center: \(center); frontImageView center: \(rCTImageView.frame.width - rCTImageView.frame.width/4), \(rCTImageView.frame.height - rCTImageView.frame.height/4)")
+        
+        
+        
+//        print("\(frontImageBottomConstraint)\n\(frontImageBottomConstraint)")
+        rCTImageView.addConstraints([self.frontImageBottomConstraint, self.frontImageTrailingConstraint])
+    }
+    
+    
+    
+    
+    
+}
+
