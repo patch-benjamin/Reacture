@@ -27,7 +27,11 @@ class RCT_CameraViewController: UIViewController {
         setupButtons()
 
     }
-    
+
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -316,7 +320,7 @@ class RCT_CameraViewController: UIViewController {
         shutterButton.center.x = self.view.center.x
         shutterButton.frame.origin.y = self.view.frame.size.height - shutterButton.frame.size.height - 10
         shutterButton.layer.borderColor = UIColor.whiteColor().CGColor
-        shutterButton.layer.borderWidth = 1
+        shutterButton.layer.borderWidth = 2
         shutterButton.layer.cornerRadius = width / 2
         shutterButton.backgroundColor = UIColor.redColor()
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)

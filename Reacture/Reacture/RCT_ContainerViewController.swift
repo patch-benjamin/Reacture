@@ -16,6 +16,8 @@ protocol RCT_ContainerViewControllerProtocol {
 
 class RCT_ContainerViewController: UIViewController {
 
+    var selectedBox = UIView()
+
     @IBOutlet weak var collectionView: UICollectionView!
 
     // Filter Button Images
@@ -25,6 +27,7 @@ class RCT_ContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         setupCollectionView()
+        setupSelectedBox()
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: "handleReloadCollectionNotification", name: "reloadCollectionView", object: nil)
         nc.addObserver(self, selector: "handleFilterButtonImagesNotification:", name: "Filter Button Images Complete", object: nil)
@@ -70,7 +73,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
 
         cell.layer.cornerRadius = 7.5
         cell.layer.borderColor = UIColor.whiteColor().CGColor
-        cell.layer.borderWidth = 2.0
+        cell.layer.borderWidth = 1.0
 
         if kIsLayoutSelected == true {
             //            cell.label.text = String(Layout(rawValue: indexPath.item)!)
@@ -83,7 +86,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         } else {
             // Filter Selected
             cell.label.textColor = UIColor.whiteColor()
-            cell.label.font = UIFont.systemFontOfSize(18, weight: 5)
+            cell.label.font = UIFont.systemFontOfSize(18, weight: 1)
             cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
             cell.label.frame.size.width = cell.frame.size.width
             let labelText = String(Filter(rawValue: indexPath.item)!)
@@ -107,8 +110,21 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
             return Filter.Count.rawValue
         }
     }
-    
+
+    func setupSelectedBox() {
+        selectedBox.backgroundColor = UIColor.redColor()
+        selectedBox.frame = CGRect (x: 0, y: 0, width: 0, height: 0)
+        selectedBox.layer.cornerRadius = 7.5
+        collectionView.addSubview(selectedBox)
+    }
+
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        let frame1 = collectionView.cellForItemAtIndexPath(indexPath)?.frame
+        let frame = CGRect(x: (frame1?.origin.x)! - 2, y: (frame1?.origin.y)! - 2, width: (frame1?.width)! + 4, height: (frame1?.height)! + 4)
+        self.selectedBox.frame = frame
+        self.collectionView.sendSubviewToBack(self.selectedBox)
+
         delegate?.itemSelected(indexPath)
     }
 }

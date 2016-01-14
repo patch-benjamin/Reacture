@@ -14,6 +14,8 @@ class RCT_EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = UIColor.blackColor()
+
         //        logAllFilters() // Uncomment to retrieve filter strings
 
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
@@ -33,6 +35,10 @@ class RCT_EditViewController: UIViewController {
         }
         setupScrollViews()
         setupFilters()
+    }
+
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -284,6 +290,7 @@ class RCT_EditViewController: UIViewController {
 extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
 
     func itemSelected(indexPath: NSIndexPath) {
+
         if kIsLayoutSelected! {
             let layoutSelected = Layout(rawValue: indexPath.item)!
             updateWithLayout(layoutSelected)
