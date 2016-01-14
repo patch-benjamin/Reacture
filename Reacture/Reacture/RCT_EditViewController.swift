@@ -27,11 +27,13 @@ class RCT_EditViewController: UIViewController {
         setupScrollViews()
         setupFilters()
     }
-
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         updateWithLayout(Layout(rawValue: 0)!)
         print("veiwDidAppear: rctImageView width: \(rCTImageView.frame.width), rctImageView height: \(rCTImageView.frame.height)")
+
     }
 
     func SetMockData() {
