@@ -272,7 +272,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CER-jF-lHb">
-                                                    <rect key="frame" x="8" y="30" width="64" height="21"/>
+                                                    <rect key="frame" x="0.0" y="56.5" width="80" height="20.5"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.24523572976878613" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -284,12 +285,23 @@
                                             <constraint firstItem="CER-jF-lHb" firstAttribute="centerY" secondItem="e8N-iX-Hld" secondAttribute="centerY" id="0Nb-G5-bF0"/>
                                             <constraint firstItem="CER-jF-lHb" firstAttribute="leading" secondItem="e8N-iX-Hld" secondAttribute="leadingMargin" id="0vh-B8-Orp"/>
                                             <constraint firstAttribute="bottom" secondItem="RM8-x0-apE" secondAttribute="bottom" id="BU0-V3-vA7"/>
+                                            <constraint firstAttribute="trailing" secondItem="CER-jF-lHb" secondAttribute="trailing" id="FgQ-ht-2vm"/>
                                             <constraint firstItem="CER-jF-lHb" firstAttribute="centerX" secondItem="e8N-iX-Hld" secondAttribute="centerX" id="Fgb-Xo-KMR"/>
                                             <constraint firstItem="RM8-x0-apE" firstAttribute="leading" secondItem="e8N-iX-Hld" secondAttribute="leading" id="MYK-5X-H15"/>
                                             <constraint firstItem="RM8-x0-apE" firstAttribute="top" secondItem="e8N-iX-Hld" secondAttribute="top" id="PF7-T3-5kA"/>
                                             <constraint firstAttribute="trailing" secondItem="RM8-x0-apE" secondAttribute="trailing" id="YbL-8t-0yO"/>
+                                            <constraint firstAttribute="bottom" secondItem="CER-jF-lHb" secondAttribute="bottom" constant="3" id="hNC-J4-vE2"/>
+                                            <constraint firstItem="CER-jF-lHb" firstAttribute="leading" secondItem="e8N-iX-Hld" secondAttribute="leading" id="nnI-m8-5E8"/>
                                             <constraint firstItem="CER-jF-lHb" firstAttribute="trailing" secondItem="e8N-iX-Hld" secondAttribute="trailingMargin" id="uKx-Vu-GGk"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="0Nb-G5-bF0"/>
+                                                <exclude reference="0vh-B8-Orp"/>
+                                                <exclude reference="Fgb-Xo-KMR"/>
+                                                <exclude reference="uKx-Vu-GGk"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="imageView" destination="RM8-x0-apE" id="RPP-Ld-Yy7"/>
                                             <outlet property="label" destination="CER-jF-lHb" id="LJl-K4-SFZ"/>

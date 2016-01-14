@@ -82,10 +82,8 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
 
         } else {
             // Filter Selected
-            cell.label.translatesAutoresizingMaskIntoConstraints = true
             cell.label.textColor = UIColor.whiteColor()
             cell.label.font = UIFont.systemFontOfSize(18, weight: 5)
-            cell.label.frame.origin = CGPoint(x: 0, y: cell.frame.size.height - cell.label.frame.size.height - 2.5)
             cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
             cell.label.frame.size.width = cell.frame.size.width
             let labelText = String(Filter(rawValue: indexPath.item)!)
