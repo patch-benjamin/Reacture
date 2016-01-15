@@ -23,15 +23,7 @@ enum MaskLayout: Int {
     TopRight,
     BottomLeft,
     TopLeft,
-    BottomRight,
-    Top,
-    Bottom,
-    Left,
-    Right,
-    SmallPictureBottomRight,
-    SmallPictureBottomLeft,
-    SmallPictureTopRight,
-    SmallPictureTopLeft
+    BottomRight
 }
 
 enum Filter: Int {

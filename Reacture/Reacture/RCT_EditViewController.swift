@@ -36,6 +36,10 @@ class RCT_EditViewController: UIViewController {
         return true
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func SetMockData() {
         //        let frontImage = UIImage(named: "mock_selfie")
         //        let backImage = UIImage(named: "mock_landscape")
@@ -63,7 +67,7 @@ class RCT_EditViewController: UIViewController {
     
     var frontImageZoomableView = PanGestureView()
     var frontImageScrollView = UIScrollView()
-    var backImageZoomableView = UIView()
+    var backImageZoomableView = ZoomableView()
     var backImageScrollView = UIScrollView()
     
     // MARK: Filter Variables
@@ -160,7 +164,7 @@ class RCT_EditViewController: UIViewController {
         // setup zoomable views
         frontImageZoomableView = PanGestureView(frame: CGRectMake(0.0, 0.0, rCTImageView.bounds.width, rCTImageView.bounds.height/2))
         frontImageZoomableView.delegate = self
-        backImageZoomableView = UIView(frame: CGRectMake(0.0, rCTImageView.bounds.maxY/2, rCTImageView.bounds.width, rCTImageView.bounds.height/2))
+        backImageZoomableView = ZoomableView(frame: CGRectMake(0.0, rCTImageView.bounds.maxY/2, rCTImageView.bounds.width, rCTImageView.bounds.height/2))
         
         rCTImageView.addSubview(backImageZoomableView)
         rCTImageView.addSubview(frontImageZoomableView)
@@ -177,7 +181,9 @@ class RCT_EditViewController: UIViewController {
         backImageScrollView.backgroundColor = UIColor.blackColor()
         
         frontImageZoomableView.addSubview(frontImageScrollView)
+        frontImageZoomableView.scrollView = frontImageScrollView
         backImageZoomableView.addSubview(backImageScrollView)
+        backImageZoomableView.scrollView = frontImageScrollView
         
         // Setup Image views
         self.frontImageView = UIImageView(image: rCTImage.imageFrontUIImage)
@@ -556,10 +562,18 @@ extension RCT_EditViewController {
 
 extension RCT_EditViewController {
     
+    func clearMasks() {
+
+        self.frontImageZoomableView.maskLayout = MaskLayout.None
+        self.backImageZoomableView.maskLayout = MaskLayout.None
+        RCT_LayoutController.isCornersLayout = false
+
+    }
+    
     func updateWithLayout(layout: Layout) {
         
         self.rCTImage?.layout = layout
-        RCT_LayoutController.isCornersLayout = false
+        clearMasks()
         
         var frontImageX: CGFloat
         var frontImageY: CGFloat
@@ -619,7 +633,9 @@ extension RCT_EditViewController {
             backImageY = 0.0
             backImageWidth = rCTImageView.bounds.width
             backImageHeight = rCTImageView.bounds.height
-
+            
+            frontImageZoomableView.maskLayout = MaskLayout.TopLeft
+            backImageZoomableView.maskLayout = MaskLayout.BottomRight
             
         case .UpperRightLowerLeft:
             
@@ -632,6 +648,9 @@ extension RCT_EditViewController {
             backImageY = 0.0
             backImageWidth = rCTImageView.bounds.width
             backImageHeight = rCTImageView.bounds.height
+            
+            frontImageZoomableView.maskLayout = MaskLayout.TopRight
+            backImageZoomableView.maskLayout = MaskLayout.BottomLeft
             
         case .Count:
             
