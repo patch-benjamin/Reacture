@@ -275,6 +275,7 @@ class RCT_EditViewController: UIViewController {
         // Reload Collection View Data
         let nc = NSNotificationCenter.defaultCenter()
         nc.postNotificationName("reloadCollectionView", object: self)
+        frontImageZoomableView.removeIsMovableView()
     }
     
     @IBAction func filterButtonTapped(sender: AnyObject) {
@@ -285,6 +286,7 @@ class RCT_EditViewController: UIViewController {
         // Reload Collection View Data
         let nc = NSNotificationCenter.defaultCenter()
         nc.postNotificationName("reloadCollectionView", object: self)
+        frontImageZoomableView.removeIsMovableView()
     }
     
     func animateContainerView() {
@@ -627,6 +629,7 @@ extension RCT_EditViewController {
         frontImageScrollView.frame = frontImageZoomableView.bounds
         backImageScrollView.frame = backImageZoomableView.bounds
         updateScrollViews()
+        frontImageZoomableView.removeIsMovableView()
     }
 }
 
