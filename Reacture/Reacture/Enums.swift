@@ -12,6 +12,8 @@ enum Layout: Int {
     
     case TopBottom = 0,
     LeftRight,
+    UpperLeftLowerRight,
+    UpperRightLowerLeft,
     PictureInPicture,
     Count
 }

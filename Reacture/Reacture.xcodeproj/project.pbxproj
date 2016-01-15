@@ -22,6 +22,7 @@
 		719224491C3D862E00CEE9E4 /* RCT_LayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719224481C3D862E00CEE9E4 /* RCT_LayoutController.swift */; };
 		7192244B1C3D863700CEE9E4 /* RCT_FiltersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7192244A1C3D863700CEE9E4 /* RCT_FiltersController.swift */; };
 		7192244D1C3D8DF500CEE9E4 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7192244C1C3D8DF500CEE9E4 /* Enums.swift */; };
+		71C889AA1C49AF8600F6119C /* ZoomableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C889A91C49AF8600F6119C /* ZoomableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		719224481C3D862E00CEE9E4 /* RCT_LayoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_LayoutController.swift; sourceTree = "<group>"; };
 		7192244A1C3D863700CEE9E4 /* RCT_FiltersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_FiltersController.swift; sourceTree = "<group>"; };
 		7192244C1C3D8DF500CEE9E4 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		71C889A91C49AF8600F6119C /* ZoomableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				2491CDBF1C46FF3C00748664 /* PanGestureView.swift */,
+				71C889A91C49AF8600F6119C /* ZoomableView.swift */,
 				716D6A2B1C3C462B00B762F9 /* Main.storyboard */,
 				24B871751C3C5CCB0019DB37 /* ViewControllers */,
 				24B871761C3C5CDA0019DB37 /* Model */,
@@ -202,6 +205,7 @@
 				7192243F1C3C80D600CEE9E4 /* RCT_Image.swift in Sources */,
 				7192244B1C3D863700CEE9E4 /* RCT_FiltersController.swift in Sources */,
 				7192244D1C3D8DF500CEE9E4 /* Enums.swift in Sources */,
+				71C889AA1C49AF8600F6119C /* ZoomableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

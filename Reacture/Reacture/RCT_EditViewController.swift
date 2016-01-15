@@ -559,6 +559,8 @@ extension RCT_EditViewController {
     func updateWithLayout(layout: Layout) {
         
         self.rCTImage?.layout = layout
+        RCT_LayoutController.isCornersLayout = false
+        
         var frontImageX: CGFloat
         var frontImageY: CGFloat
         var frontImageWidth: CGFloat
@@ -601,6 +603,31 @@ extension RCT_EditViewController {
             frontImageY = (rCTImageView.bounds.maxY - (rCTImageView.bounds.maxY/3 + yBuffer))
             frontImageWidth = rCTImageView.bounds.width/3
             frontImageHeight = rCTImageView.bounds.height/3
+            backImageX = 0.0
+            backImageY = 0.0
+            backImageWidth = rCTImageView.bounds.width
+            backImageHeight = rCTImageView.bounds.height
+            
+        case .UpperLeftLowerRight:
+
+            RCT_LayoutController.isCornersLayout = true
+            frontImageX = 0.0
+            frontImageY = 0.0
+            frontImageWidth = rCTImageView.bounds.width
+            frontImageHeight = rCTImageView.bounds.height
+            backImageX = 0.0
+            backImageY = 0.0
+            backImageWidth = rCTImageView.bounds.width
+            backImageHeight = rCTImageView.bounds.height
+
+            
+        case .UpperRightLowerLeft:
+            
+            RCT_LayoutController.isCornersLayout = true
+            frontImageX = 0.0
+            frontImageY = 0.0
+            frontImageWidth = rCTImageView.bounds.width
+            frontImageHeight = rCTImageView.bounds.height
             backImageX = 0.0
             backImageY = 0.0
             backImageWidth = rCTImageView.bounds.width

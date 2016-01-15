@@ -12,6 +12,7 @@ import UIKit
 class RCT_LayoutController {
     
     // MARK: U
+    static var isCornersLayout: Bool = false
     
     static func updateWithLayout(layout: Layout, image: RCT_Image, view: UIView) {
         
