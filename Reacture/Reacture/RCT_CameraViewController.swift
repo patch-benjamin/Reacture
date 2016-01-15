@@ -264,11 +264,25 @@ class RCT_CameraViewController: UIViewController {
             //session.sessionPreset = AVCaptureSessionPresetPhoto
             if let connection = self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
                 print("connection established")
-                connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
+                
+                var orientation: AVCaptureVideoOrientation
+                switch UIDevice.currentDevice().orientation {
+                case .Portrait:
+                    orientation = .Portrait
+                case .PortraitUpsideDown:
+                    orientation = .PortraitUpsideDown
+                case .LandscapeLeft:
+                    orientation = .LandscapeRight
+                case .LandscapeRight:
+                    orientation = .LandscapeLeft
+                default:
+                    orientation = .Portrait
+                }
+                
+                connection.videoOrientation = orientation
 
                 //TODO: change code to allow landscape
 
-                print(UIDevice.currentDevice().orientation.rawValue)
                 self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (cmSampleBuffer, error) -> Void in
                     if let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(cmSampleBuffer) {
                         completion(data: imageData)
