@@ -105,7 +105,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
 
         cell.layer.cornerRadius = 7.5
         cell.layer.borderColor = UIColor.whiteColor().CGColor
-        cell.layer.borderWidth = 1.0
+        cell.layer.borderWidth = 0.0
 
         if indexPath.item == 0 && selectedFrameZero == nil {
             let frame1 = cell.frame
@@ -136,6 +136,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 let imageView = arrayOfFilterButtonImageViews[indexPath.item]
                 let image = imageView.image
                 cell.imageView.image = image
+                cell.imageView.contentMode = .ScaleAspectFill
             }
 
         }

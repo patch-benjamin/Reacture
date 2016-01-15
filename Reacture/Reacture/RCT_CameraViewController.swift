@@ -195,6 +195,7 @@ class RCT_CameraViewController: UIViewController {
             // Back is Preview, Switching to Front
             UIView.transitionWithView(self.previewView, duration: 0.5, options: [UIViewAnimationOptions.CurveEaseInOut, UIViewAnimationOptions.TransitionFlipFromRight], animations: { () -> Void in
                 //self.previewView.hidden = true
+                 print("Animating flip preview to front")
                 UIView.animateWithDuration(0.1, animations: { () -> Void in
                     self.previewView.alpha = 0
                 })
@@ -222,6 +223,7 @@ class RCT_CameraViewController: UIViewController {
 
             UIView.transitionWithView(self.previewView, duration: 0.5, options: [UIViewAnimationOptions.CurveEaseInOut, UIViewAnimationOptions.TransitionFlipFromRight], animations: { () -> Void in
                 self.previewView.hidden = true
+                print("Animating flip preview to front")
                 UIView.animateWithDuration(0.1, animations: { () -> Void in
                     self.previewView.alpha = 0
                 })
@@ -277,9 +279,10 @@ class RCT_CameraViewController: UIViewController {
     }
 
     override func viewDidDisappear(animated: Bool) {
-        self.view.layer.addSublayer(self.previewLayer)
+        self.previewView.layer.addSublayer(self.previewLayer)
         self.view.bringSubviewToFront(self.shutterButton)
         self.view.bringSubviewToFront(self.switchCameraButton)
+        self.view.bringSubviewToFront(iSightFlashButton)
     }
 
     func setDarkBackground() {
@@ -436,17 +439,26 @@ extension RCT_CameraViewController {
     }
 
     func setupPreview() {
-
+        
         // Setting size of preview
         previewView.frame = self.view.frame
+        previewView.center.x = self.view.center.x
         self.view.addSubview(previewView)
         self.view.bringSubviewToFront(previewView)
         print("Setting up preview")
         previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSesson)
+        
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        
+        print("\(previewLayer.frame.size)")
         previewView.layer.addSublayer(self.previewLayer)
-        previewLayer.frame = self.view.layer.frame
+        previewLayer.frame = self.previewView.frame
+        
+        self.view.bringSubviewToFront(shutterButton)
         self.view.bringSubviewToFront(switchCameraButton)
         self.view.bringSubviewToFront(iSightFlashButton)
+        //print("PreviewLayer: \(previewLayer.bounds.size) PreviewView: \(previewView.bounds.size)")
+
     }
     
     func flipPreviewLayer(animationOption: UIViewAnimationOptions) {
