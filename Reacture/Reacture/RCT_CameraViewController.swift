@@ -315,9 +315,7 @@ class RCT_CameraViewController: UIViewController {
         if segue.identifier == "ToEditView" {
 
             let editVC = segue.destinationViewController as! RCT_EditViewController
-
-            //            editVC.loadView()
-            //
+            
             editVC.setupController(self.rCTImage!)
 
         }

@@ -125,65 +125,13 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
                                         <rect key="frame" x="0.0" y="36" width="414" height="414"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTc-NQ-pjG">
-                                                <rect key="frame" x="0.0" y="207" width="414" height="207"/>
-                                                <subviews>
-                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Xkt-fU-ajC">
-                                                        <rect key="frame" x="-1" y="0.0" width="415" height="207"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="AIB-wN-uwu" id="rr3-qX-oh5"/>
-                                                        </connections>
-                                                    </scrollView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.99481526170000001" green="1" blue="0.069629195029999993" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="Xkt-fU-ajC" secondAttribute="trailing" id="Hcj-5x-Ena"/>
-                                                    <constraint firstItem="Xkt-fU-ajC" firstAttribute="top" secondItem="hTc-NQ-pjG" secondAttribute="top" id="e1p-W5-Hn2"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Xkt-fU-ajC" secondAttribute="bottom" id="fjl-n8-0Pq"/>
-                                                    <constraint firstItem="Xkt-fU-ajC" firstAttribute="leading" secondItem="hTc-NQ-pjG" secondAttribute="leading" constant="-1" id="myD-m2-MI3"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OsU-33-awx" customClass="PanGestureView" customModule="Reacture" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="207"/>
-                                                <subviews>
-                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="4x9-My-hZt">
-                                                        <rect key="frame" x="-1" y="0.0" width="415" height="207"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="AIB-wN-uwu" id="iTx-uj-1qX"/>
-                                                        </connections>
-                                                    </scrollView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.52931540030000002" green="0.91590544870000001" blue="0.87043815879999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="4x9-My-hZt" secondAttribute="trailing" id="RnW-Z6-URF"/>
-                                                    <constraint firstAttribute="bottom" secondItem="4x9-My-hZt" secondAttribute="bottom" id="TLQ-HK-9Ux"/>
-                                                    <constraint firstItem="4x9-My-hZt" firstAttribute="top" secondItem="OsU-33-awx" secondAttribute="top" id="ffC-Ib-ATm"/>
-                                                    <constraint firstItem="4x9-My-hZt" firstAttribute="leading" secondItem="OsU-33-awx" secondAttribute="leading" constant="-1" id="ql2-7i-fdh"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
                                         <color key="backgroundColor" red="0.58280308420000004" green="0.79040464740000005" blue="0.19517801730000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="hTc-NQ-pjG" firstAttribute="width" secondItem="Hu3-fH-eJk" secondAttribute="width" id="2lT-Kq-REq"/>
-                                            <constraint firstItem="hTc-NQ-pjG" firstAttribute="top" secondItem="OsU-33-awx" secondAttribute="bottom" id="44j-Ob-pqA"/>
-                                            <constraint firstAttribute="trailing" secondItem="hTc-NQ-pjG" secondAttribute="trailing" id="7l2-1h-sw7"/>
-                                            <constraint firstItem="hTc-NQ-pjG" firstAttribute="leading" secondItem="Hu3-fH-eJk" secondAttribute="leading" id="BAD-an-jW8"/>
-                                            <constraint firstAttribute="bottom" secondItem="hTc-NQ-pjG" secondAttribute="bottom" id="GGk-nO-f33"/>
                                             <constraint firstAttribute="width" secondItem="Hu3-fH-eJk" secondAttribute="height" multiplier="1:1" id="PJ3-Oq-ENL"/>
-                                            <constraint firstItem="OsU-33-awx" firstAttribute="top" secondItem="Hu3-fH-eJk" secondAttribute="top" id="Swg-45-aKa"/>
-                                            <constraint firstItem="hTc-NQ-pjG" firstAttribute="height" secondItem="Hu3-fH-eJk" secondAttribute="height" multiplier="0.5" id="Vga-OH-spR"/>
-                                            <constraint firstItem="OsU-33-awx" firstAttribute="width" secondItem="Hu3-fH-eJk" secondAttribute="width" id="VrT-ec-mpV"/>
-                                            <constraint firstAttribute="trailing" secondItem="OsU-33-awx" secondAttribute="trailing" id="agk-lC-uCN"/>
-                                            <constraint firstItem="OsU-33-awx" firstAttribute="height" secondItem="Hu3-fH-eJk" secondAttribute="height" multiplier="0.5" id="oBl-x7-lat"/>
-                                            <constraint firstItem="OsU-33-awx" firstAttribute="leading" secondItem="Hu3-fH-eJk" secondAttribute="leading" id="sZ8-Eq-PJr"/>
-                                            <constraint firstItem="hTc-NQ-pjG" firstAttribute="top" secondItem="OsU-33-awx" secondAttribute="bottom" id="tH2-kX-eTj"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Hu3-fH-eJk" secondAttribute="trailing" id="Jq5-T8-ibJ"/>
                                     <constraint firstItem="Hu3-fH-eJk" firstAttribute="centerY" secondItem="bps-GF-H7p" secondAttribute="centerY" id="MfM-B7-KOU"/>
@@ -213,24 +161,8 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="backImageBottomConstraint" destination="GGk-nO-f33" id="IgX-yJ-oOK"/>
-                        <outlet property="backImageHeightConstraint" destination="Vga-OH-spR" id="xuH-RS-8YT"/>
-                        <outlet property="backImageLeadingConstraint" destination="BAD-an-jW8" id="RrL-JD-KwU"/>
-                        <outlet property="backImageScrollView" destination="Xkt-fU-ajC" id="OYY-h6-9J9"/>
-                        <outlet property="backImageTopConstraint" destination="tH2-kX-eTj" id="Ll4-wU-Iy3"/>
-                        <outlet property="backImageTrailingConstraint" destination="7l2-1h-sw7" id="R1S-4z-bxF"/>
-                        <outlet property="backImageWidthConstraint" destination="2lT-Kq-REq" id="goo-Dz-QSk"/>
-                        <outlet property="backImageZoomableView" destination="hTc-NQ-pjG" id="c8u-nr-QFF"/>
                         <outlet property="containerView" destination="Qpj-PE-9Wz" id="jjA-NK-jL9"/>
                         <outlet property="filterButton" destination="R8C-Lz-DjJ" id="QkE-Ag-dXq"/>
-                        <outlet property="frontImageBottomConstraint" destination="44j-Ob-pqA" id="TLG-ic-fJX"/>
-                        <outlet property="frontImageHeightConstraint" destination="oBl-x7-lat" id="1gi-1q-7ix"/>
-                        <outlet property="frontImageLeadingConstraint" destination="sZ8-Eq-PJr" id="xlc-pE-kFx"/>
-                        <outlet property="frontImageScrollView" destination="4x9-My-hZt" id="A3L-Ve-eFf"/>
-                        <outlet property="frontImageTopConstraint" destination="Swg-45-aKa" id="ECs-mT-SCL"/>
-                        <outlet property="frontImageTrailingConstraint" destination="agk-lC-uCN" id="hev-Tl-gGi"/>
-                        <outlet property="frontImageWidthConstraint" destination="VrT-ec-mpV" id="daG-dX-gbe"/>
-                        <outlet property="frontImageZoomableView" destination="OsU-33-awx" id="wZD-FX-Wki"/>
                         <outlet property="layoutButton" destination="Jxs-yj-rgW" id="Vvg-jy-Wov"/>
                         <outlet property="rCTImageView" destination="Hu3-fH-eJk" id="aIw-Pj-mA2"/>
                     </connections>
@@ -271,8 +203,8 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RM8-x0-apE">
                                                     <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CER-jF-lHb">
-                                                    <rect key="frame" x="0.0" y="56.5" width="80" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CER-jF-lHb">
+                                                    <rect key="frame" x="0.0" y="57" width="80" height="20"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.24523572976878613" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
