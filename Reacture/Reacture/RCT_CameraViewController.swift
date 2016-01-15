@@ -2,7 +2,7 @@
 //  CameraViewController.swift
 //  Reacture
 //
-//  Created by Ben Patch on 1/5/16.
+//  Created by Ben Patch on 1/5/16. Amended by Eric Mead on 1/14/16. Amended by Paul Adams on 1/14/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
@@ -190,32 +190,59 @@ class RCT_CameraViewController: UIViewController {
 
         print("Camera Switched")
 
-        if backCameraIsPreview == true {
+        if self.backCameraIsPreview == true {
 
             // Back is Preview, Switching to Front
-            print("Switching to Front Preview")
-            self.captureSesson.beginConfiguration()
+            UIView.transitionWithView(self.previewView, duration: 0.5, options: [UIViewAnimationOptions.CurveEaseInOut, UIViewAnimationOptions.TransitionFlipFromRight], animations: { () -> Void in
+                //self.previewView.hidden = true
+                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                    self.previewView.alpha = 0
+                })
+                }, completion: {_ in
+                    self.previewView.hidden = false
+                    UIView.animateWithDuration(0.1, animations: { () -> Void in
+                        self.previewView.alpha = 1
+                    })
+            })
 
-            // This is questionable if we need to do this switch
-            self.captureSesson.removeInput(self.backInput)
-            self.captureSesson.addInput(self.frontInput)
-            self.captureSesson.commitConfiguration()
-            backCameraIsPreview = false
+            delay(seconds: 0.1, completion: { () -> () in
+
+                print("Switching to Front Preview")
+                self.captureSesson.beginConfiguration()
+                self.captureSesson.removeInput(self.backInput)
+                self.captureSesson.addInput(self.frontInput)
+                self.captureSesson.commitConfiguration()
+                self.backCameraIsPreview = false
+            })
 
         } else {
 
             // Front is Preview, Switching to Back
             print("Switching to Back Preview")
-            self.captureSesson.beginConfiguration()
 
-            // This is questionable if we need to do this switch
-            self.captureSesson.removeInput(self.frontInput)
-            self.captureSesson.addInput(self.backInput)
-            self.captureSesson.commitConfiguration()
-            backCameraIsPreview = true
+            UIView.transitionWithView(self.previewView, duration: 0.5, options: [UIViewAnimationOptions.CurveEaseInOut, UIViewAnimationOptions.TransitionFlipFromRight], animations: { () -> Void in
+                self.previewView.hidden = true
+                UIView.animateWithDuration(0.1, animations: { () -> Void in
+                    self.previewView.alpha = 0
+                })
+                }, completion: {_ in
+                    self.previewView.hidden = false
+                    UIView.animateWithDuration(0.1, animations: { () -> Void in
+                        self.previewView.alpha = 1
+                    })
+            })
+
+            delay(seconds: 0.1, completion: { () -> () in
+
+                self.captureSesson.beginConfiguration()
+                self.captureSesson.removeInput(self.frontInput)
+                self.captureSesson.addInput(self.backInput)
+                self.captureSesson.commitConfiguration()
+                self.backCameraIsPreview = true
+            })
+
         }
 
-        //flipPreviewLayer(UIViewAnimationOptions.TransitionFlipFromRight)
     }
 
     // MARK: Functions
@@ -421,29 +448,30 @@ extension RCT_CameraViewController {
         self.view.bringSubviewToFront(switchCameraButton)
         self.view.bringSubviewToFront(iSightFlashButton)
     }
-
+    
     func flipPreviewLayer(animationOption: UIViewAnimationOptions) {
-
-        var image = UIImage()
-        var imageView = UIImageView()
-
-        func imageCapture() {
-            print("Attempted Preview Capture")
-            UIGraphicsBeginImageContextWithOptions(self.previewView.frame.size, view.opaque, 0.0)
-            self.previewView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-            image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-        }
-
-        imageCapture()
-        imageView.image = image
-//        self.previewView.hidden = true
+        
+        //self.previewView.hidden = true
+        
+        //      UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .CurveEaseInOut, animations: { () -> Void in
+        //
+        //        self.previewView.center.x += self.view.bounds.width
+        //
+        //        }, completion: { _ in
+        //            self.previewView.hidden = true
+        //            self.previewView.center.x -= self.view.bounds.width * 2
+        //            self.previewView.hidden = false
+        //            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2, options: .CurveEaseInOut, animations: { () -> Void in
+        //                    self.previewView.center.x += self.view.bounds.width
+        //
+        //                }, completion: nil)
+        //
+        //      })
+        
         UIView.transitionWithView(self.previewView, duration: 1, options: [UIViewAnimationOptions.CurveEaseInOut, animationOption], animations: { () -> Void in
             self.previewView.hidden = false
             }, completion: {_ in
-                self.previewView.addSubview(imageView)
-                self.previewView.bringSubviewToFront(imageView)
-//                imageView.removeFromSuperview()
+                
         })
     }
 }
