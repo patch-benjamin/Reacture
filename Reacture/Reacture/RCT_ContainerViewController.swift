@@ -16,6 +16,9 @@ protocol RCT_ContainerViewControllerProtocol {
 
 class RCT_ContainerViewController: UIViewController {
 
+    var selectedFrameZero: CGRect?
+    var selectedFrameLayout: CGRect?
+    var selectedFrameFilter: CGRect?
     var selectedBox = UIView()
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -26,8 +29,9 @@ class RCT_ContainerViewController: UIViewController {
     var delegate: RCT_ContainerViewControllerProtocol?
 
     override func viewDidLoad() {
+
         setupCollectionView()
-        setupSelectedBox()
+        //setupSelectedBox()
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: "handleReloadCollectionNotification", name: "reloadCollectionView", object: nil)
         nc.addObserver(self, selector: "handleFilterButtonImagesNotification:", name: "Filter Button Images Complete", object: nil)
@@ -44,7 +48,7 @@ class RCT_ContainerViewController: UIViewController {
     }
 
     func handleReloadCollectionNotification() {
-        //        print("Collection View Reloaded")
+               print("Collection View Reloaded")
         //        if kIsLayoutSelected == true {
         //            self.itemCount = Layout.count.rawValue
         //        } else {
@@ -52,6 +56,33 @@ class RCT_ContainerViewController: UIViewController {
         //            self.itemCount = Filter.count.rawValue
         //        }
         collectionView.reloadData()
+
+        if kIsLayoutSelected == true {
+             // it is layout
+            // if there is already a selection:
+            if let frame = selectedFrameLayout {
+                selectedBox.frame = frame
+            } else {
+                // set to cell at index zero
+                if let frame = selectedFrameZero {
+                    selectedBox.frame = selectedFrameZero!
+                }
+            }
+
+        } else {
+            // it is filter
+            // if there is already a selection:
+            if let frame = selectedFrameFilter {
+                selectedBox.frame = frame
+            } else {
+                // set to cell at index zero
+                if let frame = selectedFrameZero {
+                    selectedBox.frame = selectedFrameZero!
+                }
+
+            }
+
+        }
     }
 
     func setupCollectionView() {
@@ -63,6 +94,7 @@ class RCT_ContainerViewController: UIViewController {
             print("Filter is Selected, Present Filter Options")
             //            self.itemCount = self.arrayOfFilterTitles.count
         }
+
     }
 }
 
@@ -74,6 +106,13 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         cell.layer.cornerRadius = 7.5
         cell.layer.borderColor = UIColor.whiteColor().CGColor
         cell.layer.borderWidth = 1.0
+
+        if indexPath.item == 0 && selectedFrameZero == nil {
+            let frame1 = cell.frame
+            let frame = CGRect(x: (frame1.origin.x) - 2, y: (frame1.origin.y) - 2, width: (frame1.width) + 4, height: (frame1.height) + 4)
+            selectedFrameZero = frame
+            setupSelectedBox()
+        }
 
         if kIsLayoutSelected == true {
             //            cell.label.text = String(Layout(rawValue: indexPath.item)!)
@@ -98,7 +137,10 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 let image = imageView.image
                 cell.imageView.image = image
             }
+
         }
+        self.collectionView.sendSubviewToBack(selectedBox)
+
         return cell
     }
 
@@ -114,15 +156,29 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
     func setupSelectedBox() {
         selectedBox.backgroundColor = UIColor.redColor()
         selectedBox.frame = CGRect (x: 0, y: 0, width: 0, height: 0)
+        if let frame = selectedFrameZero {
+            selectedBox.frame = frame
+        }
         selectedBox.layer.cornerRadius = 7.5
         collectionView.addSubview(selectedBox)
+        collectionView.sendSubviewToBack(selectedBox)
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
         let frame1 = collectionView.cellForItemAtIndexPath(indexPath)?.frame
         let frame = CGRect(x: (frame1?.origin.x)! - 2, y: (frame1?.origin.y)! - 2, width: (frame1?.width)! + 4, height: (frame1?.height)! + 4)
-        self.selectedBox.frame = frame
+
+        if kIsLayoutSelected == true {
+            // layout selected
+            self.selectedFrameLayout = frame
+            self.selectedBox.frame = self.selectedFrameLayout!
+        } else {
+            // filter selected
+            self.selectedFrameFilter = frame
+            self.selectedBox.frame = self.selectedFrameFilter!
+        }
+
         self.collectionView.sendSubviewToBack(self.selectedBox)
 
         delegate?.itemSelected(indexPath)
