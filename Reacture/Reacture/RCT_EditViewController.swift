@@ -36,8 +36,10 @@ class RCT_EditViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        updateWithLayout(Layout(rawValue: 0)!)
-//        print("veiwDidAppear: rctImageView width: \(rCTImageView.frame.width), rctImageView height: \(rCTImageView.frame.height)")
+        
+        // only update withLayout on first load
+        isFirstLoad ? (updateWithLayout(rCTImage!.layout)) : ()
+        isFirstLoad = false
     }
     
     func SetMockData() {
@@ -56,6 +58,8 @@ class RCT_EditViewController: UIViewController {
     // MARK: Variables
     //////////////////////////////
     //////////////////////////////
+    
+    var isFirstLoad: Bool = true
     
     var imageToSend: UIImage?
     var rCTImage: RCT_Image?
