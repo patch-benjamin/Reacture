@@ -103,13 +103,13 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OptionItemCell", forIndexPath: indexPath) as! RCT_OptionItemCollectionViewCell
 
-        cell.layer.cornerRadius = 7.5
-        cell.layer.borderColor = UIColor.whiteColor().CGColor
-        cell.layer.borderWidth = 0.0
+        cell.layer.cornerRadius = 3.8
+//        cell.layer.borderColor = UIColor.blackColor().CGColor
+//        cell.layer.borderWidth = 0.0
 
         if indexPath.item == 0 && selectedFrameZero == nil {
             let frame1 = cell.frame
-            let frame = CGRect(x: (frame1.origin.x) - 2, y: (frame1.origin.y) - 2, width: (frame1.width) + 4, height: (frame1.height) + 4)
+            let frame = CGRect(x: (frame1.origin.x) - 3, y: (frame1.origin.y) - 3, width: (frame1.width) + 6, height: (frame1.height) + 6)
             selectedFrameZero = frame
             setupSelectedBox()
         }
@@ -160,7 +160,8 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         if let frame = selectedFrameZero {
             selectedBox.frame = frame
         }
-        selectedBox.layer.cornerRadius = 7.5
+        selectedBox.layer.cornerRadius = 3.8
+
         collectionView.addSubview(selectedBox)
         collectionView.sendSubviewToBack(selectedBox)
     }
@@ -168,7 +169,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
         let frame1 = collectionView.cellForItemAtIndexPath(indexPath)?.frame
-        let frame = CGRect(x: (frame1?.origin.x)! - 2, y: (frame1?.origin.y)! - 2, width: (frame1?.width)! + 4, height: (frame1?.height)! + 4)
+        let frame = CGRect(x: (frame1?.origin.x)! - 3, y: (frame1?.origin.y)! - 3, width: (frame1?.width)! + 6, height: (frame1?.height)! + 6)
 
         if kIsLayoutSelected == true {
             // layout selected
