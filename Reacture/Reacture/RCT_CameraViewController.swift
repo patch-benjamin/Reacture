@@ -47,6 +47,7 @@ class RCT_CameraViewController: UIViewController {
     var frontCaptureDevice: AVCaptureDevice?
     var backCaptureDevice: AVCaptureDevice?
     var stillImageOutput = AVCaptureStillImageOutput()
+    let previewView = UIView()
     var previewLayer = AVCaptureVideoPreviewLayer()
 
     // Flash Variables
@@ -83,7 +84,7 @@ class RCT_CameraViewController: UIViewController {
                     print("Turning Off iSight Flash")
                     device.flashMode = AVCaptureFlashMode.Off
                     iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)
-                    iSightFlashButton.alpha = 0.8
+                    iSightFlashButton.alpha = 0.9
                 } else {
                     print("Turning On iSight Flash")
                     device.flashMode = AVCaptureFlashMode.On
@@ -191,8 +192,8 @@ class RCT_CameraViewController: UIViewController {
 
         if backCameraIsPreview == true {
 
-            //back is preview, switching to front
-            print("switching to front preview")
+            // Back is Preview, Switching to Front
+            print("Switching to Front Preview")
             self.captureSesson.beginConfiguration()
 
             // This is questionable if we need to do this switch
@@ -200,16 +201,21 @@ class RCT_CameraViewController: UIViewController {
             self.captureSesson.addInput(self.frontInput)
             self.captureSesson.commitConfiguration()
             backCameraIsPreview = false
+
         } else {
+
             // Front is Preview, Switching to Back
-            print("switching to back preview")
+            print("Switching to Back Preview")
             self.captureSesson.beginConfiguration()
+
             // This is questionable if we need to do this switch
             self.captureSesson.removeInput(self.frontInput)
             self.captureSesson.addInput(self.backInput)
             self.captureSesson.commitConfiguration()
             backCameraIsPreview = true
         }
+
+        //flipPreviewLayer(UIViewAnimationOptions.TransitionFlipFromRight)
     }
 
     // MARK: Functions
@@ -290,7 +296,7 @@ class RCT_CameraViewController: UIViewController {
         iSightFlashButton.frame.origin.y = 10
         iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)
         iSightFlashButton.imageView?.contentMode = .ScaleAspectFit
-        iSightFlashButton.alpha = 0.8
+        iSightFlashButton.alpha = 0.9
         iSightFlashButton.addTarget(self, action: "iSightFlashButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(iSightFlashButton)
         // Switch Camera Button
@@ -404,21 +410,59 @@ extension RCT_CameraViewController {
 
     func setupPreview() {
 
-        let previewView = UIView()
-
         // Setting size of preview
         previewView.frame = self.view.frame
         self.view.addSubview(previewView)
         self.view.bringSubviewToFront(previewView)
-
         print("Setting up preview")
         previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSesson)
         previewView.layer.addSublayer(self.previewLayer)
         previewLayer.frame = self.view.layer.frame
-        
         self.view.bringSubviewToFront(switchCameraButton)
-        
         self.view.bringSubviewToFront(iSightFlashButton)
-        
+    }
+
+    func flipPreviewLayer(animationOption: UIViewAnimationOptions) {
+
+        var image = UIImage()
+        var imageView = UIImageView()
+
+        func imageCapture() {
+            print("Attempted Preview Capture")
+            UIGraphicsBeginImageContextWithOptions(self.previewView.frame.size, view.opaque, 0.0)
+            self.previewView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+            image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+        }
+
+        imageCapture()
+        imageView.image = image
+//        self.previewView.hidden = true
+        UIView.transitionWithView(self.previewView, duration: 1, options: [UIViewAnimationOptions.CurveEaseInOut, animationOption], animations: { () -> Void in
+            self.previewView.hidden = false
+            }, completion: {_ in
+                self.previewView.addSubview(imageView)
+                self.previewView.bringSubviewToFront(imageView)
+//                imageView.removeFromSuperview()
+        })
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
