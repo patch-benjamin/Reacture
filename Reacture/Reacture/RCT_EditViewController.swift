@@ -28,18 +28,12 @@ class RCT_EditViewController: UIViewController {
             print("ERROR: rCTImage is nil!")
         }
         setupFilters()
+        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width)
+        updateWithLayout(rCTImage!.layout)
     }
 
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // only update withLayout on first load
-        isFirstLoad ? (updateWithLayout(rCTImage!.layout)) : ()
-        isFirstLoad = false
     }
     
     func SetMockData() {
@@ -58,8 +52,6 @@ class RCT_EditViewController: UIViewController {
     // MARK: Variables
     //////////////////////////////
     //////////////////////////////
-    
-    var isFirstLoad: Bool = true
     
     var imageToSend: UIImage?
     var rCTImage: RCT_Image?
@@ -119,6 +111,8 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.maximumZoomScale = 5.0
         self.backImageScrollView.zoomScale = backImageMinZoomScale
         
+        frontImageScrollView.setContentOffset(CGPoint(x: 0, y: frontImageView.frame.maxY/2), animated: true)
+        backImageScrollView.setContentOffset(CGPoint(x: 0, y: backImageView.frame.maxY/2), animated: true)
     }
     
     // TODO: - Change frame to bounds?
