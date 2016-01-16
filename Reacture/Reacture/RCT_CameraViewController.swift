@@ -24,6 +24,7 @@ class RCT_CameraViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tapRecognizer = UITapGestureRecognizer(target: self, action: "detectTap:")
         setupCamera()
         setupButtons()
     }
@@ -64,6 +65,9 @@ class RCT_CameraViewController: UIViewController {
 
     var frontImage = UIImage()
     var backImage = UIImage()
+    
+    // Gesture Recognizer Variables
+    var tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()
 
     // Session Queue
 
@@ -325,6 +329,13 @@ class RCT_CameraViewController: UIViewController {
             UIScreen.mainScreen().brightness = 1.0
         }
     }
+    
+    // setup tap gesture recognizer
+    func detectTap(recognizer: UIGestureRecognizer) {
+        
+        var pointInPreview: CGPoint = recognizer.locationInView(self.view)
+        print(pointInPreview)
+    }
 
     // MARK: - Setup UI
 
@@ -453,6 +464,7 @@ extension RCT_CameraViewController {
         print("\(previewLayer.frame.size)")
         previewView.layer.addSublayer(self.previewLayer)
         previewLayer.frame = self.previewView.frame
+        previewView.addGestureRecognizer(tapRecognizer)
         
         self.view.bringSubviewToFront(shutterButton)
         self.view.bringSubviewToFront(switchCameraButton)
