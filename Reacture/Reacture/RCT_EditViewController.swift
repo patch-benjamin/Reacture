@@ -115,10 +115,13 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.maximumZoomScale = 5.0
         self.backImageScrollView.zoomScale = backImageMinZoomScale
         
-        frontImageScrollView.setContentOffset(CGPoint(x: 0, y: frontImageView.frame.maxY/2), animated: true)
-        backImageScrollView.setContentOffset(CGPoint(x: 0, y: backImageView.frame.maxY/2), animated: true)
+        // offset it by the difference of size divided by two. this makes the center of the image at the center of the scrollView.
+        let frontY = (frontImageScrollView.contentSize.height - frontImageScrollView.bounds.height)/2
+        let backY = (backImageScrollView.contentSize.height - frontImageScrollView.bounds.height)/2
+        frontImageScrollView.setContentOffset(CGPoint(x: 0, y: frontY), animated: true)
+        backImageScrollView.setContentOffset(CGPoint(x: 0, y: backY), animated: true)
+        
     }
-    
     // TODO: - Change frame to bounds?
     func updateScrollViews() {
         
@@ -193,7 +196,6 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.addSubview(backImageView)
         
         setupScrollViews()
-
         
     }
     
@@ -670,6 +672,7 @@ extension RCT_EditViewController {
         backImageScrollView.frame = backImageZoomableView.bounds
         updateScrollViews()
         frontImageZoomableView.removeIsMovableView()
+        print("contentOffset: \(frontImageScrollView.contentOffset)")
     }
 }
 
