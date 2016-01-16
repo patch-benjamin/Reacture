@@ -6,7 +6,7 @@
 //  Copyright © 2016 PatchWork. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Layout: Int {
     
@@ -17,6 +17,12 @@ enum Layout: Int {
     PictureInPicture,
     Count
 }
+
+let layoutIcons = [UIImage(named: "top_bottom"),
+    UIImage(named: "left_right"),
+    UIImage(named: "top_left_bottom_right"),
+    UIImage(named: "top_right_bottom_left"),
+    UIImage(named: "picture_in_picture")]
 
 enum SubLayout: Int {
     
