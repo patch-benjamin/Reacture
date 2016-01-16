@@ -120,7 +120,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
             cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
             cell.imageView.backgroundColor = UIColor.whiteColor()
             let array: [UIImage] = [UIImage(named: "layout_top")!, UIImage(named: "layout_side")!, UIImage(named: "layout_southeast")!]
-            cell.imageView.image = array[indexPath.item]
+//            cell.imageView.image = array[indexPath.item]
 
         } else {
             // Filter Selected

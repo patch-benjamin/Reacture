@@ -36,6 +36,10 @@ class RCT_EditViewController: UIViewController {
         return true
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func SetMockData() {
         //        let frontImage = UIImage(named: "mock_selfie")
         //        let backImage = UIImage(named: "mock_landscape")
@@ -63,7 +67,7 @@ class RCT_EditViewController: UIViewController {
     
     var frontImageZoomableView = PanGestureView()
     var frontImageScrollView = UIScrollView()
-    var backImageZoomableView = UIView()
+    var backImageZoomableView = ZoomableView()
     var backImageScrollView = UIScrollView()
     
     // MARK: Filter Variables
@@ -111,10 +115,13 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.maximumZoomScale = 5.0
         self.backImageScrollView.zoomScale = backImageMinZoomScale
         
-        frontImageScrollView.setContentOffset(CGPoint(x: 0, y: frontImageView.frame.maxY/2), animated: true)
-        backImageScrollView.setContentOffset(CGPoint(x: 0, y: backImageView.frame.maxY/2), animated: true)
+        // offset it by the difference of size divided by two. this makes the center of the image at the center of the scrollView.
+        let frontY = (frontImageScrollView.contentSize.height - frontImageScrollView.bounds.height)/2
+        let backY = (backImageScrollView.contentSize.height - frontImageScrollView.bounds.height)/2
+        frontImageScrollView.setContentOffset(CGPoint(x: 0, y: frontY), animated: true)
+        backImageScrollView.setContentOffset(CGPoint(x: 0, y: backY), animated: true)
+        
     }
-    
     // TODO: - Change frame to bounds?
     func updateScrollViews() {
         
@@ -160,7 +167,7 @@ class RCT_EditViewController: UIViewController {
         // setup zoomable views
         frontImageZoomableView = PanGestureView(frame: CGRectMake(0.0, 0.0, rCTImageView.bounds.width, rCTImageView.bounds.height/2))
         frontImageZoomableView.delegate = self
-        backImageZoomableView = UIView(frame: CGRectMake(0.0, rCTImageView.bounds.maxY/2, rCTImageView.bounds.width, rCTImageView.bounds.height/2))
+        backImageZoomableView = ZoomableView(frame: CGRectMake(0.0, rCTImageView.bounds.maxY/2, rCTImageView.bounds.width, rCTImageView.bounds.height/2))
         
         rCTImageView.addSubview(backImageZoomableView)
         rCTImageView.addSubview(frontImageZoomableView)
@@ -177,7 +184,9 @@ class RCT_EditViewController: UIViewController {
         backImageScrollView.backgroundColor = UIColor.blackColor()
         
         frontImageZoomableView.addSubview(frontImageScrollView)
+        frontImageZoomableView.scrollView = frontImageScrollView
         backImageZoomableView.addSubview(backImageScrollView)
+        backImageZoomableView.scrollView = frontImageScrollView
         
         // Setup Image views
         self.frontImageView = UIImageView(image: rCTImage.imageFrontUIImage)
@@ -187,7 +196,6 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.addSubview(backImageView)
         
         setupScrollViews()
-
         
     }
     
@@ -556,9 +564,19 @@ extension RCT_EditViewController {
 
 extension RCT_EditViewController {
     
+    func clearMasks() {
+
+        self.frontImageZoomableView.maskLayout = MaskLayout.None
+        self.backImageZoomableView.maskLayout = MaskLayout.None
+        RCT_LayoutController.isCornersLayout = false
+
+    }
+    
     func updateWithLayout(layout: Layout) {
         
         self.rCTImage?.layout = layout
+        clearMasks()
+        
         var frontImageX: CGFloat
         var frontImageY: CGFloat
         var frontImageWidth: CGFloat
@@ -606,6 +624,36 @@ extension RCT_EditViewController {
             backImageWidth = rCTImageView.bounds.width
             backImageHeight = rCTImageView.bounds.height
             
+        case .UpperLeftLowerRight:
+
+            RCT_LayoutController.isCornersLayout = true
+            frontImageX = 0.0
+            frontImageY = 0.0
+            frontImageWidth = rCTImageView.bounds.width
+            frontImageHeight = rCTImageView.bounds.height
+            backImageX = 0.0
+            backImageY = 0.0
+            backImageWidth = rCTImageView.bounds.width
+            backImageHeight = rCTImageView.bounds.height
+            
+            frontImageZoomableView.maskLayout = MaskLayout.TopLeft
+            backImageZoomableView.maskLayout = MaskLayout.BottomRight
+            
+        case .UpperRightLowerLeft:
+            
+            RCT_LayoutController.isCornersLayout = true
+            frontImageX = 0.0
+            frontImageY = 0.0
+            frontImageWidth = rCTImageView.bounds.width
+            frontImageHeight = rCTImageView.bounds.height
+            backImageX = 0.0
+            backImageY = 0.0
+            backImageWidth = rCTImageView.bounds.width
+            backImageHeight = rCTImageView.bounds.height
+            
+            frontImageZoomableView.maskLayout = MaskLayout.TopRight
+            backImageZoomableView.maskLayout = MaskLayout.BottomLeft
+            
         case .Count:
             
             frontImageX = 0.0
@@ -624,6 +672,7 @@ extension RCT_EditViewController {
         backImageScrollView.frame = backImageZoomableView.bounds
         updateScrollViews()
         frontImageZoomableView.removeIsMovableView()
+        print("contentOffset: \(frontImageScrollView.contentOffset)")
     }
 }
 

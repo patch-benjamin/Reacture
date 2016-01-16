@@ -12,6 +12,8 @@ enum Layout: Int {
     
     case TopBottom = 0,
     LeftRight,
+    UpperLeftLowerRight,
+    UpperRightLowerLeft,
     PictureInPicture,
     Count
 }
@@ -21,15 +23,7 @@ enum MaskLayout: Int {
     TopRight,
     BottomLeft,
     TopLeft,
-    BottomRight,
-    Top,
-    Bottom,
-    Left,
-    Right,
-    SmallPictureBottomRight,
-    SmallPictureBottomLeft,
-    SmallPictureTopRight,
-    SmallPictureTopLeft
+    BottomRight
 }
 
 enum Filter: Int {
