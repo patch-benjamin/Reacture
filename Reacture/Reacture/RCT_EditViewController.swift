@@ -59,8 +59,8 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
 
     //MARK: Swap Button:
-
     var swapImageButton = UIButton()
+    var imagesAreSwapped: Bool = false
     var imageToSend: UIImage?
     var rCTImage: RCT_Image?
     var containerViewController: RCT_ContainerViewController?
@@ -119,11 +119,18 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.maximumZoomScale = 5.0
         self.backImageScrollView.zoomScale = backImageMinZoomScale
 
+        centerImagesOnYAxis()
+    }
+
+    func centerImagesOnYAxis(animated: Bool = false) {
+
         // offset it by the difference of size divided by two. this makes the center of the image at the center of the scrollView.
         let frontY = (frontImageScrollView.contentSize.height - frontImageScrollView.bounds.height)/2
-        let backY = (backImageScrollView.contentSize.height - frontImageScrollView.bounds.height)/2
-        frontImageScrollView.setContentOffset(CGPoint(x: 0, y: frontY), animated: true)
-        backImageScrollView.setContentOffset(CGPoint(x: 0, y: backY), animated: true)
+        let backY = (backImageScrollView.contentSize.height - backImageScrollView.bounds.height)/2
+        print("\(frontImageScrollView.contentSize.height) \(backImageScrollView.contentSize.height)")
+        frontImageScrollView.setContentOffset(CGPoint(x: 0, y: frontY), animated: animated)
+        backImageScrollView.setContentOffset(CGPoint(x: 0, y: backY), animated: animated)
+
     }
 
     // TODO: - Change frame to bounds?
@@ -224,6 +231,46 @@ class RCT_EditViewController: UIViewController {
         UIGraphicsEndImageContext()
     }
 
+    func swapImages(withAnimation: Bool = true) {
+
+        print("frontImageZoom: \(frontImageScrollView.zoomScale); backImageZoom: \(backImageScrollView.zoomScale)")
+        print("frontImageMinZoom: \(frontImageScrollView.minimumZoomScale); backImageMinZoom: \(backImageScrollView.minimumZoomScale)")
+
+
+        imagesAreSwapped = !imagesAreSwapped
+        print("Swap Image Button Tapped")
+        let currentBackImage = self.rCTImage?.imageBackUIImage
+        let currentFrontImage = self.rCTImage?.imageFrontUIImage
+        self.rCTImage?.imageBackUIImage = currentFrontImage!
+        self.rCTImage?.imageFrontUIImage = currentBackImage!
+
+        if withAnimation {
+            frontImageView.alpha = 0
+            backImageView.alpha = 0
+            frontImageView.image = self.rCTImage?.imageFrontUIImage
+            backImageView.image = self.rCTImage?.imageBackUIImage
+
+            centerImagesOnYAxis()
+            self.frontImageScrollView.zoomScale = self.frontImageScrollView.minimumZoomScale
+            self.backImageScrollView.zoomScale = self.backImageScrollView.minimumZoomScale
+
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.frontImageView.alpha = 1
+                self.backImageView.alpha = 1
+                }, completion: { (_) -> Void in
+            })
+        } else {
+            frontImageView.image = self.rCTImage?.imageFrontUIImage
+            backImageView.image = self.rCTImage?.imageBackUIImage
+        }
+    }
+
+    func clearSwappedImages() {
+        if imagesAreSwapped {
+            swapImages(false)
+        }
+    }
+
     //////////////////////////////
     //////////////////////////////
     // MARK: Outlets
@@ -264,19 +311,7 @@ class RCT_EditViewController: UIViewController {
         //            //it is image2
         //            self.swapImageButton.setBackgroundImage(UIImage(named: "image1"), forState: .Normal)
         //        }
-        print("Swap Image Button Tapped")
-        let currentBackImage = self.rCTImage?.imageBackUIImage
-        let currentFrontImage = self.rCTImage?.imageFrontUIImage
-        self.rCTImage?.imageBackUIImage = currentFrontImage!
-        self.rCTImage?.imageFrontUIImage = currentBackImage!
-        frontImageView.alpha = 0
-        backImageView.alpha = 0
-        frontImageView.image = self.rCTImage?.imageFrontUIImage
-        backImageView.image = self.rCTImage?.imageBackUIImage
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.frontImageView.alpha = 1
-            self.backImageView.alpha = 1
-            }, completion: nil)
+        swapImages()
     }
 
     @IBAction func shareButtonTapped(sender: AnyObject) {
@@ -609,6 +644,7 @@ extension RCT_EditViewController {
 
         self.rCTImage?.layout = layout
         clearMasks()
+        clearSwappedImages()
 
         var frontImageX: CGFloat
         var frontImageY: CGFloat
