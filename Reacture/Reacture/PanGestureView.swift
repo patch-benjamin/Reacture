@@ -13,7 +13,7 @@ protocol PanGestureViewProtocol {
     func panDetected(center: CGPoint)
 }
 
-class PanGestureView: UIView {
+class PanGestureView: ZoomableView {
     
     var lastLocation: CGPoint = CGPointMake(0.0, 0.0)
     var isMoveableView: UIView?
