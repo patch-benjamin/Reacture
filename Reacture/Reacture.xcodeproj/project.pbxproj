@@ -13,6 +13,7 @@
 		24B871741C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B871731C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift */; };
 		24B871791C3C5D8A0019DB37 /* RCT_CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B871781C3C5D8A0019DB37 /* RCT_CameraViewController.swift */; };
 		24B8717B1C3C5E140019DB37 /* RCT_EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B8717A1C3C5E140019DB37 /* RCT_EditViewController.swift */; };
+		24F9B4471C4A5C1600C85662 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F9B4461C4A5C1600C85662 /* UIViewExtension.swift */; };
 		716D6A281C3C462B00B762F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716D6A271C3C462B00B762F9 /* AppDelegate.swift */; };
 		716D6A2D1C3C462B00B762F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 716D6A2B1C3C462B00B762F9 /* Main.storyboard */; };
 		716D6A2F1C3C462B00B762F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 716D6A2E1C3C462B00B762F9 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		24B871731C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_OptionItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		24B871781C3C5D8A0019DB37 /* RCT_CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_CameraViewController.swift; sourceTree = "<group>"; };
 		24B8717A1C3C5E140019DB37 /* RCT_EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_EditViewController.swift; sourceTree = "<group>"; };
+		24F9B4461C4A5C1600C85662 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		716D6A241C3C462B00B762F9 /* Reacture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reacture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		716D6A271C3C462B00B762F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		716D6A2C1C3C462B00B762F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				7192243E1C3C80D600CEE9E4 /* RCT_Image.swift */,
 				7192244C1C3D8DF500CEE9E4 /* Enums.swift */,
+				24F9B4461C4A5C1600C85662 /* UIViewExtension.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24F9B4471C4A5C1600C85662 /* UIViewExtension.swift in Sources */,
 				2491CDC01C46FF3C00748664 /* PanGestureView.swift in Sources */,
 				719224451C3C886B00CEE9E4 /* RCT_ImageController.swift in Sources */,
 				24B8717B1C3C5E140019DB37 /* RCT_EditViewController.swift in Sources */,

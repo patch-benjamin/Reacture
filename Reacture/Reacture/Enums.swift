@@ -18,6 +18,21 @@ enum Layout: Int {
     Count
 }
 
+enum SubLayout: Int {
+    
+    case None = 0,
+    Top,
+    Bottom,
+    Left,
+    Right,
+    TopRight,
+    BottomRight,
+    TopLeft,
+    BottomLeft,
+    BigPicture,
+    LittlePicture
+}
+
 enum MaskLayout: Int {
     case None = 0,
     TopRight,

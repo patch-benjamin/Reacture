@@ -79,7 +79,7 @@ class RCT_EditViewController: UIViewController {
     var adjustLayoutViewLastPosition = CGPoint()
     var frontImageLastFrame = CGRect()
     var backImageLastFrame = CGRect()
-    let lineWidth: CGFloat = 20.0
+    static let lineWidth: CGFloat = 10.0
 
 
     // MARK: Filter Variables
@@ -107,7 +107,7 @@ class RCT_EditViewController: UIViewController {
     func setupAdjustLayoutView() {
         
         self.adjustLayoutView.frame = self.rCTImageView!.frame
-        self.adjustLayoutView.backgroundColor = UIColor.orangeColor()
+        self.adjustLayoutView.backgroundColor = UIColor.whiteColor()
         self.rCTImageView.addSubview(adjustLayoutView)
         adjustLayoutView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "adjustLayoutView:"))
         updateLayoutViewForLayout()
@@ -122,12 +122,12 @@ class RCT_EditViewController: UIViewController {
             
         case .TopBottom:
             
-            adjustLayoutView.frame = CGRectMake(0.0, 0.0, rCTImageView.frame.width, lineWidth)
+            adjustLayoutView.frame = CGRectMake(0.0, 0.0, rCTImageView.frame.width, RCT_EditViewController.lineWidth)
             adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: rCTImageView.bounds.maxY/2)
             
         case .LeftRight:
             
-            adjustLayoutView.frame = CGRectMake(0.0, 0.0, lineWidth, rCTImageView.frame.height)
+            adjustLayoutView.frame = CGRectMake(0.0, 0.0, RCT_EditViewController.lineWidth, rCTImageView.frame.height)
             adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: rCTImageView.bounds.maxY/2)
 
         default:
@@ -333,6 +333,7 @@ class RCT_EditViewController: UIViewController {
         setupScrollViews()
         setupAdjustLayoutView()
 
+        rCTImageView.updateBorderForLayout(.BigPicture)
     }
 
     func setUpImages(front: UIImage, back: UIImage){
@@ -774,6 +775,9 @@ extension RCT_EditViewController {
         clearSwappedImages()
         updateLayoutViewForLayout()
 
+        frontImageZoomableView.removeBorders()
+        backImageZoomableView.removeBorders()
+        
         var frontImageX: CGFloat
         var frontImageY: CGFloat
         var frontImageWidth: CGFloat
@@ -782,6 +786,9 @@ extension RCT_EditViewController {
         var backImageY: CGFloat
         var backImageWidth: CGFloat
         var backImageHeight: CGFloat
+        
+        var frontImageSubLayout = SubLayout.None
+        var backImageSubLayout = SubLayout.None
 
         switch layout {
 
@@ -795,7 +802,7 @@ extension RCT_EditViewController {
             backImageY = rCTImageView.bounds.maxY/2
             backImageWidth = rCTImageView.bounds.width
             backImageHeight = rCTImageView.bounds.height/2
-
+            
         case .LeftRight:
 
             frontImageX = 0.0
@@ -806,7 +813,7 @@ extension RCT_EditViewController {
             backImageY = 0.0
             backImageWidth = rCTImageView.bounds.width/2
             backImageHeight = rCTImageView.bounds.height
-
+            
         case .PictureInPicture:
 
             let yBuffer: CGFloat = 8.0
@@ -820,6 +827,9 @@ extension RCT_EditViewController {
             backImageY = 0.0
             backImageWidth = rCTImageView.bounds.width
             backImageHeight = rCTImageView.bounds.height
+            
+            // Add Borders
+            frontImageSubLayout = SubLayout.LittlePicture
 
         case .UpperLeftLowerRight:
 
@@ -835,6 +845,10 @@ extension RCT_EditViewController {
 
             frontImageZoomableView.maskLayout = MaskLayout.TopLeft
             backImageZoomableView.maskLayout = MaskLayout.BottomRight
+            
+            // Add Borders
+            frontImageSubLayout = SubLayout.TopLeft
+            backImageSubLayout = SubLayout.BottomRight
 
         case .UpperRightLowerLeft:
 
@@ -850,6 +864,10 @@ extension RCT_EditViewController {
 
             frontImageZoomableView.maskLayout = MaskLayout.TopRight
             backImageZoomableView.maskLayout = MaskLayout.BottomLeft
+            
+            // Add Borders
+            frontImageSubLayout = SubLayout.TopRight
+            backImageSubLayout = SubLayout.BottomLeft
 
         case .Count:
 
@@ -867,9 +885,14 @@ extension RCT_EditViewController {
         backImageZoomableView.frame = CGRectMake(backImageX, backImageY, backImageWidth, backImageHeight)
         frontImageScrollView.frame = frontImageZoomableView.bounds
         backImageScrollView.frame = backImageZoomableView.bounds
+
+        // set the borders
+        frontImageZoomableView.updateBorderForLayout(frontImageSubLayout)
+        backImageZoomableView.updateBorderForLayout(backImageSubLayout)
+
         updateScrollViews()
         frontImageZoomableView.removeIsMovableView()
-        print("contentOffset: \(frontImageScrollView.contentOffset)")
+        
     }
 }
 
