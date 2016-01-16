@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 
+var hasTakenFirstPicture: Bool = false
+
 // A delay function
 func delay(seconds seconds: Double, completion:()->()) {
     let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
@@ -281,8 +283,22 @@ class RCT_CameraViewController: UIViewController {
                 
                 connection.videoOrientation = orientation
 
-                //TODO: change code to allow landscape
-
+                var soundID: SystemSoundID = 0;
+                if (!hasTakenFirstPicture) {
+                    if (soundID == 0) {
+                        let path = NSBundle.mainBundle().pathForResource("photoShutter2", ofType: "caf")
+                        let filePath = NSURL(fileURLWithPath: path!, isDirectory: false) as CFURLRef
+                        
+                        AudioServicesCreateSystemSoundID(filePath, &soundID);
+                    }
+                    AudioServicesPlaySystemSound(soundID)
+                    hasTakenFirstPicture = true
+                } else {
+                    hasTakenFirstPicture = false
+                }
+                
+                 //TODO: change code to allow landscape
+                
                 self.stillImageOutput.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (cmSampleBuffer, error) -> Void in
                     if let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(cmSampleBuffer) {
                         completion(data: imageData)
