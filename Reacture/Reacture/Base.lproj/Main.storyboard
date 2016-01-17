@@ -123,10 +123,10 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="2n0-j1-FbY"/>
                                 </items>
                             </toolbar>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
                                 <rect key="frame" x="0.0" y="59" width="414" height="486"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
                                         <rect key="frame" x="0.0" y="36" width="414" height="414"/>
                                         <color key="backgroundColor" red="0.58280308420000004" green="0.79040464740000005" blue="0.19517801730000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -148,10 +148,10 @@
                             <constraint firstItem="Qpj-PE-9Wz" firstAttribute="top" secondItem="bps-GF-H7p" secondAttribute="bottom" id="4J4-FT-dC8"/>
                             <constraint firstItem="y2p-AU-EyF" firstAttribute="top" secondItem="Qpj-PE-9Wz" secondAttribute="bottom" id="6ZK-kS-dM1"/>
                             <constraint firstAttribute="trailing" secondItem="y2p-AU-EyF" secondAttribute="trailing" id="7Xi-JG-puQ"/>
-                            <constraint firstItem="bps-GF-H7p" firstAttribute="top" secondItem="8L8-GF-PZR" secondAttribute="bottom" id="FXN-xu-aob"/>
+                            <constraint firstItem="bps-GF-H7p" firstAttribute="top" secondItem="8L8-GF-PZR" secondAttribute="bottom" constant="8" id="FXN-xu-aob"/>
                             <constraint firstItem="8L8-GF-PZR" firstAttribute="leading" secondItem="Ccv-AG-wNT" secondAttribute="leading" id="H23-S9-2t9"/>
                             <constraint firstItem="8L8-GF-PZR" firstAttribute="top" secondItem="Ccv-AG-wNT" secondAttribute="top" id="HRn-6X-sdO"/>
-                            <constraint firstItem="bps-GF-H7p" firstAttribute="top" secondItem="8L8-GF-PZR" secondAttribute="bottom" id="N3O-q5-bHr"/>
+                            <constraint firstItem="bps-GF-H7p" firstAttribute="top" secondItem="8L8-GF-PZR" secondAttribute="bottom" constant="8" id="N3O-q5-bHr"/>
                             <constraint firstAttribute="trailing" secondItem="8L8-GF-PZR" secondAttribute="trailing" id="Pm1-Gc-XIu"/>
                             <constraint firstItem="4tb-8G-sTv" firstAttribute="top" secondItem="y2p-AU-EyF" secondAttribute="bottom" id="RJY-RG-iJ8"/>
                             <constraint firstItem="Qpj-PE-9Wz" firstAttribute="leading" secondItem="Ccv-AG-wNT" secondAttribute="leading" id="Reu-aQ-bjF"/>
