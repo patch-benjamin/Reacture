@@ -368,14 +368,14 @@ class RCT_EditViewController: UIViewController {
     }
 
     func setupSwapImageButton() {
-        let size = CGSize(width: 50, height: 50)
+        let size = CGSize(width: 30, height: 30)
         swapImageButton.frame.size = size
         swapImageButton.center.x = self.view.center.x
-        swapImageButton.center.y = 50
+        swapImageButton.center.y = 30
         swapImageButton.backgroundColor = UIColor.clearColor()
         swapImageButton.setBackgroundImage(UIImage(named: "swapImagesButton"), forState: .Normal)
         swapImageButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-        swapImageButton.alpha = 1.0
+        swapImageButton.alpha = 0.9
         swapImageButton.addTarget(self, action: "swapImageButtonTapped:", forControlEvents: .TouchUpInside)
         self.view.addSubview(swapImageButton)
     }

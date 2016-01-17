@@ -36,12 +36,10 @@ class RCT_CameraViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
-
     // MARK: -  Variables
 
     // Bool for switching previews
     var backCameraIsPreview: Bool = true
-
     var rCTImage: RCT_Image? = nil
     var captureSesson = AVCaptureSession()
     var frontInput: AVCaptureDeviceInput?
@@ -86,7 +84,7 @@ class RCT_CameraViewController: UIViewController {
                     print("Turning Off iSight Flash")
                     device.flashMode = AVCaptureFlashMode.Off
                     iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)
-                    iSightFlashButton.alpha = 0.9
+                    iSightFlashButton.alpha = 1
                 } else {
                     print("Turning On iSight Flash")
                     device.flashMode = AVCaptureFlashMode.On
@@ -345,22 +343,24 @@ class RCT_CameraViewController: UIViewController {
         shutterButton.center.x = self.view.center.x
         shutterButton.frame.origin.y = self.view.frame.size.height - shutterButton.frame.size.height - 10
         shutterButton.layer.borderColor = UIColor.whiteColor().CGColor
-        shutterButton.layer.borderWidth = 2
+        flashView.backgroundColor = UIColor(red: 1, green: 0.718, blue: 0.318, alpha: 0.75)
+        shutterButton.layer.borderWidth = 3
         shutterButton.layer.cornerRadius = width / 2
-        shutterButton.backgroundColor = UIColor.redColor()
+        shutterButton.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
+        shutterButton.layer.opacity = 0.5
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(shutterButton)
         // iSight Flash Button
-        iSightFlashButton.frame.size = CGSize(width: 40, height: 40)
-        iSightFlashButton.frame.origin.x = 7
-        iSightFlashButton.frame.origin.y = 10
+        iSightFlashButton.frame.size = CGSize(width: 20, height: 30)
+        iSightFlashButton.frame.origin.x = 12
+        iSightFlashButton.frame.origin.y = 8
         iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)
         iSightFlashButton.imageView?.contentMode = .ScaleAspectFit
-        iSightFlashButton.alpha = 0.9
+        iSightFlashButton.alpha = 1
         iSightFlashButton.addTarget(self, action: "iSightFlashButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(iSightFlashButton)
         // Switch Camera Button
-        switchCameraButton.alpha = 0.9
+        switchCameraButton.alpha = 1
     }
 
     // MARK: - Navigation
@@ -517,22 +517,3 @@ extension RCT_CameraViewController {
         })
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
