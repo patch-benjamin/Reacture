@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-var hasTakenFirstPicture: Bool = false
+var hasTakenFirstPicture: Bool?
 
 // A delay function
 func delay(seconds seconds: Double, completion:()->()) {
@@ -26,6 +26,10 @@ class RCT_CameraViewController: UIViewController {
         super.viewDidLoad()
         setupCamera()
         setupButtons()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        hasTakenFirstPicture = false
     }
 
     override func prefersStatusBarHidden() -> Bool {
@@ -282,7 +286,9 @@ class RCT_CameraViewController: UIViewController {
                 connection.videoOrientation = orientation
 
                 var soundID: SystemSoundID = 0;
-                if (!hasTakenFirstPicture) {
+                if (hasTakenFirstPicture!) {
+                    hasTakenFirstPicture = false
+                } else {
                     if (soundID == 0) {
                         let path = NSBundle.mainBundle().pathForResource("photoShutter2", ofType: "caf")
                         let filePath = NSURL(fileURLWithPath: path!, isDirectory: false) as CFURLRef
@@ -291,8 +297,6 @@ class RCT_CameraViewController: UIViewController {
                     }
                     AudioServicesPlaySystemSound(soundID)
                     hasTakenFirstPicture = true
-                } else {
-                    hasTakenFirstPicture = false
                 }
                 
                  //TODO: change code to allow landscape
