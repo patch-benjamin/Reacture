@@ -148,7 +148,6 @@ class RCT_EditViewController: UIViewController {
         }
         
         let translation = recognizer.translationInView(self.rCTImageView)
-        var isValidPan = true
         switch rCTImage!.layout {
             
         case .TopBottom:
@@ -156,28 +155,36 @@ class RCT_EditViewController: UIViewController {
             let adjustmentBuffer = rCTImageView.frame.height/4 // each image must be at least 1/4 of the rCTImageView
             let uppermostBound: CGFloat = (rCTImageView.bounds.minY + adjustmentBuffer)
             let lowermostBound: CGFloat = (rCTImageView.bounds.maxY - adjustmentBuffer)
+            var frontImageHeight: CGFloat = frontImageLastFrame.height + translation.y
+            var backImageHeight: CGFloat = backImageLastFrame.height - translation.y
+            var backImageY: CGFloat = backImageLastFrame.origin.y + translation.y
             
             // Check for invalid Y position
             if layoutViewY > lowermostBound {
                 
                 layoutViewY = lowermostBound
-                isValidPan = false
-                
+
+                let yPositionPercentage = (lowermostBound / rCTImageView.bounds.maxY)
+                frontImageHeight =  rCTImageView.bounds.height * yPositionPercentage
+                backImageHeight = rCTImageView.bounds.height - (rCTImageView.bounds.height * yPositionPercentage) // width times percentage of where the x point is.
+                backImageY = lowermostBound
+                print("rCTImageView.bounds.height: \(rCTImageView.bounds.height); yPositionPercentage: \(yPositionPercentage)")
+
             } else if layoutViewY < uppermostBound {
                 
                 layoutViewY = uppermostBound
-                isValidPan = false
+
+                let yPositionPercentage = (uppermostBound / rCTImageView.bounds.maxY)
+                frontImageHeight =  rCTImageView.bounds.height * yPositionPercentage
+                backImageHeight = rCTImageView.bounds.height - (rCTImageView.bounds.height * yPositionPercentage) // width times percentage of where the x point is.
+                backImageY = uppermostBound
 
             }
             
             adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: layoutViewY)
-            
-            if isValidPan {
-                
-                frontImageZoomableView.frame.size.height = frontImageLastFrame.height + translation.y
-                backImageZoomableView.frame.size.height = backImageLastFrame.height - translation.y
-                backImageZoomableView.frame.origin.y = backImageLastFrame.origin.y + translation.y
-            }
+            frontImageZoomableView.frame.size.height = frontImageHeight
+            backImageZoomableView.frame.size.height = backImageHeight
+            backImageZoomableView.frame.origin.y = backImageY
             
         case .LeftRight:
             
@@ -185,40 +192,43 @@ class RCT_EditViewController: UIViewController {
             let adjustmentBuffer = rCTImageView.frame.width/4 // each image must be at least 1/4 of the rCTImageView
             let rightmostBound: CGFloat = (rCTImageView.bounds.maxX - adjustmentBuffer)
             let leftmostBound: CGFloat = (rCTImageView.bounds.minX + adjustmentBuffer)
+            var frontImageWidth = frontImageLastFrame.width + translation.x
+            var backImageWidth = backImageLastFrame.width - translation.x
+            var backImageX = backImageLastFrame.origin.x + translation.x
 
             // Check for invalid X position
             if layoutViewX > rightmostBound {
                 
                 layoutViewX = rightmostBound
-                isValidPan = false
                 
+                let xPositionPercentage = (rightmostBound / rCTImageView.bounds.maxX)
+                frontImageWidth = rCTImageView.bounds.width * xPositionPercentage
+                backImageWidth = rCTImageView.bounds.width - (rCTImageView.bounds.width * xPositionPercentage) // width times percentage of where the x point is.
+                backImageX = rightmostBound
+
             } else if layoutViewX < leftmostBound {
                 
                 layoutViewX = leftmostBound
-                isValidPan = false
                 
+                let xPositionPercentage = (leftmostBound / rCTImageView.bounds.maxX)
+                frontImageWidth =  rCTImageView.bounds.width * xPositionPercentage
+                backImageWidth = rCTImageView.bounds.width - (rCTImageView.bounds.width * xPositionPercentage) // width times percentage of where the x point is.
+                backImageX = leftmostBound
+
             }
             
             adjustLayoutView.center = CGPoint(x: layoutViewX, y: rCTImageView.bounds.maxY/2)
-            
-            if isValidPan {
-                
-                frontImageZoomableView.frame.size.width = frontImageLastFrame.width + translation.x
-                backImageZoomableView.frame.size.width = backImageLastFrame.width - translation.x
-                backImageZoomableView.frame.origin.x = backImageLastFrame.origin.x + translation.x
-            }
-            
+            frontImageZoomableView.frame.size.width = frontImageWidth
+            backImageZoomableView.frame.size.width = backImageWidth
+            backImageZoomableView.frame.origin.x = backImageX
             
         default:
             
             break
         }
 
-        if isValidPan {
-            
             frontImageScrollView.frame = frontImageZoomableView.bounds
             backImageScrollView.frame = backImageZoomableView.bounds
-        }
     }
     
     func setupScrollViews() {
@@ -922,6 +932,9 @@ extension RCT_EditViewController: PanGestureViewProtocol {
         }
     }
 
+    
+    
+    // Pan gesture for moving image in image layout.
     func panDetected(center: CGPoint) {
 
         let heightRatio = frontImageZoomableView.bounds.height/rCTImageView.bounds.height
