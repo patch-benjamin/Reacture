@@ -2,8 +2,8 @@
 //  Enums.swift
 //  Reacture
 //
-//  Created by Benjamin Patch on 1/6/16. Amended by Eric Mead on 1/13/16. Amended by Paul Adams on 1/13/16.
-//  Copyright © 2016 PatchWork. All rights reserved.
+//  Created by Benjamin Patch on 1/6/16. Amended by Eric Mead & Paul Adams on 1/13/16.
+//  Copyright © 2016 BAEP. All rights reserved.
 //
 
 import UIKit

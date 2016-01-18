@@ -2,7 +2,7 @@
 //  RCT_EditViewController.swift
 //  Reacture
 //
-//  Created by Ben Patch on 1/5/16. Amended by Paul Adams on 1/12/16. Amended by Eric Mead on 1/13/16.
+//  Created by Ben Patch & Andrew Porter on 1/5/16. Amended by Paul Adams & Eric Mead on 1/12/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
@@ -512,11 +512,11 @@ class RCT_EditViewController: UIViewController {
         let size = CGSize(width: 50, height: 50)
         swapImageButton.frame.size = size
         swapImageButton.center.x = self.view.center.x
-        swapImageButton.center.y = 50
+        swapImageButton.center.y = 40
         swapImageButton.backgroundColor = UIColor.clearColor()
         swapImageButton.setBackgroundImage(UIImage(named: "swapImagesButton"), forState: .Normal)
         swapImageButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-        swapImageButton.alpha = 1.0
+        swapImageButton.alpha = 0.9
         swapImageButton.addTarget(self, action: "swapImageButtonTapped:", forControlEvents: .TouchUpInside)
         self.view.addSubview(swapImageButton)
     }

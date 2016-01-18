@@ -2,7 +2,7 @@
 //  ContainerViewController.swift
 //  Reacture
 //
-//  Created by Eric Mead on 1/5/16. Amended by Paul Adams on 1/14/16.
+//  Created by Eric & Paul Adams on 1/5/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
@@ -124,9 +124,9 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
 
         } else {
             // Filter Selected
-            cell.label.textColor = UIColor.whiteColor()
-            cell.label.font = UIFont.systemFontOfSize(18, weight: 1)
-            cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
+//            cell.label.textColor = UIColor.whiteColor()
+//            cell.label.font = UIFont.systemFontOfSize(18, weight: 1)
+            cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.25)
             cell.label.frame.size.width = cell.frame.size.width
             let labelText = String(Filter(rawValue: indexPath.item)!)
             cell.label.text = labelText.capitalizedString
@@ -155,7 +155,7 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
     }
 
     func setupSelectedBox() {
-        selectedBox.backgroundColor = UIColor.redColor()
+        selectedBox.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
         selectedBox.frame = CGRect (x: 0, y: 0, width: 0, height: 0)
         if let frame = selectedFrameZero {
             selectedBox.frame = frame
