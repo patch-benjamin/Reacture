@@ -336,13 +336,15 @@ class RCT_CameraViewController: UIViewController {
         shutterButton.layer.borderColor = UIColor.whiteColor().CGColor
         flashView.backgroundColor = UIColor(red: 1, green: 0.718, blue: 0.318, alpha: 0.75)
         shutterButton.layer.borderWidth = 3
+//        shutterButton.layer.borderColor =
         shutterButton.layer.cornerRadius = width / 2
-        shutterButton.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
-        shutterButton.layer.opacity = 0.5
+        shutterButton.backgroundColor = UIColor.redColor()
+//        shutterButton.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
+        shutterButton.layer.opacity = 1.0
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(shutterButton)
         // iSight Flash Button
-        iSightFlashButton.frame.size = CGSize(width: 25, height: 44)
+        iSightFlashButton.frame.size = CGSize(width: 15, height: 25)
         iSightFlashButton.frame.origin.x = 20
         iSightFlashButton.frame.origin.y = 8
         iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)

@@ -509,7 +509,7 @@ class RCT_EditViewController: UIViewController {
     }
 
     func setupSwapImageButton() {
-        let size = CGSize(width: 50, height: 50)
+        let size = CGSize(width: 40, height: 40)
         swapImageButton.frame.size = size
         swapImageButton.center.x = self.view.center.x
         swapImageButton.center.y = 40

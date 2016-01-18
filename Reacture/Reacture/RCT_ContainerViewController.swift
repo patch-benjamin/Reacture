@@ -2,7 +2,7 @@
 //  ContainerViewController.swift
 //  Reacture
 //
-//  Created by Eric & Paul Adams on 1/5/16.
+//  Created by Eric Mead & Paul Adams on 1/5/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
@@ -17,9 +17,10 @@ protocol RCT_ContainerViewControllerProtocol {
 class RCT_ContainerViewController: UIViewController {
 
     var selectedFrameZero: CGRect?
-    var selectedFrameLayout: CGRect?
-    var selectedFrameFilter: CGRect?
-    var selectedBox = UIView()
+    var layoutSelected: CGFloat = 0.0
+    var filterSelected: CGFloat = 0.0
+    let borderWidth: CGFloat = 2.0
+//    var selectedBox = UIView()
 
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -60,28 +61,31 @@ class RCT_ContainerViewController: UIViewController {
         if kIsLayoutSelected == true {
              // it is layout
             // if there is already a selection:
-            if let frame = selectedFrameLayout {
-                selectedBox.frame = frame
-            } else {
-                // set to cell at index zero
-                if let frame = selectedFrameZero {
-                    selectedBox.frame = selectedFrameZero!
-                }
-            }
+//            if let frame = selectedFrameLayout {
+//                selectedBox.frame = frame
+//            } else {
+//                // set to cell at index zero
+//                if let frame = selectedFrameZero {
+//                    selectedBox.frame = selectedFrameZero!
+//                }
+//            }
+
+            collectionView.selectItemAtIndexPath(NSIndexPath(forItem: Int(layoutSelected), inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
 
         } else {
-            // it is filter
-            // if there is already a selection:
-            if let frame = selectedFrameFilter {
-                selectedBox.frame = frame
-            } else {
-                // set to cell at index zero
-                if let frame = selectedFrameZero {
-                    selectedBox.frame = selectedFrameZero!
-                }
+//            // it is filter
+//            // if there is already a selection:
+//            if let frame = selectedFrameFilter {
+//                selectedBox.frame = frame
+//            } else {
+//                // set to cell at index zero
+//                if let frame = selectedFrameZero {
+//                    selectedBox.frame = selectedFrameZero!
+//                }
+//
+//            }
 
-            }
-
+            collectionView.selectItemAtIndexPath(NSIndexPath(forItem: Int(filterSelected), inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
         }
     }
 
@@ -94,7 +98,6 @@ class RCT_ContainerViewController: UIViewController {
             print("Filter is Selected, Present Filter Options")
             //            self.itemCount = self.arrayOfFilterTitles.count
         }
-
     }
 }
 
@@ -103,20 +106,30 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OptionItemCell", forIndexPath: indexPath) as! RCT_OptionItemCollectionViewCell
 
-        cell.layer.cornerRadius = 3.8
+//        cell.layer.cornerRadius = 3.8
 //        cell.layer.borderColor = UIColor.blackColor().CGColor
 //        cell.layer.borderWidth = 0.0
 
-        if indexPath.item == 0 && selectedFrameZero == nil {
-            let frame1 = cell.frame
-            let frame = CGRect(x: (frame1.origin.x) - 3, y: (frame1.origin.y) - 3, width: (frame1.width) + 6, height: (frame1.height) + 6)
-            selectedFrameZero = frame
-            setupSelectedBox()
-        }
+//        if indexPath.item == 0 && selectedFrameZero == nil {
+//            let frame1 = cell.frame
+//            let frame = CGRect(x: (frame1.origin.x) - 3, y: (frame1.origin.y) - 3, width: (frame1.width) + 6, height: (frame1.height) + 6)
+//            selectedFrameZero = frame
+//            setupSelectedBox()
+//        }
+//
 
         if kIsLayoutSelected == true {
-            //            cell.label.text = String(Layout(rawValue: indexPath.item)!)
-            cell.label.text = ""
+
+            if CGFloat(indexPath.item) == layoutSelected {
+                cell.imageView.layer.borderWidth = borderWidth
+                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+
+            } else {
+                cell.imageView.layer.borderWidth = 0
+                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+            }
+
+            cell.label.hidden = true
             cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
             cell.imageView.backgroundColor = UIColor.whiteColor()
             
@@ -126,11 +139,21 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
             // Filter Selected
 //            cell.label.textColor = UIColor.whiteColor()
 //            cell.label.font = UIFont.systemFontOfSize(18, weight: 1)
+
+            if CGFloat(indexPath.item) == filterSelected {
+                cell.imageView.layer.borderWidth = borderWidth
+                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+
+            } else {
+                cell.imageView.layer.borderWidth = 0
+                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+            }
+
+            cell.label.hidden = false
             cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.25)
-            cell.label.frame.size.width = cell.frame.size.width
+//            cell.label.frame.size.width = cell.frame.size.width
             let labelText = String(Filter(rawValue: indexPath.item)!)
-            cell.label.text = labelText.capitalizedString
-            cell.imageView.backgroundColor = UIColor.blackColor()
+            cell.label.text = labelText
             // Setting Images for Filter Buttons
             if self.arrayOfFilterButtonImageViews.count == Filter.Count.rawValue {
                 let imageView = arrayOfFilterButtonImageViews[indexPath.item]
@@ -138,9 +161,8 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 cell.imageView.image = image
                 cell.imageView.contentMode = .ScaleAspectFill
             }
-
         }
-        self.collectionView.sendSubviewToBack(selectedBox)
+//        self.collectionView.sendSubviewToBack(selectedBox)
 
         return cell
     }
@@ -154,35 +176,56 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         }
     }
 
-    func setupSelectedBox() {
-        selectedBox.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
-        selectedBox.frame = CGRect (x: 0, y: 0, width: 0, height: 0)
-        if let frame = selectedFrameZero {
-            selectedBox.frame = frame
-        }
-        selectedBox.layer.cornerRadius = 3.8
-
-        collectionView.addSubview(selectedBox)
-        collectionView.sendSubviewToBack(selectedBox)
-    }
+//    func setupSelectedBox() {
+//        selectedBox.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
+//        selectedBox.frame = CGRect (x: 0, y: 0, width: 0, height: 0)
+//        if let frame = selectedFrameZero {
+//            selectedBox.frame = frame
+//        }
+//        selectedBox.layer.cornerRadius = 3.8
+//
+//        collectionView.addSubview(selectedBox)
+//        collectionView.sendSubviewToBack(selectedBox)
+//    }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
-        let frame1 = collectionView.cellForItemAtIndexPath(indexPath)?.frame
-        let frame = CGRect(x: (frame1?.origin.x)! - 3, y: (frame1?.origin.y)! - 3, width: (frame1?.width)! + 6, height: (frame1?.height)! + 6)
+//        let frame1 = collectionView.cellForItemAtIndexPath(indexPath)?.frame
+//        let frame = CGRect(x: (frame1?.origin.x)! - 3, y: (frame1?.origin.y)! - 3, width: (frame1?.width)! + 6, height: (frame1?.height)! + 6)
+//
+//        if kIsLayoutSelected == true {
+//            // layout selected
+//            self.selectedFrameLayout = frame
+//            self.selectedBox.frame = self.selectedFrameLayout!
+//        } else {
+//            // filter selected
+//            self.selectedFrameFilter = frame
+//            self.selectedBox.frame = self.selectedFrameFilter!
+//        }
+//
+//        self.collectionView.sendSubviewToBack(self.selectedBox)
 
-        if kIsLayoutSelected == true {
-            // layout selected
-            self.selectedFrameLayout = frame
-            self.selectedBox.frame = self.selectedFrameLayout!
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! RCT_OptionItemCollectionViewCell
+
+        cell.imageView.layer.borderWidth = borderWidth
+        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+
+        if kIsLayoutSelected != nil && kIsLayoutSelected! {
+            layoutSelected = CGFloat(indexPath.item)
+
         } else {
-            // filter selected
-            self.selectedFrameFilter = frame
-            self.selectedBox.frame = self.selectedFrameFilter!
+            filterSelected = CGFloat(indexPath.item)
         }
 
-        self.collectionView.sendSubviewToBack(self.selectedBox)
-
         delegate?.itemSelected(indexPath)
+    }
+
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! RCT_OptionItemCollectionViewCell
+
+        cell.imageView.layer.borderWidth = 0
+        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+
     }
 }
