@@ -3,7 +3,7 @@
 //  Reacture
 //
 //  Created by Andrew Porter on 1/13/16.
-//  Copyright © 2016 PatchWork. All rights reserved.
+//  Copyright © 2016 BAEP. All rights reserved.
 //
 
 import UIKit
