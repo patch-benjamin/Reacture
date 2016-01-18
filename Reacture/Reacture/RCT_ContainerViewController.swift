@@ -2,7 +2,7 @@
 //  ContainerViewController.swift
 //  Reacture
 //
-//  Created by Eric Mead on 1/5/16. Amended by Paul Adams on 1/14/16.
+//  Created by Eric & Paul Adams on 1/5/16.
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 

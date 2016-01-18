@@ -32,10 +32,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-mf-aEW">
-                                <rect key="frame" x="552" y="28" width="40" height="40"/>
+                                <rect key="frame" x="548" y="28" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="AI9-0S-O92"/>
-                                    <constraint firstAttribute="height" constant="40" id="OgF-pR-8cI"/>
+                                    <constraint firstAttribute="width" constant="44" id="AI9-0S-O92"/>
+                                    <constraint firstAttribute="height" constant="44" id="OgF-pR-8cI"/>
                                 </constraints>
                                 <state key="normal" image="switchCameraButton"/>
                                 <connections>
@@ -77,17 +77,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="8L8-GF-PZR">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOn-dm-Wdw">
-                                        <rect key="frame" x="16" y="21" width="20" height="22"/>
+                                        <rect key="frame" x="16" y="21" width="40" height="40"/>
                                         <state key="normal" image="cancelButton"/>
                                         <connections>
                                             <action selector="CancelButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="7tu-lT-FwB"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-cf-Zad">
-                                        <rect key="frame" x="378" y="21" width="20" height="22"/>
+                                        <rect key="frame" x="358" y="21" width="40" height="40"/>
                                         <state key="normal" image="shareButton"/>
                                         <connections>
                                             <action selector="shareButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="L02-Yj-y1m"/>
@@ -104,7 +104,6 @@
                             </containerView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y2p-AU-EyF">
                                 <rect key="frame" x="0.0" y="692" width="414" height="44"/>
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Hrk-74-gZP"/>
                                     <barButtonItem image="layout_corner" id="Jxs-yj-rgW">
@@ -124,10 +123,10 @@
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
-                                <rect key="frame" x="0.0" y="59" width="414" height="486"/>
+                                <rect key="frame" x="0.0" y="77" width="414" height="468"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
-                                        <rect key="frame" x="0.0" y="36" width="414" height="414"/>
+                                        <rect key="frame" x="0.0" y="27" width="414" height="414"/>
                                         <color key="backgroundColor" red="0.58280308420000004" green="0.79040464740000005" blue="0.19517801730000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Hu3-fH-eJk" secondAttribute="height" multiplier="1:1" id="PJ3-Oq-ENL"/>
@@ -269,10 +268,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cancelButton" width="20" height="20"/>
+        <image name="cancelButton" width="40" height="40"/>
         <image name="filter_icon" width="22" height="22"/>
         <image name="layout_corner" width="22" height="22"/>
-        <image name="shareButton" width="20" height="20"/>
+        <image name="shareButton" width="40" height="40"/>
         <image name="switchCameraButton" width="250" height="250"/>
     </resources>
 </document>
