@@ -371,7 +371,10 @@ class RCT_EditViewController: UIViewController {
         let currentFrontImage = self.rCTImage?.imageFrontUIImage
         self.rCTImage?.imageBackUIImage = currentFrontImage!
         self.rCTImage?.imageFrontUIImage = currentBackImage!
-
+        let tempImage = self.originalBackImage
+        self.originalBackImage = self.originalFrontImage
+        self.originalFrontImage = tempImage
+        
         if withAnimation {
             frontImageView.alpha = 0
             backImageView.alpha = 0
