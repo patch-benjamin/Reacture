@@ -6,7 +6,7 @@
 //  Copyright © 2016 BAEP. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Layout: Int {
     
@@ -16,6 +16,27 @@ enum Layout: Int {
     UpperRightLowerLeft,
     PictureInPicture,
     Count
+}
+
+let layoutIcons = [UIImage(named: "top_bottom"),
+    UIImage(named: "left_right"),
+    UIImage(named: "top_left_bottom_right"),
+    UIImage(named: "top_right_bottom_left"),
+    UIImage(named: "picture_in_picture")]
+
+enum SubLayout: Int {
+    
+    case None = 0,
+    Top,
+    Bottom,
+    Left,
+    Right,
+    TopRight,
+    BottomRight,
+    TopLeft,
+    BottomLeft,
+    BigPicture,
+    LittlePicture
 }
 
 enum MaskLayout: Int {

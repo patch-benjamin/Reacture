@@ -14,12 +14,12 @@ class RCT_LayoutController {
     // MARK: U
     static var isCornersLayout: Bool = false
     
-    static func updateWithLayout(layout: Layout, image: RCT_Image, view: UIView) {
-        
-        // update the layout variable on the image
-        print("test: Layout updated with layout: \(layout)")
-        
-    }
+//    static func updateWithLayout(layout: Layout, image: RCT_Image, view: UIView) {
+//        
+//        // update the layout variable on the image
+//        print("test: Layout updated with layout: \(layout)")
+//        
+//    }
     
     
 }

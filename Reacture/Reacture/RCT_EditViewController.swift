@@ -73,6 +73,14 @@ class RCT_EditViewController: UIViewController {
     var frontImageScrollView = UIScrollView()
     var backImageZoomableView = ZoomableView()
     var backImageScrollView = UIScrollView()
+    
+    // Adjusting layout view variables
+    var adjustLayoutView = UIView()
+    var adjustLayoutViewLastPosition = CGPoint()
+    var frontImageLastFrame = CGRect()
+    var backImageLastFrame = CGRect()
+    static let lineWidth: CGFloat = 10.0
+
 
     // MARK: Filter Variables
 
@@ -96,6 +104,133 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
     //////////////////////////////
 
+    func setupAdjustLayoutView() {
+        
+        self.adjustLayoutView.frame = self.rCTImageView!.frame
+        self.adjustLayoutView.backgroundColor = UIColor.whiteColor()
+        self.rCTImageView.addSubview(adjustLayoutView)
+        adjustLayoutView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "adjustLayoutView:"))
+        updateLayoutViewForLayout()
+        
+    }
+    
+    func updateLayoutViewForLayout() {
+        
+        adjustLayoutView.hidden = false
+        
+        switch rCTImage!.layout {
+            
+        case .TopBottom:
+            
+            adjustLayoutView.frame = CGRectMake(0.0, 0.0, rCTImageView.frame.width, RCT_EditViewController.lineWidth)
+            adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: rCTImageView.bounds.maxY/2)
+            
+        case .LeftRight:
+            
+            adjustLayoutView.frame = CGRectMake(0.0, 0.0, RCT_EditViewController.lineWidth, rCTImageView.frame.height)
+            adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: rCTImageView.bounds.maxY/2)
+
+        default:
+            adjustLayoutView.hidden = true
+        }
+        
+        rCTImageView.bringSubviewToFront(adjustLayoutView)
+
+    }
+
+    func adjustLayoutView(recognizer: UIPanGestureRecognizer) {
+        
+        if recognizer.state == .Began {
+            
+            adjustLayoutViewLastPosition = adjustLayoutView.center
+            frontImageLastFrame = frontImageZoomableView.frame
+            backImageLastFrame = backImageZoomableView.frame
+        }
+        
+        let translation = recognizer.translationInView(self.rCTImageView)
+        switch rCTImage!.layout {
+            
+        case .TopBottom:
+            var layoutViewY: CGFloat = adjustLayoutViewLastPosition.y + translation.y
+            let adjustmentBuffer = rCTImageView.frame.height/4 // each image must be at least 1/4 of the rCTImageView
+            let uppermostBound: CGFloat = (rCTImageView.bounds.minY + adjustmentBuffer)
+            let lowermostBound: CGFloat = (rCTImageView.bounds.maxY - adjustmentBuffer)
+            var frontImageHeight: CGFloat = frontImageLastFrame.height + translation.y
+            var backImageHeight: CGFloat = backImageLastFrame.height - translation.y
+            var backImageY: CGFloat = backImageLastFrame.origin.y + translation.y
+            
+            // Check for invalid Y position
+            if layoutViewY > lowermostBound {
+                
+                layoutViewY = lowermostBound
+
+                let yPositionPercentage = (lowermostBound / rCTImageView.bounds.maxY)
+                frontImageHeight =  rCTImageView.bounds.height * yPositionPercentage
+                backImageHeight = rCTImageView.bounds.height - (rCTImageView.bounds.height * yPositionPercentage) // width times percentage of where the x point is.
+                backImageY = lowermostBound
+                print("rCTImageView.bounds.height: \(rCTImageView.bounds.height); yPositionPercentage: \(yPositionPercentage)")
+
+            } else if layoutViewY < uppermostBound {
+                
+                layoutViewY = uppermostBound
+
+                let yPositionPercentage = (uppermostBound / rCTImageView.bounds.maxY)
+                frontImageHeight =  rCTImageView.bounds.height * yPositionPercentage
+                backImageHeight = rCTImageView.bounds.height - (rCTImageView.bounds.height * yPositionPercentage) // width times percentage of where the x point is.
+                backImageY = uppermostBound
+
+            }
+            
+            adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: layoutViewY)
+            frontImageZoomableView.frame.size.height = frontImageHeight
+            backImageZoomableView.frame.size.height = backImageHeight
+            backImageZoomableView.frame.origin.y = backImageY
+            
+        case .LeftRight:
+            
+            var layoutViewX: CGFloat = adjustLayoutViewLastPosition.x + translation.x
+            let adjustmentBuffer = rCTImageView.frame.width/4 // each image must be at least 1/4 of the rCTImageView
+            let rightmostBound: CGFloat = (rCTImageView.bounds.maxX - adjustmentBuffer)
+            let leftmostBound: CGFloat = (rCTImageView.bounds.minX + adjustmentBuffer)
+            var frontImageWidth = frontImageLastFrame.width + translation.x
+            var backImageWidth = backImageLastFrame.width - translation.x
+            var backImageX = backImageLastFrame.origin.x + translation.x
+
+            // Check for invalid X position
+            if layoutViewX > rightmostBound {
+                
+                layoutViewX = rightmostBound
+                
+                let xPositionPercentage = (rightmostBound / rCTImageView.bounds.maxX)
+                frontImageWidth = rCTImageView.bounds.width * xPositionPercentage
+                backImageWidth = rCTImageView.bounds.width - (rCTImageView.bounds.width * xPositionPercentage) // width times percentage of where the x point is.
+                backImageX = rightmostBound
+
+            } else if layoutViewX < leftmostBound {
+                
+                layoutViewX = leftmostBound
+                
+                let xPositionPercentage = (leftmostBound / rCTImageView.bounds.maxX)
+                frontImageWidth =  rCTImageView.bounds.width * xPositionPercentage
+                backImageWidth = rCTImageView.bounds.width - (rCTImageView.bounds.width * xPositionPercentage) // width times percentage of where the x point is.
+                backImageX = leftmostBound
+
+            }
+            
+            adjustLayoutView.center = CGPoint(x: layoutViewX, y: rCTImageView.bounds.maxY/2)
+            frontImageZoomableView.frame.size.width = frontImageWidth
+            backImageZoomableView.frame.size.width = backImageWidth
+            backImageZoomableView.frame.origin.x = backImageX
+            
+        default:
+            
+            break
+        }
+
+            frontImageScrollView.frame = frontImageZoomableView.bounds
+            backImageScrollView.frame = backImageZoomableView.bounds
+    }
+    
     func setupScrollViews() {
 
         let frontImageZoomScaleWidth = frontImageZoomableView.bounds.width / (frontImageView.image?.size.width)!
@@ -206,6 +341,9 @@ class RCT_EditViewController: UIViewController {
         self.backImageScrollView.addSubview(backImageView)
 
         setupScrollViews()
+        setupAdjustLayoutView()
+
+        rCTImageView.updateBorderForLayout(.BigPicture)
     }
 
     func setUpImages(front: UIImage, back: UIImage){
@@ -243,7 +381,10 @@ class RCT_EditViewController: UIViewController {
         let currentFrontImage = self.rCTImage?.imageFrontUIImage
         self.rCTImage?.imageBackUIImage = currentFrontImage!
         self.rCTImage?.imageFrontUIImage = currentBackImage!
-
+        let tempImage = self.originalBackImage
+        self.originalBackImage = self.originalFrontImage
+        self.originalFrontImage = tempImage
+        
         if withAnimation {
             frontImageView.alpha = 0
             backImageView.alpha = 0
@@ -645,7 +786,11 @@ extension RCT_EditViewController {
         self.rCTImage?.layout = layout
         clearMasks()
         clearSwappedImages()
+        updateLayoutViewForLayout()
 
+        frontImageZoomableView.removeBorders()
+        backImageZoomableView.removeBorders()
+        
         var frontImageX: CGFloat
         var frontImageY: CGFloat
         var frontImageWidth: CGFloat
@@ -654,6 +799,9 @@ extension RCT_EditViewController {
         var backImageY: CGFloat
         var backImageWidth: CGFloat
         var backImageHeight: CGFloat
+        
+        var frontImageSubLayout = SubLayout.None
+        var backImageSubLayout = SubLayout.None
 
         switch layout {
 
@@ -667,7 +815,7 @@ extension RCT_EditViewController {
             backImageY = rCTImageView.bounds.maxY/2
             backImageWidth = rCTImageView.bounds.width
             backImageHeight = rCTImageView.bounds.height/2
-
+            
         case .LeftRight:
 
             frontImageX = 0.0
@@ -678,7 +826,7 @@ extension RCT_EditViewController {
             backImageY = 0.0
             backImageWidth = rCTImageView.bounds.width/2
             backImageHeight = rCTImageView.bounds.height
-
+            
         case .PictureInPicture:
 
             let yBuffer: CGFloat = 8.0
@@ -692,6 +840,9 @@ extension RCT_EditViewController {
             backImageY = 0.0
             backImageWidth = rCTImageView.bounds.width
             backImageHeight = rCTImageView.bounds.height
+            
+            // Add Borders
+            frontImageSubLayout = SubLayout.LittlePicture
 
         case .UpperLeftLowerRight:
 
@@ -707,6 +858,10 @@ extension RCT_EditViewController {
 
             frontImageZoomableView.maskLayout = MaskLayout.TopLeft
             backImageZoomableView.maskLayout = MaskLayout.BottomRight
+            
+            // Add Borders
+            frontImageSubLayout = SubLayout.TopLeft
+            backImageSubLayout = SubLayout.BottomRight
 
         case .UpperRightLowerLeft:
 
@@ -722,6 +877,10 @@ extension RCT_EditViewController {
 
             frontImageZoomableView.maskLayout = MaskLayout.TopRight
             backImageZoomableView.maskLayout = MaskLayout.BottomLeft
+            
+            // Add Borders
+            frontImageSubLayout = SubLayout.TopRight
+            backImageSubLayout = SubLayout.BottomLeft
 
         case .Count:
 
@@ -739,9 +898,14 @@ extension RCT_EditViewController {
         backImageZoomableView.frame = CGRectMake(backImageX, backImageY, backImageWidth, backImageHeight)
         frontImageScrollView.frame = frontImageZoomableView.bounds
         backImageScrollView.frame = backImageZoomableView.bounds
+
+        // set the borders
+        frontImageZoomableView.updateBorderForLayout(frontImageSubLayout)
+        backImageZoomableView.updateBorderForLayout(backImageSubLayout)
+
         updateScrollViews()
         frontImageZoomableView.removeIsMovableView()
-        print("contentOffset: \(frontImageScrollView.contentOffset)")
+        
     }
 }
 
@@ -768,6 +932,9 @@ extension RCT_EditViewController: PanGestureViewProtocol {
         }
     }
 
+    
+    
+    // Pan gesture for moving image in image layout.
     func panDetected(center: CGPoint) {
 
         let heightRatio = frontImageZoomableView.bounds.height/rCTImageView.bounds.height
