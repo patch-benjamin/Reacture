@@ -24,8 +24,16 @@ class RCT_CameraViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tapToFocusRecognizer = UITapGestureRecognizer(target: self, action: "tapToFocus:")
         setupCamera()
         setupButtons()
+        
+        focusBox = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
+        focusBox.backgroundColor = UIColor.clearColor()
+        focusBox.layer.borderWidth = 1.0
+        focusBox.layer.borderColor = UIColor.yellowColor().CGColor
+        focusBox.alpha = 0.0
+        view.addSubview(focusBox)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -43,7 +51,6 @@ class RCT_CameraViewController: UIViewController {
     // MARK: - Variables
 
     // Bool for Switching Previews
-
     var backCameraIsPreview: Bool = true
     var rCTImage: RCT_Image? = nil
     var captureSesson = AVCaptureSession()
@@ -51,22 +58,26 @@ class RCT_CameraViewController: UIViewController {
     var backInput: AVCaptureDeviceInput?
     var frontCaptureDevice: AVCaptureDevice?
     var backCaptureDevice: AVCaptureDevice?
+    var currentCaptureDevice: AVCaptureDevice?
     var stillImageOutput = AVCaptureStillImageOutput()
     let previewView = UIView()
     var previewLayer = AVCaptureVideoPreviewLayer()
 
     // Flash Variables
-
     let flashView = UIView()
     let currentBrightness = UIScreen.mainScreen().brightness
 
     // Image Variables
-
     var frontImage = UIImage()
     var backImage = UIImage()
+    
+    // Tap to focus variables
+    var tapToFocusRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()
+    var previewPointOfTap = CGPoint()
+    var captureDevicePointOfTap = CGPoint()
+    var focusBox = UIView()
 
     // Session Queue
-
     let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
 
     // MARK: - Outlets
@@ -313,6 +324,19 @@ class RCT_CameraViewController: UIViewController {
         darkView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(darkView)
     }
+    
+    // Focus Box
+    func focusBox(centerPoint: CGPoint) {
+        
+        focusBox.center = centerPoint
+        
+        UIView.animateWithDuration(1.5, animations: { () -> Void in
+            
+            self.focusBox.alpha = 1.0
+            }) { (_) -> Void in
+                self.focusBox.alpha = 0.0
+        }
+    }
 
     func frontFlash() {
         let rect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
@@ -325,7 +349,42 @@ class RCT_CameraViewController: UIViewController {
             UIScreen.mainScreen().brightness = 1.0
         }
     }
-
+    
+    // MARK: - Tap to Focus
+    // setup tap gesture recognizer
+    func tapToFocus(recognizer: UIGestureRecognizer) {
+        
+        previewPointOfTap = recognizer.locationInView(self.view)
+        focusBox(previewPointOfTap)
+        captureDevicePointOfTap = previewLayer.captureDevicePointOfInterestForPoint(previewPointOfTap)
+        
+        if let focusDevice = currentCaptureDevice  {
+            if focusDevice.focusPointOfInterestSupported {
+                do {
+                    try focusDevice.lockForConfiguration()
+                    focusDevice.focusPointOfInterest = captureDevicePointOfTap
+                    if focusDevice.isFocusModeSupported(.AutoFocus) {
+                        focusDevice.focusMode = .AutoFocus
+                    }
+                    focusDevice.unlockForConfiguration()
+                    print("Point in capture device: \(previewLayer.captureDevicePointOfInterestForPoint(captureDevicePointOfTap))")
+                    
+                } catch {
+                    error
+                    print("Lock for configuration unsuccessful \(error)")
+                }
+            }
+        }
+        
+        print("Focus mode: \(currentCaptureDevice!.focusMode.rawValue)")
+        print("Point in previewView: \(previewPointOfTap)")
+    }
+    
+    func focusAreaBox(recognizer: UIGestureRecognizer) {
+        
+        
+    }
+    
     // MARK: - Setup UI
 
     func setupButtons() {
@@ -379,7 +438,6 @@ extension RCT_CameraViewController {
     func setupCamera() {
 
         print("Setting Up Camera")
-        var error: NSError?
         self.captureSesson.sessionPreset = AVCaptureSessionPresetPhoto
         stillImageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
 
@@ -410,6 +468,7 @@ extension RCT_CameraViewController {
 
                 if self.captureSesson.canAddInput(input) {
                     self.captureSesson.addInput(input)
+                    self.currentCaptureDevice = backCamera
                     print("Back Camera Input was Added")
 
                     if captureSesson.canAddOutput(stillImageOutput) {
@@ -428,10 +487,12 @@ extension RCT_CameraViewController {
     }
 
     func getFrontInput() {
+        
         if let frontCamera = frontCaptureDevice {
             do {
                 let input = try AVCaptureDeviceInput(device: frontCamera)
                 self.frontInput = input
+                self.currentCaptureDevice = frontCamera
             } catch {
                 error
             }
@@ -453,6 +514,7 @@ extension RCT_CameraViewController {
         print("\(previewLayer.frame.size)")
         previewView.layer.addSublayer(self.previewLayer)
         previewLayer.frame = self.previewView.frame
+        previewView.addGestureRecognizer(tapToFocusRecognizer)
         
         self.view.bringSubviewToFront(shutterButton)
         self.view.bringSubviewToFront(switchCameraButton)
