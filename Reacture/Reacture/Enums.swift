@@ -19,8 +19,8 @@ enum Layout: Int {
 }
 
 let layoutIcons = [UIImage(named: "layout_southeast"),
-    UIImage(named: "layout_top"),
     UIImage(named: "layout_side"),
+    UIImage(named: "layout_top"),
     UIImage(named: "layout_diagonal_downright"),
     UIImage(named: "layout_diagonal_downleft")]
 

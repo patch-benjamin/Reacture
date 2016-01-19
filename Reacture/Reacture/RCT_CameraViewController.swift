@@ -338,8 +338,8 @@ class RCT_CameraViewController: UIViewController {
         shutterButton.layer.borderWidth = 3
 //        shutterButton.layer.borderColor =
         shutterButton.layer.cornerRadius = width / 2
-        shutterButton.backgroundColor = UIColor.redColor()
-//        shutterButton.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
+//        shutterButton.backgroundColor = UIColor.redColor()
+        shutterButton.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
         shutterButton.layer.opacity = 1.0
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(shutterButton)
