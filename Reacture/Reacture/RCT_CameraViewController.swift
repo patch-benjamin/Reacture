@@ -27,6 +27,13 @@ class RCT_CameraViewController: UIViewController {
         self.tapToFocusRecognizer = UITapGestureRecognizer(target: self, action: "tapToFocus:")
         setupCamera()
         setupButtons()
+        
+        focusBox = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
+        focusBox.backgroundColor = UIColor.clearColor()
+        focusBox.layer.borderWidth = 1.0
+        focusBox.layer.borderColor = UIColor.yellowColor().CGColor
+        focusBox.alpha = 0.0
+        view.addSubview(focusBox)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -68,6 +75,7 @@ class RCT_CameraViewController: UIViewController {
     var tapToFocusRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()
     var previewPointOfTap = CGPoint()
     var captureDevicePointOfTap = CGPoint()
+    var focusBox = UIView()
 
     // Session Queue
     let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
@@ -316,6 +324,19 @@ class RCT_CameraViewController: UIViewController {
         darkView.backgroundColor = UIColor.blackColor()
         self.view.addSubview(darkView)
     }
+    
+    // Focus Box
+    func focusBox(centerPoint: CGPoint) {
+        
+        focusBox.center = centerPoint
+        
+        UIView.animateWithDuration(1.5, animations: { () -> Void in
+            
+            self.focusBox.alpha = 1.0
+            }) { (_) -> Void in
+                self.focusBox.alpha = 0.0
+        }
+    }
 
     func frontFlash() {
         let rect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
@@ -334,6 +355,7 @@ class RCT_CameraViewController: UIViewController {
     func tapToFocus(recognizer: UIGestureRecognizer) {
         
         previewPointOfTap = recognizer.locationInView(self.view)
+        focusBox(previewPointOfTap)
         captureDevicePointOfTap = previewLayer.captureDevicePointOfInterestForPoint(previewPointOfTap)
         
         if let focusDevice = currentCaptureDevice  {
@@ -356,6 +378,11 @@ class RCT_CameraViewController: UIViewController {
         
         print("Focus mode: \(currentCaptureDevice!.focusMode.rawValue)")
         print("Point in previewView: \(previewPointOfTap)")
+    }
+    
+    func focusAreaBox(recognizer: UIGestureRecognizer) {
+        
+        
     }
     
     // MARK: - Setup UI
