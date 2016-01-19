@@ -31,6 +31,7 @@ class RCT_EditViewController: UIViewController {
         setupFilters()
         self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width)
         updateWithLayout(rCTImage!.layout)
+        containerViewController?.reloadCollection()
     }
 
     override func prefersStatusBarHidden() -> Bool {
@@ -486,7 +487,7 @@ class RCT_EditViewController: UIViewController {
         
         // Reload Collection View Data
         
-        containerViewController?.handleReloadCollectionNotification()
+        containerViewController?.reloadCollection()
         
         frontImageZoomableView.removeIsMovableView()
     }
@@ -500,7 +501,7 @@ class RCT_EditViewController: UIViewController {
         
         // Reload Collection View Data
         
-        containerViewController?.handleReloadCollectionNotification()
+        containerViewController?.reloadCollection()
         
         frontImageZoomableView.removeIsMovableView()
     }
