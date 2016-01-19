@@ -55,7 +55,7 @@ class RCT_Image {
 //    }
 
     
-    init(imageFront: UIImage, imageBack: UIImage, layout: Layout = Layout.TopBottom) {
+    init(imageFront: UIImage, imageBack: UIImage, layout: Layout = Layout(rawValue: 0)!) {
         
         self.imageFrontUIImage = imageFront
         self.imageBackUIImage = imageBack

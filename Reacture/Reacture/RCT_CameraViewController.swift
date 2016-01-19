@@ -162,7 +162,7 @@ class RCT_CameraViewController: UIViewController {
                                     if let frontData = data {
                                         self.frontImage = UIImage(data: frontData)!
                                         print("Front Camera Data is Here")
-                                        let layout = Layout.TopBottom
+                                        let layout = Layout(rawValue: 0)!
                                         self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.frontImage, imageBack: self.backImage, layout: layout)
                                         self.performSegueWithIdentifier("ToEditView", sender: self)
                                         self.captureSesson.beginConfiguration()
@@ -200,7 +200,7 @@ class RCT_CameraViewController: UIViewController {
                                     if let backData = data {
                                         self.backImage = UIImage(data: backData)!
                                         print("Back Camera Data is Here")
-                                        let layout = Layout.TopBottom
+                                        let layout = Layout(rawValue: 0)!
                                         self.rCTImage = RCT_ImageController.createRCTImageFromImages(self.frontImage, imageBack: self.backImage, layout: layout)
                                         self.performSegueWithIdentifier("ToEditView", sender: self)
                                         self.captureSesson.beginConfiguration()

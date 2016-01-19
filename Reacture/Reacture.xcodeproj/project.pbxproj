@@ -25,7 +25,8 @@
 		7192244D1C3D8DF500CEE9E4 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7192244C1C3D8DF500CEE9E4 /* Enums.swift */; };
 		71C889AA1C49AF8600F6119C /* ZoomableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C889A91C49AF8600F6119C /* ZoomableView.swift */; };
 		71C889AC1C49B16A00F6119C /* ScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C889AB1C49B16A00F6119C /* ScrollViewExtension.swift */; };
-		71C889C71C4D8B4C00F6119C /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C889C61C4D8B4C00F6119C /* UIViewExtension.swift */; };
+		971B61651C4EC592001C6C7E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 971B61641C4EC592001C6C7E /* Launch Screen.storyboard */; };
+		978331BC1C4DA75800FAD76B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978331BB1C4DA75800FAD76B /* UIViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +49,8 @@
 		7192244C1C3D8DF500CEE9E4 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		71C889A91C49AF8600F6119C /* ZoomableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomableView.swift; sourceTree = "<group>"; };
 		71C889AB1C49B16A00F6119C /* ScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollViewExtension.swift; path = ../ScrollViewExtension.swift; sourceTree = "<group>"; };
-		71C889C61C4D8B4C00F6119C /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		971B61641C4EC592001C6C7E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		978331BB1C4DA75800FAD76B /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				71C889A91C49AF8600F6119C /* ZoomableView.swift */,
 				71C889C61C4D8B4C00F6119C /* UIViewExtension.swift */,
 				716D6A2B1C3C462B00B762F9 /* Main.storyboard */,
+				971B61641C4EC592001C6C7E /* Launch Screen.storyboard */,
 				24B871751C3C5CCB0019DB37 /* ViewControllers */,
 				24B871761C3C5CDA0019DB37 /* Model */,
 				24B871771C3C5CFE0019DB37 /* Controllers */,
@@ -189,6 +192,7 @@
 			files = (
 				24F919211C4AF79E005A47EA /* photoShutter2.caf in Resources */,
 				716D6A2F1C3C462B00B762F9 /* Assets.xcassets in Resources */,
+				971B61651C4EC592001C6C7E /* Launch Screen.storyboard in Resources */,
 				716D6A2D1C3C462B00B762F9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

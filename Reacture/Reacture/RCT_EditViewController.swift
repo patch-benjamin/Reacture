@@ -230,12 +230,10 @@ class RCT_EditViewController: UIViewController {
             frontImageZoomableView.frame.size.width = frontImageWidth
             backImageZoomableView.frame.size.width = backImageWidth
             backImageZoomableView.frame.origin.x = backImageX
-            
         default:
-            
+
             break
         }
-
             frontImageScrollView.frame = frontImageZoomableView.bounds
             backImageScrollView.frame = backImageZoomableView.bounds
     }
@@ -353,6 +351,7 @@ class RCT_EditViewController: UIViewController {
         setupAdjustLayoutView()
 
         rCTImageView.updateBorderForLayout(.BigPicture)
+        updateWithLayout(Layout(rawValue: 0)!)
     }
 
     func setUpImages(front: UIImage, back: UIImage){
@@ -482,10 +481,13 @@ class RCT_EditViewController: UIViewController {
         //animateContainerView()
 
         // Send Collection View "isLayoutSelected" == true
-        kIsLayoutSelected = true
+
+        containerViewController?.optionSelected = OptionType.Layout
+        
         // Reload Collection View Data
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.postNotificationName("reloadCollectionView", object: self)
+        
+        containerViewController?.handleReloadCollectionNotification()
+        
         frontImageZoomableView.removeIsMovableView()
     }
 
@@ -493,10 +495,13 @@ class RCT_EditViewController: UIViewController {
         print("Filter Button Tapped")
         //animateContainerView()
         // Send Collection View "isLayoutSelected" == false
-        kIsLayoutSelected = false
+
+        containerViewController?.optionSelected = OptionType.Filters
+        
         // Reload Collection View Data
-        let nc = NSNotificationCenter.defaultCenter()
-        nc.postNotificationName("reloadCollectionView", object: self)
+        
+        containerViewController?.handleReloadCollectionNotification()
+        
         frontImageZoomableView.removeIsMovableView()
     }
 
@@ -518,7 +523,7 @@ class RCT_EditViewController: UIViewController {
     }
 
     func setupSwapImageButton() {
-        let size = CGSize(width: 50, height: 50)
+        let size = CGSize(width: 40, height: 40)
         swapImageButton.frame.size = size
         swapImageButton.center.x = self.view.center.x
         swapImageButton.center.y = 40
@@ -531,15 +536,28 @@ class RCT_EditViewController: UIViewController {
     }
 }
 
+//switch optionSelected {
+//case .Layout:
+//    break
+//case .Filters:
+//    break
+//}
+
 extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
 
-    func itemSelected(indexPath: NSIndexPath) {
-        if kIsLayoutSelected! {
+    func itemSelected(indexPath: NSIndexPath, optionSelected: OptionType) {
+        
+        switch optionSelected {
+        case .Layout:
+
             let layoutSelected = Layout(rawValue: indexPath.item)!
             updateWithLayout(layoutSelected)
-        } else {
+
+        case .Filters:
+
             let filterSelected = Filter(rawValue: indexPath.item)!
             updateWithFilter(filterSelected)
+
         }
     }
 }
@@ -617,8 +635,9 @@ extension RCT_EditViewController {
                 if filterButtonIndex == filterButtonsCount {
                     // All button images complete
                     // Pass to Container View to populate buttons and reload
-                    let nc = NSNotificationCenter.defaultCenter()
-                    nc.postNotificationName("Filter Button Images Complete", object: self, userInfo: ["filterButtonImageViews": self.arrayOfFilterButtonImageViews])
+                    
+                    containerViewController?.loadFilterButtonImages(self.arrayOfFilterButtonImageViews)
+                    
                 }
                 let filterRawValue = filterButtonIndex
                 if let filterSelected = Filter(rawValue: filterRawValue) {
@@ -797,9 +816,10 @@ extension RCT_EditViewController {
         clearSwappedImages()
         updateLayoutViewForLayout()
 
+        frontImageZoomableView.removeIsMovableView()
         frontImageZoomableView.removeBorders()
         backImageZoomableView.removeBorders()
-        
+
         var frontImageX: CGFloat
         var frontImageY: CGFloat
         var frontImageWidth: CGFloat
@@ -913,8 +933,6 @@ extension RCT_EditViewController {
         backImageZoomableView.updateBorderForLayout(backImageSubLayout)
 
         updateScrollViews()
-        frontImageZoomableView.removeIsMovableView()
-        
     }
 }
 
