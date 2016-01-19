@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum OptionType: Int {
+    case Layout = 0,
+    Filters
+}
+
 enum Layout: Int {
     
     case PictureInPicture = 0,
