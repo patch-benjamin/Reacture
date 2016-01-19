@@ -313,21 +313,6 @@ class RCT_CameraViewController: UIViewController {
                 })
             }
         }
-//        if device.flashActive == false {
-//            if (hasTakenFirstPicture!) {
-//                hasTakenFirstPicture = false
-//            } else {
-//                AudioServicesPlaySystemSound(soundID)
-//                hasTakenFirstPicture = true
-//            }
-//        } else {
-//            if (hasTakenFirstPicture!) {
-//                hasTakenFirstPicture = false
-//            } else {
-////                AudioServicesPlaySystemSound(soundID)
-//                hasTakenFirstPicture = true
-//            }
-//        }
     }
     
     override func viewWillDisappear(animated: Bool) {
