@@ -274,18 +274,7 @@ class RCT_CameraViewController: UIViewController {
                 }
                 connection.videoOrientation = orientation
 
-                var soundID: SystemSoundID = 0;
-                if (hasTakenFirstPicture!) {
-                    hasTakenFirstPicture = false
-                } else {
-                    if (soundID == 0) {
-                        let path = NSBundle.mainBundle().pathForResource("photoShutter2", ofType: "caf")
-                        let filePath = NSURL(fileURLWithPath: path!, isDirectory: false) as CFURLRef
-                        AudioServicesCreateSystemSoundID(filePath, &soundID);
-                    }
-                    AudioServicesPlaySystemSound(soundID)
-                    hasTakenFirstPicture = true
-                }
+                
                 
                  // TODO: Change Code to Allow Landscape
                 
@@ -295,6 +284,18 @@ class RCT_CameraViewController: UIViewController {
                     }
                 })
             }
+        }
+        var soundID: SystemSoundID = 0;
+        if (hasTakenFirstPicture!) {
+            hasTakenFirstPicture = false
+        } else {
+            if (soundID == 0) {
+                let path = NSBundle.mainBundle().pathForResource("photoShutter2", ofType: "caf")
+                let filePath = NSURL(fileURLWithPath: path!, isDirectory: false) as CFURLRef
+                AudioServicesCreateSystemSoundID(filePath, &soundID);
+            }
+            AudioServicesPlaySystemSound(soundID)
+            hasTakenFirstPicture = true
         }
     }
 
