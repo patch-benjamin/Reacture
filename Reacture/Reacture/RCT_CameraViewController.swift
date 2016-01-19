@@ -344,7 +344,7 @@ class RCT_CameraViewController: UIViewController {
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(shutterButton)
         // iSight Flash Button
-        iSightFlashButton.frame.size = CGSize(width: 15, height: 25)
+        iSightFlashButton.frame.size = CGSize(width: 20, height: 35)
         iSightFlashButton.frame.origin.x = 20
         iSightFlashButton.frame.origin.y = 8
         iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)
