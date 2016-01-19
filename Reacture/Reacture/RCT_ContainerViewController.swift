@@ -51,7 +51,7 @@ class RCT_ContainerViewController: UIViewController {
         print("Reloading Collection View")
     }
 
-    func handleReloadCollectionNotification() {
+    func reloadCollection() {
                print("Collection View Reloaded")
 
         collectionView.reloadData()
