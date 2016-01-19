@@ -76,10 +76,11 @@ class RCT_EditViewController: UIViewController {
     
     // Adjusting layout view variables
     var adjustLayoutView = UIView()
+    var adjustLayoutVisibleView = UIView()
     var adjustLayoutViewLastPosition = CGPoint()
     var frontImageLastFrame = CGRect()
     var backImageLastFrame = CGRect()
-    static let lineWidth: CGFloat = 10.0
+    static let lineWidth: CGFloat = 5.0
 
 
     // MARK: Filter Variables
@@ -107,7 +108,9 @@ class RCT_EditViewController: UIViewController {
     func setupAdjustLayoutView() {
         
         self.adjustLayoutView.frame = self.rCTImageView!.frame
-        self.adjustLayoutView.backgroundColor = UIColor.whiteColor()
+        self.adjustLayoutView.backgroundColor = UIColor.clearColor()
+        adjustLayoutVisibleView.backgroundColor = UIColor.whiteColor()
+        self.adjustLayoutView.addSubview(adjustLayoutVisibleView)
         self.rCTImageView.addSubview(adjustLayoutView)
         adjustLayoutView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "adjustLayoutView:"))
         updateLayoutViewForLayout()
@@ -117,19 +120,25 @@ class RCT_EditViewController: UIViewController {
     func updateLayoutViewForLayout() {
         
         adjustLayoutView.hidden = false
+        let invisibleLineWidth: CGFloat = 25.0
         
         switch rCTImage!.layout {
             
         case .TopBottom:
             
-            adjustLayoutView.frame = CGRectMake(0.0, 0.0, rCTImageView.frame.width, RCT_EditViewController.lineWidth)
+            adjustLayoutView.frame = CGRectMake(0.0, 0.0, rCTImageView.frame.width, invisibleLineWidth)
             adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: rCTImageView.bounds.maxY/2)
+            adjustLayoutVisibleView.frame = CGRectMake(0.0, 0.0, rCTImageView.bounds.width, RCT_EditViewController.lineWidth)
+            adjustLayoutVisibleView.center = CGPoint(x: adjustLayoutView.bounds.maxX/2, y: adjustLayoutView.bounds.maxY/2)
+
             
         case .LeftRight:
             
-            adjustLayoutView.frame = CGRectMake(0.0, 0.0, RCT_EditViewController.lineWidth, rCTImageView.frame.height)
+            adjustLayoutView.frame = CGRectMake(0.0, 0.0, invisibleLineWidth, rCTImageView.frame.height)
             adjustLayoutView.center = CGPoint(x: rCTImageView.bounds.maxX/2, y: rCTImageView.bounds.maxY/2)
-
+            adjustLayoutVisibleView.frame = CGRectMake(0.0, 0.0, RCT_EditViewController.lineWidth, rCTImageView.bounds.height)
+            adjustLayoutVisibleView.center = CGPoint(x: adjustLayoutView.bounds.maxX/2, y: adjustLayoutView.bounds.maxY/2)
+            
         default:
             adjustLayoutView.hidden = true
         }
