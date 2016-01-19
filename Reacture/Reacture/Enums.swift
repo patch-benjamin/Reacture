@@ -10,19 +10,19 @@ import UIKit
 
 enum Layout: Int {
     
-    case TopBottom = 0,
+    case PictureInPicture = 0,
     LeftRight,
+    TopBottom,
     UpperLeftLowerRight,
     UpperRightLowerLeft,
-    PictureInPicture,
     Count
 }
 
-let layoutIcons = [UIImage(named: "top_bottom"),
-    UIImage(named: "left_right"),
-    UIImage(named: "top_left_bottom_right"),
-    UIImage(named: "top_right_bottom_left"),
-    UIImage(named: "picture_in_picture")]
+let layoutIcons = [UIImage(named: "layout_southeast"),
+    UIImage(named: "layout_top"),
+    UIImage(named: "layout_side"),
+    UIImage(named: "layout_diagonal_downright"),
+    UIImage(named: "layout_diagonal_downleft")]
 
 enum SubLayout: Int {
     

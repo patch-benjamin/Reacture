@@ -44,7 +44,6 @@ class PanGestureView: ZoomableView {
     func removeIsMovableView() {
         
         if isMoveableView != nil {
-            
             self.isMoveableView!.removeFromSuperview()
             self.isMoveableView = nil
         }

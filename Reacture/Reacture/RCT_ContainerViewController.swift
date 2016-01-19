@@ -122,15 +122,17 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
 
             if CGFloat(indexPath.item) == layoutSelected {
                 cell.imageView.layer.borderWidth = borderWidth
-                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
 
             } else {
                 cell.imageView.layer.borderWidth = 0
-                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
             }
 
-            cell.label.hidden = true
-            cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+//            cell.label.hidden = true
+            cell.imageView.backgroundColor = UIColor.lightGrayColor()
+            cell.label.text = ""
+            cell.label.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0)
             cell.imageView.backgroundColor = UIColor.whiteColor()
             
             cell.imageView.image = layoutIcons[indexPath.item]
@@ -142,14 +144,14 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
 
             if CGFloat(indexPath.item) == filterSelected {
                 cell.imageView.layer.borderWidth = borderWidth
-                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
 
             } else {
                 cell.imageView.layer.borderWidth = 0
-                cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
             }
 
-            cell.label.hidden = false
+//            cell.label.hidden = false
             cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.25)
 //            cell.label.frame.size.width = cell.frame.size.width
             let labelText = String(Filter(rawValue: indexPath.item)!)
@@ -208,24 +210,36 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! RCT_OptionItemCollectionViewCell
 
         cell.imageView.layer.borderWidth = borderWidth
-        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+        cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+
+
 
         if kIsLayoutSelected != nil && kIsLayoutSelected! {
+            let oldCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: Int(layoutSelected), inSection: 0)) as! RCT_OptionItemCollectionViewCell
+
+            oldCell.imageView.layer.borderWidth = 0
+            oldCell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+
             layoutSelected = CGFloat(indexPath.item)
 
         } else {
+            let oldCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: Int(filterSelected), inSection: 0)) as! RCT_OptionItemCollectionViewCell
+
+            oldCell.imageView.layer.borderWidth = 0
+            oldCell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+
             filterSelected = CGFloat(indexPath.item)
         }
 
         delegate?.itemSelected(indexPath)
     }
 
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! RCT_OptionItemCollectionViewCell
-
-        cell.imageView.layer.borderWidth = 0
-        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
-
-    }
+//    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+//
+//        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! RCT_OptionItemCollectionViewCell
+//
+//        cell.imageView.layer.borderWidth = 0
+//        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+//
+//    }
 }

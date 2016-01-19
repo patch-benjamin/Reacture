@@ -221,12 +221,10 @@ class RCT_EditViewController: UIViewController {
             frontImageZoomableView.frame.size.width = frontImageWidth
             backImageZoomableView.frame.size.width = backImageWidth
             backImageZoomableView.frame.origin.x = backImageX
-            
         default:
-            
+
             break
         }
-
             frontImageScrollView.frame = frontImageZoomableView.bounds
             backImageScrollView.frame = backImageZoomableView.bounds
     }
@@ -344,6 +342,7 @@ class RCT_EditViewController: UIViewController {
         setupAdjustLayoutView()
 
         rCTImageView.updateBorderForLayout(.BigPicture)
+        updateWithLayout(Layout(rawValue: 0)!)
     }
 
     func setUpImages(front: UIImage, back: UIImage){
@@ -788,9 +787,10 @@ extension RCT_EditViewController {
         clearSwappedImages()
         updateLayoutViewForLayout()
 
+        frontImageZoomableView.removeIsMovableView()
         frontImageZoomableView.removeBorders()
         backImageZoomableView.removeBorders()
-        
+
         var frontImageX: CGFloat
         var frontImageY: CGFloat
         var frontImageWidth: CGFloat
@@ -904,8 +904,6 @@ extension RCT_EditViewController {
         backImageZoomableView.updateBorderForLayout(backImageSubLayout)
 
         updateScrollViews()
-        frontImageZoomableView.removeIsMovableView()
-        
     }
 }
 
