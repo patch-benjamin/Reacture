@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 var hasTakenFirstPicture: Bool?
+var soundID: SystemSoundID = 0
 
 // A Delay Function
 
@@ -28,6 +29,10 @@ class RCT_CameraViewController: UIViewController {
         setupCamera()
         setupButtons()
         
+        let path = NSBundle.mainBundle().pathForResource("photoShutter2", ofType: "caf")
+        let filePath = NSURL(fileURLWithPath: path!, isDirectory: false) as CFURLRef
+        AudioServicesCreateSystemSoundID(filePath, &soundID)
+        
         focusBox = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0))
         focusBox.backgroundColor = UIColor.clearColor()
         focusBox.layer.borderWidth = 1.0
@@ -35,11 +40,15 @@ class RCT_CameraViewController: UIViewController {
         focusBox.alpha = 0.0
         view.addSubview(focusBox)
     }
+
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        AudioServicesPlaySystemSound(soundID)
+    }
     
     override func viewWillAppear(animated: Bool) {
         hasTakenFirstPicture = false
     }
-
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -101,11 +110,14 @@ class RCT_CameraViewController: UIViewController {
                     print("Error: iSight Flash Button Tapped")
                 }
                 if device.flashActive == true {
+                    self.stillImageOutput.removeObserver(self, forKeyPath: "capturingStillImage")
                     print("Turning Off iSight Flash")
                     device.flashMode = AVCaptureFlashMode.Off
                     iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)
                     iSightFlashButton.alpha = 1
+                    
                 } else {
+                    self.stillImageOutput.addObserver(self, forKeyPath: "capturingStillImage", options: [], context: nil)
                     print("Turning On iSight Flash")
                     device.flashMode = AVCaptureFlashMode.On
                     iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_On")!, forState: .Normal)
@@ -115,15 +127,15 @@ class RCT_CameraViewController: UIViewController {
             }
         }
     }
-
+    
     @IBAction func shutterButtonTapped(sender: AnyObject) {
         print("Shutter Button Tapped")
         self.previewLayer.removeFromSuperlayer()
         //setDarkBackground()
-
+        
         // Flash Screen
         self.frontFlash()
-
+        
         if backCameraIsPreview == true {
             if let backCamera = backCaptureDevice {
                 takePic(backCamera, session: captureSesson, completion: { (data) -> Void in
@@ -164,6 +176,7 @@ class RCT_CameraViewController: UIViewController {
             //Front Camera Should Already Be on Preview Layer
             if let frontCamera = frontCaptureDevice {
                 takePic(frontCamera, session: captureSesson, completion: { (data) -> Void in
+                    
                     if let frontData = data {
                         print("Front Camera Data is Here")
 
@@ -296,17 +309,13 @@ class RCT_CameraViewController: UIViewController {
                 })
             }
         }
-        var soundID: SystemSoundID = 0;
-        if (hasTakenFirstPicture!) {
-            hasTakenFirstPicture = false
-        } else {
-            if (soundID == 0) {
-                let path = NSBundle.mainBundle().pathForResource("photoShutter2", ofType: "caf")
-                let filePath = NSURL(fileURLWithPath: path!, isDirectory: false) as CFURLRef
-                AudioServicesCreateSystemSoundID(filePath, &soundID);
+        if device.flashActive == false {
+            if (hasTakenFirstPicture!) {
+                hasTakenFirstPicture = false
+            } else {
+                AudioServicesPlaySystemSound(soundID)
+                hasTakenFirstPicture = true
             }
-            AudioServicesPlaySystemSound(soundID)
-            hasTakenFirstPicture = true
         }
     }
 
