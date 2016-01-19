@@ -212,8 +212,6 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         cell.imageView.layer.borderWidth = borderWidth
         cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
 
-
-
         if kIsLayoutSelected != nil && kIsLayoutSelected! {
             let oldCell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: Int(layoutSelected), inSection: 0)) as! RCT_OptionItemCollectionViewCell
 
