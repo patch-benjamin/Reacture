@@ -745,19 +745,21 @@ extension RCT_EditViewController {
 
     func performFilter(filterName: String) {
         var scale: CGFloat?
-        var orientation: UIImageOrientation?
+        var frontImageOrientation: UIImageOrientation?
+        var backImageOrientation: UIImageOrientation?
         var beginFrontImage: CIImage?
         var beginBackImage: CIImage?
 
         if let frontImage = self.originalFrontImage as UIImage! {
             scale = frontImage.scale
-            orientation = frontImage.imageOrientation
+            frontImageOrientation = frontImage.imageOrientation
 
             // Getting CI Image
             beginFrontImage = CIImage(image: frontImage)
         }
         if let backImage = self.originalBackImage as UIImage! {
             // Getting CI Image
+            backImageOrientation = backImage.imageOrientation
             beginBackImage = CIImage(image: backImage)
         }
 
@@ -772,7 +774,7 @@ extension RCT_EditViewController {
         if let outputImage = beginFrontImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
             print("We Have a Front Output Image")
             let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
-            self.rCTImage?.imageFrontUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: orientation!)
+            self.rCTImage?.imageFrontUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: frontImageOrientation!)
             // Completed UI Images Update on RCT_Image Model
             // Reloading Front Image View
             self.frontImageView.image = self.rCTImage!.imageFrontUIImage
@@ -782,7 +784,7 @@ extension RCT_EditViewController {
         if let outputImage = beginBackImage?.imageByApplyingFilter(filterName, withInputParameters: options) {
             print("We Have a Back Output Image")
             let cGImage: CGImageRef = self.context.createCGImage(outputImage, fromRect: outputImage.extent)
-            self.rCTImage?.imageBackUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: orientation!)
+            self.rCTImage?.imageBackUIImage = UIImage(CGImage: cGImage, scale: scale!, orientation: backImageOrientation!)
             // Completed UI Images Update on RCT_Image Model
             // Reloading Back Image View
             self.backImageView.image = self.rCTImage!.imageBackUIImage
