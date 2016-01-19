@@ -42,11 +42,17 @@ class RCT_CameraViewController: UIViewController {
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        AudioServicesPlaySystemSound(soundID)
+        if (hasTakenFirstPicture!) {
+            hasTakenFirstPicture = false
+        } else {
+            AudioServicesPlaySystemSound(soundID)
+            hasTakenFirstPicture = true
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         hasTakenFirstPicture = false
+        self.stillImageOutput.addObserver(self, forKeyPath: "capturingStillImage", options: [NSKeyValueObservingOptions.New], context: nil)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -110,14 +116,12 @@ class RCT_CameraViewController: UIViewController {
                     print("Error: iSight Flash Button Tapped")
                 }
                 if device.flashActive == true {
-                    self.stillImageOutput.removeObserver(self, forKeyPath: "capturingStillImage")
                     print("Turning Off iSight Flash")
                     device.flashMode = AVCaptureFlashMode.Off
                     iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_Off")!, forState: .Normal)
                     iSightFlashButton.alpha = 1
                     
                 } else {
-                    self.stillImageOutput.addObserver(self, forKeyPath: "capturingStillImage", options: [], context: nil)
                     print("Turning On iSight Flash")
                     device.flashMode = AVCaptureFlashMode.On
                     iSightFlashButton.setBackgroundImage(UIImage(named: "iSightFlashButton_On")!, forState: .Normal)
@@ -309,14 +313,26 @@ class RCT_CameraViewController: UIViewController {
                 })
             }
         }
-        if device.flashActive == false {
-            if (hasTakenFirstPicture!) {
-                hasTakenFirstPicture = false
-            } else {
-                AudioServicesPlaySystemSound(soundID)
-                hasTakenFirstPicture = true
-            }
-        }
+//        if device.flashActive == false {
+//            if (hasTakenFirstPicture!) {
+//                hasTakenFirstPicture = false
+//            } else {
+//                AudioServicesPlaySystemSound(soundID)
+//                hasTakenFirstPicture = true
+//            }
+//        } else {
+//            if (hasTakenFirstPicture!) {
+//                hasTakenFirstPicture = false
+//            } else {
+////                AudioServicesPlaySystemSound(soundID)
+//                hasTakenFirstPicture = true
+//            }
+//        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        self.stillImageOutput.removeObserver(self, forKeyPath: "capturingStillImage")
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -437,6 +453,7 @@ class RCT_CameraViewController: UIViewController {
             let editVC = segue.destinationViewController as! RCT_EditViewController
             editVC.setupController(self.rCTImage!)
         }
+        AudioServicesPlaySystemSound(soundID)
     }
 }
 
