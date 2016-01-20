@@ -859,15 +859,27 @@ extension RCT_EditViewController: UIScrollViewDelegate {
 // MARK: - PanGestureViewProtocol
 
 extension RCT_EditViewController: PanGestureViewProtocol {
-
+    
     func detectLongPress(recognizer: UILongPressGestureRecognizer) {
-
+        
         if recognizer.state.rawValue == 1 && rCTImage?.layout == Layout.PictureInPicture {
+            
             frontImageZoomableView.toggleIsMoveable()
+            frontImageZoomableView.setLastLocation()
+            frontImageZoomableView.lastPointLocation = recognizer.locationInView(rCTImageView)
             print("Long press ended")
+            
+        } else if recognizer.state.rawValue == 2 && rCTImage?.layout == Layout.PictureInPicture {
+            // pass the press along to the panDetected Method
+            if frontImageZoomableView.isMoveableView != nil {
+                let pointCenter = recognizer.locationInView(rCTImageView)
+                let center = frontImageZoomableView.getPoint(pointCenter)
+                panDetected(center)
+            }
+            
         }
     }
-
+    
     // Pan Gesture for Moving Image in Image Layout
     func panDetected(center: CGPoint) {
 

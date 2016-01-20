@@ -16,6 +16,7 @@ protocol PanGestureViewProtocol {
 class PanGestureView: ZoomableView {
 
     var lastLocation: CGPoint = CGPointMake(0.0, 0.0)
+    var lastPointLocation: CGPoint = CGPointMake(0.0, 0.0) // for longPressRecognizer
     var isMoveableView: UIView?
     var delegate: PanGestureViewProtocol?
 
@@ -51,7 +52,7 @@ class PanGestureView: ZoomableView {
 
     func detectPan(recognizer: UIPanGestureRecognizer) {
         print("Pan detected")
-
+        
         let translation = recognizer.translationInView(self.superview)
         self.delegate?.panDetected(CGPointMake(lastLocation.x + translation.x, lastLocation.y + translation.y))
         print("Pan valid. Center = \(CGPointMake(lastLocation.x + translation.x, lastLocation.y + translation.y))")
@@ -60,6 +61,14 @@ class PanGestureView: ZoomableView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         print("Touches began")
         print("center: \(self.center)")
+        setLastLocation()
+    }
+    
+    func setLastLocation() {
         lastLocation = self.center
+    }
+    
+    func getPoint(touchPoint: CGPoint) -> CGPoint {
+        return CGPointMake(lastLocation.x + (touchPoint.x - lastPointLocation.x), lastLocation.y + (touchPoint.y - lastPointLocation.y))
     }
 }
