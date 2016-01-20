@@ -15,12 +15,15 @@ class RCT_EditViewController: UIViewController {
         super.viewDidLoad()
         self.RCT_ImageViewBackgroundView.backgroundColor = UIColor.flipPicGray()
         self.view.backgroundColor = UIColor.flipPicGray()
+        self.containerView.backgroundColor = UIColor.flipPicGray()
         self.toolbar.backgroundColor = UIColor.flipPicGray()
         self.toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
         self.toolbarFilterOption.tintColor = UIColor.whiteColor()
         self.toolbar.clipsToBounds = true
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         containerViewController?.delegate = self
+        self.containerViewController!.view.backgroundColor = UIColor.flipPicGray()
+
 
         if let rCTImage = self.rCTImage {
             self.frontImageView.image = rCTImage.imageFrontUIImage
@@ -29,9 +32,13 @@ class RCT_EditViewController: UIViewController {
             print("ERROR: rCTImage is nil!")
         }
         setupFilters()
-        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width)
+        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width * 1.3)
         updateWithLayout(rCTImage!.layout)
         containerViewController?.reloadCollection()
+        
+        // setup layout of editViewController
+//        RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
+//        RCT_ImageViewBackgroundView.backgroundColor = UIColor.greenColor()
     }
 
     override func prefersStatusBarHidden() -> Bool {
@@ -409,7 +416,10 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var RCT_ImageViewBackgroundView: UIView!
     @IBOutlet weak var rCTImageView: UIView!
+    @IBOutlet weak var topBar: UIStackView!
 
+    
+    
     //////////////////////////////
     // MARK: Actions
     //////////////////////////////
@@ -440,31 +450,125 @@ class RCT_EditViewController: UIViewController {
 
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
-        toolbarFilterOption.tintColor = UIColor.whiteColor()
-        toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
 
-        // Send Collection View "isLayoutSelected" == true
-        containerViewController?.optionSelected = OptionType.Layout
-
-        // Reload Collection View Data
-        containerViewController?.reloadCollection()
-        frontImageZoomableView.removeIsMovableView()
+        optionSelected(OptionType.Layout)
+        
     }
-
+    
     @IBAction func filterButtonTapped(sender: AnyObject) {
         print("Filter Button Tapped")
-        toolbarLayoutOption.tintColor = UIColor.whiteColor()
-        toolbarFilterOption.tintColor = UIColor.flipPicGreen()
 
-        // Send Collection View "isLayoutSelected" == false
-        containerViewController?.optionSelected = OptionType.Filters
+        optionSelected(OptionType.Filters)
+        
+    }
 
-        // Reload Collection View Data
-        containerViewController?.reloadCollection()
+    func optionSelected(option: OptionType) {
+        
+        var optionToApply = option
+        let currentOptionSelected = containerViewController!.optionSelected
+        
+        switch  option {
+        case .Layout:
+            switch currentOptionSelected {
+            case .Layout:
+                // They are DESELECTING Layout
+                
+                // unselect Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.whiteColor()
+                // move RCT_ImageViewBackgroundView down half of the containerViews height
+//                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
+                // hide containerView.
+                animateContainerView(true)
+                // set optionToApply to be .None
+                optionToApply = .None
+
+            case .Filters:
+                // They are SELECTING Layout from Filters
+                
+                // unselect Filter button (change image)
+                toolbarFilterOption.tintColor = UIColor.whiteColor()
+                // select Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
+
+                break
+            case .None:
+                // They are SELECTING Layout from Being Hidden
+                
+                // unhide containerView
+                animateContainerView(false)
+                // select Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
+
+            }
+            
+            
+        case .Filters:
+            
+            switch currentOptionSelected {
+            case .Layout:
+                // They are SELECTING Filters from Layout
+                
+                // unselect Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.whiteColor()
+                // select Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.flipPicGreen()
+                
+                break
+            case .Filters:
+                // They are DESELECTING Filters
+                
+                // unselect Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.whiteColor()
+                // hide containerView
+                animateContainerView(true)
+                // set optionToApply to be .None
+                optionToApply = .None
+
+            case .None:
+                // They are SELECTING Filters from Being Hidden
+
+                // unhide containerView
+                animateContainerView(false)
+                // select Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.flipPicGreen()
+                
+                break
+            }
+            
+        case .None:
+            // Not a selectable option; do nothing
+            break
+            
+        }
+        
+        // set optionSelected of containerViewController = .Layout
+        containerViewController?.optionSelected = optionToApply
+        
+        if optionToApply != .None {
+            // Reload Collection View Data
+            containerViewController?.reloadCollection()
+        }
+
+        // remove isMoveableView if it is applied.
         frontImageZoomableView.removeIsMovableView()
     }
 
-    func animateContainerView() {
+    func animateContainerView(hide: Bool) {
+        if hide {
+            UIView.animateWithDuration(0.4) { () -> Void in
+                self.containerView.alpha = 0.0
+                self.containerView.hidden = hide
+                self.topBar.alpha = 1.0
+                self.topBar.hidden = !hide
+            }
+        } else {
+            UIView.animateWithDuration(0.4) { () -> Void in
+                self.containerView.alpha = 1.0
+                self.containerView.hidden = hide
+                self.topBar.alpha = 0.0
+                self.topBar.hidden = !hide
+            }
+        }
     }
 }
 
@@ -480,6 +584,8 @@ extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
         case .Filters:
             let filterSelected = Filter(rawValue: indexPath.item)!
             updateWithFilter(filterSelected)
+        case .None:
+            break
         }
     }
 }
@@ -859,15 +965,27 @@ extension RCT_EditViewController: UIScrollViewDelegate {
 // MARK: - PanGestureViewProtocol
 
 extension RCT_EditViewController: PanGestureViewProtocol {
-
+    
     func detectLongPress(recognizer: UILongPressGestureRecognizer) {
-
+        
         if recognizer.state.rawValue == 1 && rCTImage?.layout == Layout.PictureInPicture {
+            
             frontImageZoomableView.toggleIsMoveable()
+            frontImageZoomableView.setLastLocation()
+            frontImageZoomableView.lastPointLocation = recognizer.locationInView(rCTImageView)
             print("Long press ended")
+            
+        } else if recognizer.state.rawValue == 2 && rCTImage?.layout == Layout.PictureInPicture {
+            // pass the press along to the panDetected Method
+            if frontImageZoomableView.isMoveableView != nil {
+                let pointCenter = recognizer.locationInView(rCTImageView)
+                let center = frontImageZoomableView.getPoint(pointCenter)
+                panDetected(center)
+            }
+            
         }
     }
-
+    
     // Pan Gesture for Moving Image in Image Layout
     func panDetected(center: CGPoint) {
 

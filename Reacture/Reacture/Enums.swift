@@ -9,8 +9,9 @@
 import UIKit
 
 enum OptionType: Int {
-    case Layout = 0,
-    Filters
+    case None = 0,
+    Filters,
+    Layout
 }
 
 enum Layout: Int {
