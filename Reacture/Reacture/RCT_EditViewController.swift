@@ -29,7 +29,7 @@ class RCT_EditViewController: UIViewController {
             print("ERROR: rCTImage is nil!")
         }
         setupFilters()
-        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width)
+        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width * 1.2)
         updateWithLayout(rCTImage!.layout)
         containerViewController?.reloadCollection()
     }

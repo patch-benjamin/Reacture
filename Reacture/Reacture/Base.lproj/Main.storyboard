@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -76,24 +76,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="8L8-GF-PZR">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="62"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="77"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOn-dm-Wdw">
-                                        <rect key="frame" x="16" y="21" width="25" height="33"/>
+                                        <rect key="frame" x="16" y="21" width="25" height="48"/>
                                         <state key="normal" image="cancelButton"/>
                                         <connections>
                                             <action selector="CancelButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="7tu-lT-FwB"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTj-5x-w2K">
-                                        <rect key="frame" x="187" y="21" width="37" height="33"/>
+                                        <rect key="frame" x="187" y="21" width="37" height="48"/>
                                         <state key="normal" image="swapImagesButton"/>
                                         <connections>
                                             <action selector="swapImageButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="RqU-vz-j2B"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-cf-Zad">
-                                        <rect key="frame" x="368" y="21" width="30" height="33"/>
+                                        <rect key="frame" x="368" y="21" width="30" height="48"/>
                                         <state key="normal" image="shareButton"/>
                                         <connections>
                                             <action selector="shareButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="L02-Yj-y1m"/>
@@ -130,20 +130,22 @@
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
-                                <rect key="frame" x="0.0" y="70" width="414" height="512"/>
+                                <rect key="frame" x="0.0" y="85" width="414" height="497"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
-                                        <rect key="frame" x="0.0" y="49" width="414" height="414"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="497"/>
                                         <color key="backgroundColor" red="0.58280308420000004" green="0.79040464740000005" blue="0.19517801730000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Hu3-fH-eJk" secondAttribute="height" multiplier="1:1" id="PJ3-Oq-ENL"/>
+                                            <constraint firstAttribute="width" secondItem="Hu3-fH-eJk" secondAttribute="height" multiplier="1:1.2" id="ovS-Ze-UO5"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.26836782693862915" green="0.28168493509292603" blue="0.29457771778106689" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="Hu3-fH-eJk" firstAttribute="top" secondItem="bps-GF-H7p" secondAttribute="top" id="3Ol-Mh-wlE"/>
                                     <constraint firstAttribute="trailing" secondItem="Hu3-fH-eJk" secondAttribute="trailing" id="Jq5-T8-ibJ"/>
                                     <constraint firstItem="Hu3-fH-eJk" firstAttribute="centerY" secondItem="bps-GF-H7p" secondAttribute="centerY" id="MfM-B7-KOU"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hu3-fH-eJk" secondAttribute="bottom" id="aTk-xn-Qyn"/>
                                     <constraint firstItem="Hu3-fH-eJk" firstAttribute="leading" secondItem="bps-GF-H7p" secondAttribute="leading" id="gGr-fp-m33"/>
                                     <constraint firstItem="Hu3-fH-eJk" firstAttribute="width" secondItem="bps-GF-H7p" secondAttribute="width" id="qg9-QT-YMO"/>
                                 </constraints>
@@ -274,7 +276,7 @@
     <resources>
         <image name="cancelButton" width="25" height="25"/>
         <image name="filter_icon" width="30" height="30"/>
-        <image name="layout_corner" width="25" height="25"/>
+        <image name="layout_corner" width="30" height="30"/>
         <image name="shareButton" width="30" height="30"/>
         <image name="swapImagesButton" width="37" height="33"/>
         <image name="switchCameraButton" width="521" height="520"/>
