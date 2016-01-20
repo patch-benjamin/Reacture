@@ -50,8 +50,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uOi-Ph-0eq">
                                 <rect key="frame" x="50" y="57" width="500" height="487"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNt-X3-15w">
-                                <rect key="frame" x="276" y="28" width="48" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="lNt-X3-15w">
+                                <rect key="frame" x="50" y="20" width="500" height="29"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -73,8 +73,9 @@
                             <constraint firstItem="uOi-Ph-0eq" firstAttribute="top" secondItem="lNt-X3-15w" secondAttribute="bottom" constant="8" id="ME3-Ys-rPR"/>
                             <constraint firstItem="Ncs-dh-ick" firstAttribute="centerX" secondItem="bf1-y8-hFX" secondAttribute="centerX" id="P5T-Rb-uKX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uOi-Ph-0eq" secondAttribute="trailing" constant="30" id="YNX-za-BVi"/>
-                            <constraint firstItem="lNt-X3-15w" firstAttribute="top" secondItem="bf1-y8-hFX" secondAttribute="topMargin" constant="28" id="h8A-sG-txe"/>
+                            <constraint firstItem="lNt-X3-15w" firstAttribute="top" secondItem="bf1-y8-hFX" secondAttribute="topMargin" constant="20" id="h8A-sG-txe"/>
                             <constraint firstItem="uOi-Ph-0eq" firstAttribute="centerY" secondItem="bf1-y8-hFX" secondAttribute="centerY" id="hjT-lr-Qxg"/>
+                            <constraint firstItem="lNt-X3-15w" firstAttribute="width" secondItem="uOi-Ph-0eq" secondAttribute="width" id="oMY-he-28c"/>
                             <constraint firstItem="CAN-TM-QDu" firstAttribute="top" secondItem="uOi-Ph-0eq" secondAttribute="bottom" constant="56" id="oXj-0O-iek"/>
                             <constraint firstItem="uOi-Ph-0eq" firstAttribute="leading" secondItem="bf1-y8-hFX" secondAttribute="leadingMargin" constant="30" id="qJN-u4-STe"/>
                             <constraint firstItem="CAN-TM-QDu" firstAttribute="top" secondItem="Ncs-dh-ick" secondAttribute="bottom" constant="16" id="sHI-bp-T6N"/>
