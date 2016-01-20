@@ -104,7 +104,7 @@ class RCT_CameraViewController: UIViewController {
     var focusBoxSize = 65.0
     
     // Session Queue
-    let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
+    let sessionQueue = dispatch_queue_create("io.flippic.cameraCapture", DISPATCH_QUEUE_SERIAL)
     
     // MARK: - Outlets
     
