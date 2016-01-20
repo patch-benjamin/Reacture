@@ -81,12 +81,15 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 cell.imageView.layer.borderWidth = 0
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
             }
-            cell.label.text = ""
+            cell.label.hidden = true
             cell.imageView.image = layoutIcons[indexPath.item]
 
         case .Filters:
+            
             cell.backgroundColor = UIColor.clearColor()
             cell.label.textColor = UIColor.whiteColor()
+            cell.label.hidden = false
+            
             if indexPath.item == filterSelected {
                 cell.imageView.layer.borderWidth = borderWidth
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
