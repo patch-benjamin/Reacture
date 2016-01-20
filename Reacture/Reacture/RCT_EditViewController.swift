@@ -1,6 +1,6 @@
 //
 //  RCT_EditViewController.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Ben Patch & Andrew Porter on 1/5/16. Amended by Paul Adams & Eric Mead on 1/12/16.
 //  Copyright © 2016 BAEP. All rights reserved.
@@ -468,7 +468,7 @@ class RCT_EditViewController: UIViewController {
         frontImageZoomableView.removeIsMovableView()
         imageCapture()
         print("Share Button Tapped")
-        let shareTextRCTImage = "Shared with #reacture"
+        let shareTextRCTImage = "Shared with #FlipPic"
         if let image = self.imageToSend {
             print("Sending Image")
             let shareViewController = UIActivityViewController(activityItems: [image, shareTextRCTImage], applicationActivities: nil)
@@ -531,7 +531,7 @@ class RCT_EditViewController: UIViewController {
         swapImageButton.backgroundColor = UIColor.clearColor()
         swapImageButton.setBackgroundImage(UIImage(named: "swapImagesButton"), forState: .Normal)
         swapImageButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-        swapImageButton.alpha = 0.9
+        swapImageButton.alpha = 0.75
         swapImageButton.addTarget(self, action: "swapImageButtonTapped:", forControlEvents: .TouchUpInside)
         self.view.addSubview(swapImageButton)
     }

@@ -1,6 +1,6 @@
 //
 //  ContainerViewController.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Eric Mead & Paul Adams on 1/5/16.
 //  Copyright © 2016 BAEP. All rights reserved.
@@ -12,7 +12,7 @@
 //case .Filters:
 //    break
 //}
-// REACture
+// FlipPic
 
 
 import UIKit

@@ -1,6 +1,6 @@
 //
 //  CameraViewController.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Ben Patch & Andrew Porter on 1/5/16. Amended by Eric Mead & Paul Adams on 1/14/16.
 //  Copyright © 2016 BAEP. All rights reserved.
@@ -104,7 +104,7 @@ class RCT_CameraViewController: UIViewController {
     var focusBoxSize = 65.0
     
     // Session Queue
-    let sessionQueue = dispatch_queue_create("com.reacture.cameraCapture", DISPATCH_QUEUE_SERIAL)
+    let sessionQueue = dispatch_queue_create("io.flippic.cameraCapture", DISPATCH_QUEUE_SERIAL)
     
     // MARK: - Outlets
     
@@ -439,7 +439,7 @@ class RCT_CameraViewController: UIViewController {
         shutterButton.layer.borderWidth = 3
         shutterButton.layer.cornerRadius = width / 2
         shutterButton.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
-        shutterButton.layer.opacity = 0.5
+        shutterButton.layer.opacity = 1
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(shutterButton)
         // iSight Flash Button

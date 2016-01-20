@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Andrew Porter on 1/5/16.
 //  Copyright © 2016 BAEP. All rights reserved.

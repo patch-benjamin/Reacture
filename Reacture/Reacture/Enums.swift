@@ -1,6 +1,6 @@
 //
 //  Enums.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Benjamin Patch on 1/6/16. Amended by Eric Mead & Paul Adams on 1/13/16.
 //  Copyright © 2016 BAEP. All rights reserved.

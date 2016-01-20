@@ -1,6 +1,6 @@
 //
 //  ImageController.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Benjamin Patch on 1/5/16. Amended by Paul Adams on 1/8/16.
 //  Copyright © 2016 BAEP. All rights reserved.

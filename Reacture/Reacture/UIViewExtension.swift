@@ -1,6 +1,6 @@
 //
 //  UIViewExtension.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Andrew Porter on 1/16/16.
 //  Copyright © 2016 BAEP. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  RCT_Image.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Benjamin Patch on 1/5/16.
 //  Copyright © 2016 BAEP. All rights reserved.
