@@ -555,14 +555,14 @@ class RCT_EditViewController: UIViewController {
 
     func animateContainerView(hide: Bool) {
         if hide {
-            UIView.animateWithDuration(0.5) { () -> Void in
+            UIView.animateWithDuration(0.4) { () -> Void in
                 self.containerView.alpha = 0.0
                 self.containerView.hidden = hide
                 self.topBar.alpha = 1.0
                 self.topBar.hidden = !hide
             }
         } else {
-            UIView.animateWithDuration(0.5) { () -> Void in
+            UIView.animateWithDuration(0.4) { () -> Void in
                 self.containerView.alpha = 1.0
                 self.containerView.hidden = hide
                 self.topBar.alpha = 0.0

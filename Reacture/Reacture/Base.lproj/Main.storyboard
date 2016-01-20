@@ -108,7 +108,7 @@
                                         </constraints>
                                         <edgeInsets key="layoutMargins" top="12" left="16" bottom="16" right="16"/>
                                     </stackView>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
                                         <rect key="frame" x="0.0" y="60" width="414" height="632"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
@@ -135,7 +135,7 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <containerView hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-PE-9Wz">
+                                    <containerView hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-PE-9Wz">
                                         <rect key="frame" x="0.0" y="692" width="414" height="0.0"/>
                                         <connections>
                                             <segue destination="BZJ-cT-0Rw" kind="embed" id="pmK-ua-5nR"/>
