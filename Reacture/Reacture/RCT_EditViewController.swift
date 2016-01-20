@@ -15,12 +15,15 @@ class RCT_EditViewController: UIViewController {
         super.viewDidLoad()
         self.RCT_ImageViewBackgroundView.backgroundColor = UIColor.flipPicGray()
         self.view.backgroundColor = UIColor.flipPicGray()
+        self.containerView.backgroundColor = UIColor.flipPicGray()
         self.toolbar.backgroundColor = UIColor.flipPicGray()
         self.toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
         self.toolbarFilterOption.tintColor = UIColor.whiteColor()
         self.toolbar.clipsToBounds = true
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         containerViewController?.delegate = self
+        self.containerViewController!.view.backgroundColor = UIColor.flipPicGray()
+
 
         if let rCTImage = self.rCTImage {
             self.frontImageView.image = rCTImage.imageFrontUIImage
@@ -29,13 +32,13 @@ class RCT_EditViewController: UIViewController {
             print("ERROR: rCTImage is nil!")
         }
         setupFilters()
-        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width * 1.2)
+        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width * 1.3)
         updateWithLayout(rCTImage!.layout)
         containerViewController?.reloadCollection()
         
         // setup layout of editViewController
-        RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
-        RCT_ImageViewBackgroundView.backgroundColor = UIColor.greenColor()
+//        RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
+//        RCT_ImageViewBackgroundView.backgroundColor = UIColor.greenColor()
     }
 
     override func prefersStatusBarHidden() -> Bool {
@@ -473,11 +476,9 @@ class RCT_EditViewController: UIViewController {
                 // unselect Layout button (change image)
                 toolbarLayoutOption.tintColor = UIColor.whiteColor()
                 // move RCT_ImageViewBackgroundView down half of the containerViews height
-                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
+//                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
                 // hide containerView.
-                self.containerView.hidden = true
-                // unhide the topBar
-                topBar.hidden = false
+                animateContainerView(true)
                 // set optionToApply to be .None
                 optionToApply = .None
 
@@ -494,12 +495,7 @@ class RCT_EditViewController: UIViewController {
                 // They are SELECTING Layout from Being Hidden
                 
                 // unhide containerView
-                containerView.hidden = false
-                // hide the topBar
-                topBar.hidden = true
-                // move RCT_ImageViewBackgroundView up half of the collectionView's height
-                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y -  containerView.bounds.size.height/2)
-
+                animateContainerView(false)
                 // select Layout button (change image)
                 toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
 
@@ -523,26 +519,16 @@ class RCT_EditViewController: UIViewController {
                 
                 // unselect Filters button (change image)
                 toolbarFilterOption.tintColor = UIColor.whiteColor()
-
-                // move RCT_ImageViewBackgroundView down half of the collectionView's height
-                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
-                // hide containerView.
-                containerView.hidden = true
-                // unhide the topBar
-                topBar.hidden = false
-
+                // hide containerView
+                animateContainerView(true)
                 // set optionToApply to be .None
                 optionToApply = .None
 
             case .None:
                 // They are SELECTING Filters from Being Hidden
-                
+
                 // unhide containerView
-                containerView.hidden = false
-                // hide the topBar
-                topBar.hidden = true
-                // move RCT_ImageViewBackgroundView up half of the collectionView's height
-                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y -  containerView.bounds.size.height/2)
+                animateContainerView(false)
                 // select Filters button (change image)
                 toolbarFilterOption.tintColor = UIColor.flipPicGreen()
                 
@@ -567,7 +553,22 @@ class RCT_EditViewController: UIViewController {
         frontImageZoomableView.removeIsMovableView()
     }
 
-    func animateContainerView() {
+    func animateContainerView(hide: Bool) {
+        if hide {
+            UIView.animateWithDuration(0.5) { () -> Void in
+                self.containerView.alpha = 0.0
+                self.containerView.hidden = hide
+                self.topBar.alpha = 1.0
+                self.topBar.hidden = !hide
+            }
+        } else {
+            UIView.animateWithDuration(0.5) { () -> Void in
+                self.containerView.alpha = 1.0
+                self.containerView.hidden = hide
+                self.topBar.alpha = 0.0
+                self.topBar.hidden = !hide
+            }
+        }
     }
 }
 
