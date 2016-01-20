@@ -1,6 +1,6 @@
 //
 //  ZoomableView.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Benjamin Patch on 1/15/16.
 //  Copyright © 2016 BAEP. All rights reserved.

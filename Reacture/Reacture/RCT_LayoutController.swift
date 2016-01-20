@@ -1,6 +1,6 @@
 //
 //  LayoutController.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Benjamin Patch on 1/6/16.
 //  Copyright © 2016 BAEP. All rights reserved.

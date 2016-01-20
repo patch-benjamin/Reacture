@@ -31,10 +31,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMN-mf-aEW">
-                                <rect key="frame" x="552" y="28" width="40" height="40"/>
+                                <rect key="frame" x="532" y="28" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="AI9-0S-O92"/>
-                                    <constraint firstAttribute="height" constant="40" id="OgF-pR-8cI"/>
+                                    <constraint firstAttribute="width" constant="60" id="Irt-Cn-U3M"/>
+                                    <constraint firstAttribute="height" constant="60" id="khi-jH-SKT"/>
                                 </constraints>
                                 <state key="normal" image="switchCameraButton"/>
                                 <connections>

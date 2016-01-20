@@ -1,6 +1,6 @@
 //
 //  OptionItemCollectionViewCell.swift
-//  Reacture
+//  FlipPic
 //
 //  Created by Paul Adams on 1/5/16.
 //  Copyright © 2016 BAEP. All rights reserved.
