@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		244659A31C4EDAC200F19B9D /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244659A21C4EDAC200F19B9D /* TutorialPageViewController.swift */; };
+		244659A51C4EEE0F00F19B9D /* PageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244659A41C4EEE0F00F19B9D /* PageContentViewController.swift */; };
 		2491CDC01C46FF3C00748664 /* PanGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491CDBF1C46FF3C00748664 /* PanGestureView.swift */; };
 		24B871721C3C5B7E0019DB37 /* RCT_ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B871711C3C5B7E0019DB37 /* RCT_ContainerViewController.swift */; };
 		24B871741C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B871731C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		244659A21C4EDAC200F19B9D /* TutorialPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
+		244659A41C4EEE0F00F19B9D /* PageContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentViewController.swift; sourceTree = "<group>"; };
 		2491CDBF1C46FF3C00748664 /* PanGestureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanGestureView.swift; sourceTree = "<group>"; };
 		24B871711C3C5B7E0019DB37 /* RCT_ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_ContainerViewController.swift; sourceTree = "<group>"; };
 		24B871731C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_OptionItemCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 		24B871751C3C5CCB0019DB37 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				244659A41C4EEE0F00F19B9D /* PageContentViewController.swift */,
+				244659A21C4EDAC200F19B9D /* TutorialPageViewController.swift */,
 				24B871781C3C5D8A0019DB37 /* RCT_CameraViewController.swift */,
 				24B871711C3C5B7E0019DB37 /* RCT_ContainerViewController.swift */,
 				24B8717A1C3C5E140019DB37 /* RCT_EditViewController.swift */,
@@ -166,7 +172,7 @@
 				TargetAttributes = {
 					716D6A231C3C462B00B762F9 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 9D3AY7C5NW;
+						DevelopmentTeam = 7QB3F65TJ3;
 					};
 				};
 			};
@@ -210,12 +216,14 @@
 				979B738F1C4F103F008EB3C7 /* UIColorExtension.swift in Sources */,
 				24F9B4471C4A5C1600C85662 /* (null) in Sources */,
 				2491CDC01C46FF3C00748664 /* PanGestureView.swift in Sources */,
+				244659A31C4EDAC200F19B9D /* TutorialPageViewController.swift in Sources */,
 				719224451C3C886B00CEE9E4 /* RCT_ImageController.swift in Sources */,
 				24B8717B1C3C5E140019DB37 /* RCT_EditViewController.swift in Sources */,
 				719224491C3D862E00CEE9E4 /* RCT_LayoutController.swift in Sources */,
 				24B871741C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift in Sources */,
 				71C889CB1C4EE5FA00F6119C /* UIViewExtension.swift in Sources */,
 				24B871791C3C5D8A0019DB37 /* RCT_CameraViewController.swift in Sources */,
+				244659A51C4EEE0F00F19B9D /* PageContentViewController.swift in Sources */,
 				24B871721C3C5B7E0019DB37 /* RCT_ContainerViewController.swift in Sources */,
 				71C889AC1C49B16A00F6119C /* ScrollViewExtension.swift in Sources */,
 				716D6A281C3C462B00B762F9 /* AppDelegate.swift in Sources */,
