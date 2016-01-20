@@ -32,6 +32,10 @@ class RCT_EditViewController: UIViewController {
         self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width * 1.2)
         updateWithLayout(rCTImage!.layout)
         containerViewController?.reloadCollection()
+        
+        // setup layout of editViewController
+        RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
+        RCT_ImageViewBackgroundView.backgroundColor = UIColor.greenColor()
     }
 
     override func prefersStatusBarHidden() -> Bool {
@@ -409,7 +413,10 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var RCT_ImageViewBackgroundView: UIView!
     @IBOutlet weak var rCTImageView: UIView!
+    @IBOutlet weak var topBar: UIStackView!
 
+    
+    
     //////////////////////////////
     // MARK: Actions
     //////////////////////////////
@@ -440,27 +447,123 @@ class RCT_EditViewController: UIViewController {
 
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
-        toolbarFilterOption.tintColor = UIColor.whiteColor()
-        toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
 
-        // Send Collection View "isLayoutSelected" == true
-        containerViewController?.optionSelected = OptionType.Layout
-
-        // Reload Collection View Data
-        containerViewController?.reloadCollection()
-        frontImageZoomableView.removeIsMovableView()
+        optionSelected(OptionType.Layout)
+        
     }
-
+    
     @IBAction func filterButtonTapped(sender: AnyObject) {
         print("Filter Button Tapped")
-        toolbarLayoutOption.tintColor = UIColor.whiteColor()
-        toolbarFilterOption.tintColor = UIColor.flipPicGreen()
 
-        // Send Collection View "isLayoutSelected" == false
-        containerViewController?.optionSelected = OptionType.Filters
+        optionSelected(OptionType.Filters)
+        
+    }
 
-        // Reload Collection View Data
-        containerViewController?.reloadCollection()
+    func optionSelected(option: OptionType) {
+        
+        var optionToApply = option
+        let currentOptionSelected = containerViewController!.optionSelected
+        
+        switch  option {
+        case .Layout:
+            switch currentOptionSelected {
+            case .Layout:
+                // They are DESELECTING Layout
+                
+                // unselect Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.whiteColor()
+                // move RCT_ImageViewBackgroundView down half of the containerViews height
+                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
+                // hide containerView.
+                self.containerView.hidden = true
+                // unhide the topBar
+                topBar.hidden = false
+                // set optionToApply to be .None
+                optionToApply = .None
+
+            case .Filters:
+                // They are SELECTING Layout from Filters
+                
+                // unselect Filter button (change image)
+                toolbarFilterOption.tintColor = UIColor.whiteColor()
+                // select Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
+
+                break
+            case .None:
+                // They are SELECTING Layout from Being Hidden
+                
+                // unhide containerView
+                containerView.hidden = false
+                // hide the topBar
+                topBar.hidden = true
+                // move RCT_ImageViewBackgroundView up half of the collectionView's height
+                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y -  containerView.bounds.size.height/2)
+
+                // select Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
+
+            }
+            
+            
+        case .Filters:
+            
+            switch currentOptionSelected {
+            case .Layout:
+                // They are SELECTING Filters from Layout
+                
+                // unselect Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.whiteColor()
+                // select Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.flipPicGreen()
+                
+                break
+            case .Filters:
+                // They are DESELECTING Filters
+                
+                // unselect Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.whiteColor()
+
+                // move RCT_ImageViewBackgroundView down half of the collectionView's height
+                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
+                // hide containerView.
+                containerView.hidden = true
+                // unhide the topBar
+                topBar.hidden = false
+
+                // set optionToApply to be .None
+                optionToApply = .None
+
+            case .None:
+                // They are SELECTING Filters from Being Hidden
+                
+                // unhide containerView
+                containerView.hidden = false
+                // hide the topBar
+                topBar.hidden = true
+                // move RCT_ImageViewBackgroundView up half of the collectionView's height
+                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y -  containerView.bounds.size.height/2)
+                // select Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.flipPicGreen()
+                
+                break
+            }
+            
+        case .None:
+            // Not a selectable option; do nothing
+            break
+            
+        }
+        
+        // set optionSelected of containerViewController = .Layout
+        containerViewController?.optionSelected = optionToApply
+        
+        if optionToApply != .None {
+            // Reload Collection View Data
+            containerViewController?.reloadCollection()
+        }
+
+        // remove isMoveableView if it is applied.
         frontImageZoomableView.removeIsMovableView()
     }
 
@@ -480,6 +583,8 @@ extension RCT_EditViewController: RCT_ContainerViewControllerProtocol {
         case .Filters:
             let filterSelected = Filter(rawValue: indexPath.item)!
             updateWithFilter(filterSelected)
+        case .None:
+            break
         }
     }
 }

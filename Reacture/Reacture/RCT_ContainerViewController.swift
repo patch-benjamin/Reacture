@@ -48,6 +48,10 @@ class RCT_ContainerViewController: UIViewController {
 
         case .Filters:
             collectionView.selectItemAtIndexPath(NSIndexPath(forItem: Int(filterSelected), inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
+            
+        case .None:
+            break
+
         }
     }
 
@@ -59,6 +63,9 @@ class RCT_ContainerViewController: UIViewController {
             print("Layout is Selected, Present Layout Options")
         case .Filters:
             print("Filter is Selected, Present Filter Options")
+        case .None:
+            print("None is selected. Hide stuff.")
+
         }
     }
 }
@@ -107,6 +114,10 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 cell.imageView.image = image
                 cell.imageView.contentMode = .ScaleAspectFill
             }
+            
+        case .None:
+            break
+            
         }
         return cell
     }
@@ -117,6 +128,8 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
             return Layout.Count.rawValue
         case .Filters:
             return Filter.Count.rawValue
+        case .None:
+            return 0
         }
     }
 
@@ -136,6 +149,10 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         case .Filters:
             filterSelected = indexPath.item
             cell.label.textColor = UIColor.flipPicGreen()
+
+        case .None:
+            break
+
         }
         delegate?.itemSelected(indexPath, optionSelected: optionSelected)
     }
@@ -157,6 +174,10 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
                 cell.label.textColor = UIColor.whiteColor()
                 filterSelected = indexPath.item
+
+            case .None:
+                break
+
             }
         }
     }

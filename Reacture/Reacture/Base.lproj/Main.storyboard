@@ -79,21 +79,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOn-dm-Wdw">
-                                        <rect key="frame" x="16" y="10" width="25" height="34"/>
+                                        <rect key="frame" x="16" y="12" width="25" height="32"/>
                                         <state key="normal" image="cancelButton"/>
                                         <connections>
                                             <action selector="CancelButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="7tu-lT-FwB"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTj-5x-w2K">
-                                        <rect key="frame" x="187" y="10" width="37" height="34"/>
+                                        <rect key="frame" x="187" y="12" width="37" height="32"/>
                                         <state key="normal" image="swapImagesButton"/>
                                         <connections>
                                             <action selector="swapImageButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="RqU-vz-j2B"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-cf-Zad">
-                                        <rect key="frame" x="368" y="10" width="30" height="34"/>
+                                        <rect key="frame" x="368" y="12" width="30" height="32"/>
                                         <state key="normal" image="shareButton"/>
                                         <connections>
                                             <action selector="shareButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="L02-Yj-y1m"/>
@@ -103,7 +103,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="m2f-44-vHb"/>
                                 </constraints>
-                                <edgeInsets key="layoutMargins" top="10" left="16" bottom="16" right="16"/>
+                                <edgeInsets key="layoutMargins" top="12" left="16" bottom="16" right="16"/>
                             </stackView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-PE-9Wz">
                                 <rect key="frame" x="0.0" y="582" width="414" height="110"/>
@@ -189,6 +189,7 @@
                         <outlet property="toolbar" destination="y2p-AU-EyF" id="LP9-0k-xGC"/>
                         <outlet property="toolbarFilterOption" destination="R8C-Lz-DjJ" id="Cxk-3l-sYM"/>
                         <outlet property="toolbarLayoutOption" destination="Jxs-yj-rgW" id="OoE-ul-ABB"/>
+                        <outlet property="topBar" destination="8L8-GF-PZR" id="OT7-j0-HGJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nsu-dD-PNJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
