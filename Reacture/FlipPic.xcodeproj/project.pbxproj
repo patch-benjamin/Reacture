@@ -37,11 +37,11 @@
 		24B871781C3C5D8A0019DB37 /* RCT_CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_CameraViewController.swift; sourceTree = "<group>"; };
 		24B8717A1C3C5E140019DB37 /* RCT_EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_EditViewController.swift; sourceTree = "<group>"; };
 		24F919201C4AF79E005A47EA /* photoShutter2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = photoShutter2.caf; sourceTree = "<group>"; };
-		716D6A241C3C462B00B762F9 /* Reacture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reacture.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		716D6A271C3C462B00B762F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		716D6A241C3C462B00B762F9 /* FlipPic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlipPic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		716D6A271C3C462B00B762F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Reacture/AppDelegate.swift; sourceTree = "<group>"; };
 		716D6A2C1C3C462B00B762F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		716D6A2E1C3C462B00B762F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		716D6A331C3C462B00B762F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		716D6A331C3C462B00B762F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Reacture/Info.plist; sourceTree = "<group>"; };
 		7192243E1C3C80D600CEE9E4 /* RCT_Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RCT_Image.swift; path = ../RCT_Image.swift; sourceTree = "<group>"; };
 		719224441C3C886B00CEE9E4 /* RCT_ImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_ImageController.swift; sourceTree = "<group>"; };
 		719224461C3D862300CEE9E4 /* RCT_CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCT_CameraController.swift; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		71C889A91C49AF8600F6119C /* ZoomableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomableView.swift; sourceTree = "<group>"; };
 		71C889AB1C49B16A00F6119C /* ScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollViewExtension.swift; path = ../ScrollViewExtension.swift; sourceTree = "<group>"; };
 		71C889CA1C4EE5FA00F6119C /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		971B61641C4EC592001C6C7E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		971B61641C4EC592001C6C7E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "Reacture/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		979B738E1C4F103F008EB3C7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,8 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				24B871781C3C5D8A0019DB37 /* RCT_CameraViewController.swift */,
-				24B8717A1C3C5E140019DB37 /* RCT_EditViewController.swift */,
 				24B871711C3C5B7E0019DB37 /* RCT_ContainerViewController.swift */,
+				24B8717A1C3C5E140019DB37 /* RCT_EditViewController.swift */,
 				24B871731C3C5C780019DB37 /* RCT_OptionItemCollectionViewCell.swift */,
 			);
 			name = ViewControllers;
@@ -89,10 +89,10 @@
 		24B871771C3C5CFE0019DB37 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				719224441C3C886B00CEE9E4 /* RCT_ImageController.swift */,
 				719224461C3D862300CEE9E4 /* RCT_CameraController.swift */,
-				719224481C3D862E00CEE9E4 /* RCT_LayoutController.swift */,
 				7192244A1C3D863700CEE9E4 /* RCT_FiltersController.swift */,
+				719224441C3C886B00CEE9E4 /* RCT_ImageController.swift */,
+				719224481C3D862E00CEE9E4 /* RCT_LayoutController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -100,6 +100,10 @@
 		716D6A1B1C3C462B00B762F9 = {
 			isa = PBXGroup;
 			children = (
+				716D6A331C3C462B00B762F9 /* Info.plist */,
+				971B61641C4EC592001C6C7E /* Launch Screen.storyboard */,
+				716D6A2B1C3C462B00B762F9 /* Main.storyboard */,
+				716D6A271C3C462B00B762F9 /* AppDelegate.swift */,
 				716D6A261C3C462B00B762F9 /* Reacture */,
 				716D6A251C3C462B00B762F9 /* Products */,
 			);
@@ -108,7 +112,7 @@
 		716D6A251C3C462B00B762F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				716D6A241C3C462B00B762F9 /* Reacture.app */,
+				716D6A241C3C462B00B762F9 /* FlipPic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,19 +120,15 @@
 		716D6A261C3C462B00B762F9 /* Reacture */ = {
 			isa = PBXGroup;
 			children = (
-				71C889AB1C49B16A00F6119C /* ScrollViewExtension.swift */,
 				2491CDBF1C46FF3C00748664 /* PanGestureView.swift */,
-				71C889A91C49AF8600F6119C /* ZoomableView.swift */,
-				71C889CA1C4EE5FA00F6119C /* UIViewExtension.swift */,
+				71C889AB1C49B16A00F6119C /* ScrollViewExtension.swift */,
 				979B738E1C4F103F008EB3C7 /* UIColorExtension.swift */,
-				716D6A2B1C3C462B00B762F9 /* Main.storyboard */,
-				971B61641C4EC592001C6C7E /* Launch Screen.storyboard */,
+				71C889CA1C4EE5FA00F6119C /* UIViewExtension.swift */,
+				71C889A91C49AF8600F6119C /* ZoomableView.swift */,
 				24B871751C3C5CCB0019DB37 /* ViewControllers */,
 				24B871761C3C5CDA0019DB37 /* Model */,
 				24B871771C3C5CFE0019DB37 /* Controllers */,
 				716D6A2E1C3C462B00B762F9 /* Assets.xcassets */,
-				716D6A331C3C462B00B762F9 /* Info.plist */,
-				716D6A271C3C462B00B762F9 /* AppDelegate.swift */,
 				24F919201C4AF79E005A47EA /* photoShutter2.caf */,
 			);
 			path = Reacture;
@@ -137,9 +137,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		716D6A231C3C462B00B762F9 /* Reacture */ = {
+		716D6A231C3C462B00B762F9 /* FlipPic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 716D6A361C3C462B00B762F9 /* Build configuration list for PBXNativeTarget "Reacture" */;
+			buildConfigurationList = 716D6A361C3C462B00B762F9 /* Build configuration list for PBXNativeTarget "FlipPic" */;
 			buildPhases = (
 				716D6A201C3C462B00B762F9 /* Sources */,
 				716D6A211C3C462B00B762F9 /* Frameworks */,
@@ -149,9 +149,9 @@
 			);
 			dependencies = (
 			);
-			name = Reacture;
+			name = FlipPic;
 			productName = Reacture;
-			productReference = 716D6A241C3C462B00B762F9 /* Reacture.app */;
+			productReference = 716D6A241C3C462B00B762F9 /* FlipPic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -170,7 +170,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 716D6A1F1C3C462B00B762F9 /* Build configuration list for PBXProject "Reacture" */;
+			buildConfigurationList = 716D6A1F1C3C462B00B762F9 /* Build configuration list for PBXProject "FlipPic" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -183,7 +183,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				716D6A231C3C462B00B762F9 /* Reacture */,
+				716D6A231C3C462B00B762F9 /* FlipPic */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +236,7 @@
 				716D6A2C1C3C462B00B762F9 /* Base */,
 			);
 			name = Main.storyboard;
+			path = Reacture;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -334,7 +335,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pkadams67.Reacture;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FlipPic;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -350,7 +351,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.pkadams67.Reacture;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FlipPic;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -359,7 +360,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		716D6A1F1C3C462B00B762F9 /* Build configuration list for PBXProject "Reacture" */ = {
+		716D6A1F1C3C462B00B762F9 /* Build configuration list for PBXProject "FlipPic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				716D6A341C3C462B00B762F9 /* Debug */,
@@ -368,7 +369,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		716D6A361C3C462B00B762F9 /* Build configuration list for PBXNativeTarget "Reacture" */ = {
+		716D6A361C3C462B00B762F9 /* Build configuration list for PBXNativeTarget "FlipPic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				716D6A371C3C462B00B762F9 /* Debug */,

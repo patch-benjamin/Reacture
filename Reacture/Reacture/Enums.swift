@@ -3,7 +3,7 @@
 //  FlipPic
 //
 //  Created by Benjamin Patch on 1/6/16. Amended by Eric Mead & Paul Adams on 1/13/16.
-//  Copyright © 2016 BAEP. All rights reserved.
+//  Copyright © 2016 BAEPS. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ enum OptionType: Int {
 }
 
 enum Layout: Int {
-    
+
     case PictureInPicture = 0,
     LeftRight,
     TopBottom,
@@ -30,7 +30,7 @@ let layoutIcons = [UIImage(named: "layout_southeast"),
     UIImage(named: "layout_diagonal_downleft")]
 
 enum SubLayout: Int {
-    
+
     case None = 0,
     Top,
     Bottom,

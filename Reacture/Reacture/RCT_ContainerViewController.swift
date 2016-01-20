@@ -3,17 +3,8 @@
 //  FlipPic
 //
 //  Created by Eric Mead & Paul Adams on 1/5/16.
-//  Copyright © 2016 BAEP. All rights reserved.
+//  Copyright © 2016 BAEPS. All rights reserved.
 //
-
-//switch optionSelected {
-//case .Layout:
-//    break
-//case .Filters:
-//    break
-//}
-// FlipPic
-
 
 import UIKit
 
@@ -25,23 +16,17 @@ class RCT_ContainerViewController: UIViewController {
 
     var optionSelected: OptionType = OptionType(rawValue: 0)!
     var selectedFrameZero: CGRect?
-    var layoutSelected: Int = 0
-    var filterSelected: Int = 0
+    var layoutSelected: Int  = 0
+    var filterSelected: Int  = 0
     let borderWidth: CGFloat = 2.0
-//    var selectedBox = UIView()
 
     @IBOutlet weak var collectionView: UICollectionView!
 
     // Filter Button Images
     var arrayOfFilterButtonImageViews: [UIImageView] = []
-
     var delegate: RCT_ContainerViewControllerProtocol?
-
     override func viewDidLoad() {
-
         setupCollectionView()
-        //setupSelectedBox()
-
     }
 
     func loadFilterButtonImages(arrayOfImageViews: [UIImageView]) {
@@ -52,7 +37,7 @@ class RCT_ContainerViewController: UIViewController {
     }
 
     func reloadCollection() {
-               print("Collection View Reloaded")
+        print("Collection View Reloaded")
 
         collectionView.reloadData()
 
@@ -62,23 +47,19 @@ class RCT_ContainerViewController: UIViewController {
             collectionView.selectItemAtIndexPath(NSIndexPath(forItem: Int(layoutSelected), inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
 
         case .Filters:
-            
             collectionView.selectItemAtIndexPath(NSIndexPath(forItem: Int(filterSelected), inSection: 0), animated: false, scrollPosition: UICollectionViewScrollPosition.CenteredHorizontally)
-            
         }
-        
     }
 
     func setupCollectionView() {
         collectionView.backgroundColor = UIColor.flipPicGray().colorWithAlphaComponent(1)
-        
+
         switch optionSelected {
         case .Layout:
             print("Layout is Selected, Present Layout Options")
         case .Filters:
             print("Filter is Selected, Present Filter Options")
         }
-
     }
 }
 
@@ -95,29 +76,25 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 cell.imageView.layer.borderWidth = borderWidth
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
                 cell.imageView.backgroundColor = UIColor.flipPicGreen()
-                
+
             } else {
                 cell.imageView.layer.borderWidth = 0
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
             }
-            
             cell.label.text = ""
             cell.imageView.image = layoutIcons[indexPath.item]
 
         case .Filters:
-
             cell.backgroundColor = UIColor.clearColor()
             cell.label.textColor = UIColor.whiteColor()
             if indexPath.item == filterSelected {
                 cell.imageView.layer.borderWidth = borderWidth
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
                 cell.label.textColor = UIColor.flipPicGreen()
-                
             } else {
                 cell.imageView.layer.borderWidth = 0
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
             }
-            
             let labelText = String(Filter(rawValue: indexPath.item)!)
             cell.label.text = labelText
             // Setting Images for Filter Buttons
@@ -127,25 +104,17 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
                 cell.imageView.image = image
                 cell.imageView.contentMode = .ScaleAspectFill
             }
-
         }
-        
         return cell
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
         switch optionSelected {
         case .Layout:
-
             return Layout.Count.rawValue
-
         case .Filters:
-
             return Filter.Count.rawValue
-
         }
-
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -156,43 +125,35 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
 
         switch optionSelected {
+
         case .Layout:
-           
             layoutSelected = indexPath.item
             cell.imageView.backgroundColor = UIColor.flipPicGreen()
 
         case .Filters:
-            
             filterSelected = indexPath.item
             cell.label.textColor = UIColor.flipPicGreen()
-
         }
-
         delegate?.itemSelected(indexPath, optionSelected: optionSelected)
     }
-    
+
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        
+
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? RCT_OptionItemCollectionViewCell {
 
-            
             switch optionSelected {
+
             case .Layout:
-                
                 cell.imageView.layer.borderWidth = 0
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
                 cell.imageView.backgroundColor = UIColor.whiteColor()
-                
                 layoutSelected = indexPath.item
-                
+
             case .Filters:
-                
                 cell.imageView.layer.borderWidth = 0
                 cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
                 cell.label.textColor = UIColor.whiteColor()
-                
                 filterSelected = indexPath.item
-                
             }
         }
     }

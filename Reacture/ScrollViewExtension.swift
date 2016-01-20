@@ -3,15 +3,15 @@
 //  FlipPic
 //
 //  Created by Benjamin Patch on 1/15/16.
-//  Copyright © 2016 BAEP. All rights reserved.
+//  Copyright © 2016 BAEPS. All rights reserved.
 //
 
 import UIKit
 
 extension UIScrollView {
-    
-    /** The private viariable "contentOffset" of the ScrollView made accessible/public. */
+
+    // The Private Variable "contentOffset" of the ScrollView Made Accessible/Public
     var getContentOffset: CGPoint {
         return self.contentOffset
-    }    
+    }
 }

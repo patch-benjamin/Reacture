@@ -3,7 +3,7 @@
 //  FlipPic
 //
 //  Created by Andrew Porter on 1/5/16.
-//  Copyright © 2016 BAEP. All rights reserved.
+//  Copyright © 2016 BAEPS. All rights reserved.
 //
 
 import UIKit
@@ -32,4 +32,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
     }
 }
-
