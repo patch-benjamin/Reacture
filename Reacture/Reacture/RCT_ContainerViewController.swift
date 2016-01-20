@@ -70,7 +70,7 @@ class RCT_ContainerViewController: UIViewController {
     }
 
     func setupCollectionView() {
-        collectionView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(1)
+        collectionView.backgroundColor = UIColor.flipPicGray().colorWithAlphaComponent(1)
         
         switch optionSelected {
         case .Layout:
@@ -90,34 +90,34 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         switch optionSelected {
         case .Layout:
 
+            cell.imageView.backgroundColor = UIColor.whiteColor()
             if indexPath.item == layoutSelected {
                 cell.imageView.layer.borderWidth = borderWidth
-                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+                cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
+                cell.imageView.backgroundColor = UIColor.flipPicGreen()
                 
             } else {
                 cell.imageView.layer.borderWidth = 0
-                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+                cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
             }
             
-            cell.imageView.backgroundColor = UIColor.lightGrayColor()
             cell.label.text = ""
-            cell.label.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0)
-            cell.imageView.backgroundColor = UIColor.whiteColor()
-            
             cell.imageView.image = layoutIcons[indexPath.item]
 
         case .Filters:
 
+            cell.backgroundColor = UIColor.clearColor()
+            cell.label.textColor = UIColor.whiteColor()
             if indexPath.item == filterSelected {
                 cell.imageView.layer.borderWidth = borderWidth
-                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+                cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
+                cell.label.textColor = UIColor.flipPicGreen()
                 
             } else {
                 cell.imageView.layer.borderWidth = 0
-                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+                cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
             }
             
-            cell.label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.25)
             let labelText = String(Filter(rawValue: indexPath.item)!)
             cell.label.text = labelText
             // Setting Images for Filter Buttons
@@ -153,16 +153,18 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! RCT_OptionItemCollectionViewCell
 
         cell.imageView.layer.borderWidth = borderWidth
-        cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+        cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
 
         switch optionSelected {
         case .Layout:
            
             layoutSelected = indexPath.item
+            cell.imageView.backgroundColor = UIColor.flipPicGreen()
 
         case .Filters:
             
             filterSelected = indexPath.item
+            cell.label.textColor = UIColor.flipPicGreen()
 
         }
 
@@ -178,19 +180,20 @@ extension RCT_ContainerViewController: UICollectionViewDelegate, UICollectionVie
             case .Layout:
                 
                 cell.imageView.layer.borderWidth = 0
-                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+                cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
+                cell.imageView.backgroundColor = UIColor.whiteColor()
                 
                 layoutSelected = indexPath.item
                 
             case .Filters:
                 
                 cell.imageView.layer.borderWidth = 0
-                cell.imageView.layer.borderColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1).CGColor // Hex #F85927
+                cell.imageView.layer.borderColor = UIColor.flipPicGreen().CGColor
+                cell.label.textColor = UIColor.whiteColor()
                 
                 filterSelected = indexPath.item
                 
             }
         }
     }
-    
 }

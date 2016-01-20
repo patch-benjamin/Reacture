@@ -438,7 +438,7 @@ class RCT_CameraViewController: UIViewController {
         flashView.backgroundColor = UIColor(red: 1, green: 0.718, blue: 0.318, alpha: 0.75)
         shutterButton.layer.borderWidth = 3
         shutterButton.layer.cornerRadius = width / 2
-        shutterButton.backgroundColor = UIColor(red: 248/255, green: 89/255, blue: 39/255, alpha: 1) // Hex #F85927
+        shutterButton.backgroundColor = UIColor(red: 147/255, green: 206/255, blue: 59/255, alpha: 1) // Hex #93ce3b
         shutterButton.layer.opacity = 1
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(shutterButton)

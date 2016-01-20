@@ -13,8 +13,13 @@ class RCT_EditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.RCT_ImageViewBackgroundView.backgroundColor = UIColor.flipPicGray()
+        self.view.backgroundColor = UIColor.flipPicGray()
+        self.toolbar.backgroundColor = UIColor.flipPicGray()
+        self.toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
+        self.toolbarFilterOption.tintColor = UIColor.whiteColor()
+        self.toolbar.clipsToBounds = true
 
-        self.view.backgroundColor = UIColor.blackColor()
 
         //        logAllFilters() // Uncomment to retrieve filter strings
 
@@ -331,10 +336,10 @@ class RCT_EditViewController: UIViewController {
         // Setup scroll views
         frontImageScrollView = UIScrollView(frame: frontImageZoomableView.bounds)
         frontImageScrollView.delegate = self
-        frontImageScrollView.backgroundColor = UIColor.blackColor()
+        frontImageScrollView.backgroundColor = UIColor.flipPicGray()
         backImageScrollView = UIScrollView(frame: backImageZoomableView.bounds)
         backImageScrollView.delegate = self
-        backImageScrollView.backgroundColor = UIColor.blackColor()
+        backImageScrollView.backgroundColor = UIColor.flipPicGray()
 
         frontImageZoomableView.addSubview(frontImageScrollView)
         frontImageZoomableView.scrollView = frontImageScrollView
@@ -427,11 +432,15 @@ class RCT_EditViewController: UIViewController {
     //////////////////////////////
     //////////////////////////////
 
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var toolbarLayoutOption: UIBarButtonItem!
+    @IBOutlet weak var toolbarFilterOption: UIBarButtonItem!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var filterButton: UIBarButtonItem!
     //    @IBOutlet weak var cVToptoToolbarTopConstraint: NSLayoutConstraint!
     //
+    @IBOutlet weak var RCT_ImageViewBackgroundView: UIView!
     //    @IBOutlet weak var cVHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var rCTImageView: UIView!
     //    @IBOutlet weak var frontImageZoomableView: PanGestureView!
@@ -479,6 +488,9 @@ class RCT_EditViewController: UIViewController {
 
     @IBAction func layoutButtonTapped(sender: AnyObject) {
         print("Layout Button Tapped")
+        toolbarFilterOption.tintColor = UIColor.whiteColor()
+        toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
+
         //animateContainerView()
 
         // Send Collection View "isLayoutSelected" == true
@@ -494,6 +506,8 @@ class RCT_EditViewController: UIViewController {
 
     @IBAction func filterButtonTapped(sender: AnyObject) {
         print("Filter Button Tapped")
+        toolbarLayoutOption.tintColor = UIColor.whiteColor()
+        toolbarFilterOption.tintColor = UIColor.flipPicGreen()
         //animateContainerView()
         // Send Collection View "isLayoutSelected" == false
 

@@ -27,6 +27,7 @@
 		71C889AC1C49B16A00F6119C /* ScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C889AB1C49B16A00F6119C /* ScrollViewExtension.swift */; };
 		71C889CB1C4EE5FA00F6119C /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C889CA1C4EE5FA00F6119C /* UIViewExtension.swift */; };
 		971B61651C4EC592001C6C7E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 971B61641C4EC592001C6C7E /* Launch Screen.storyboard */; };
+		979B738F1C4F103F008EB3C7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979B738E1C4F103F008EB3C7 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		71C889AB1C49B16A00F6119C /* ScrollViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScrollViewExtension.swift; path = ../ScrollViewExtension.swift; sourceTree = "<group>"; };
 		71C889CA1C4EE5FA00F6119C /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		971B61641C4EC592001C6C7E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		979B738E1C4F103F008EB3C7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				2491CDBF1C46FF3C00748664 /* PanGestureView.swift */,
 				71C889A91C49AF8600F6119C /* ZoomableView.swift */,
 				71C889CA1C4EE5FA00F6119C /* UIViewExtension.swift */,
+				979B738E1C4F103F008EB3C7 /* UIColorExtension.swift */,
 				716D6A2B1C3C462B00B762F9 /* Main.storyboard */,
 				971B61641C4EC592001C6C7E /* Launch Screen.storyboard */,
 				24B871751C3C5CCB0019DB37 /* ViewControllers */,
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				979B738F1C4F103F008EB3C7 /* UIColorExtension.swift in Sources */,
 				24F9B4471C4A5C1600C85662 /* (null) in Sources */,
 				2491CDC01C46FF3C00748664 /* PanGestureView.swift in Sources */,
 				719224451C3C886B00CEE9E4 /* RCT_ImageController.swift in Sources */,
