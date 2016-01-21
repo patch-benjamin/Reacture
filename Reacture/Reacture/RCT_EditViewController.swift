@@ -311,7 +311,9 @@ class RCT_EditViewController: UIViewController {
         rCTImageView.addSubview(frontImageZoomableView)
 
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "detectLongPress:")
-        frontImageZoomableView.gestureRecognizers = [longPressRecognizer]
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapToRemoveView:")
+        frontImageZoomableView.gestureRecognizers = [longPressRecognizer,tapGestureRecognizer]
+        backImageZoomableView.addGestureRecognizer(tapGestureRecognizer)
 
         // Setup scroll views
         frontImageScrollView = UIScrollView(frame: frontImageZoomableView.bounds)
@@ -1035,6 +1037,12 @@ extension RCT_EditViewController: PanGestureViewProtocol {
             }
             
         }
+    }
+    
+    // Tap gesture to remove isMovableView
+    func tapToRemoveView(recognizer: UITapGestureRecognizer) {
+        
+        frontImageZoomableView.removeIsMovableView()
     }
     
     // Pan Gesture for Moving Image in Image Layout
