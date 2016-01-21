@@ -12,7 +12,7 @@ class TutorialPageViewController: UIPageViewController, UIPageViewControllerData
 
     var pageViewController = UIPageViewController()
     let pageImages = ["onboard1", "onboard2", "onboard3", "onboard4", "onboard7"]
-    let pageTitles = ["Snap a picture", "Opposite camera snaps picture.", "Select Layout, long press on PIP to move","Apply a Filter", "Share!"]
+    let pageTitles = ["Snap a picture", "Opposite camera snaps picture", "Select Layout, long press on PIP to move","Apply a Filter", "Share!"]
 
     override func viewDidLoad() {
         super.viewDidLoad()

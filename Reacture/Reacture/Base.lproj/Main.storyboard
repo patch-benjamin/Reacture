@@ -63,6 +63,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="skipOrDoneButtonPressed:" destination="SOk-hL-Mox" eventType="touchUpInside" id="rTw-ER-0kZ"/>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="segue" id="5bg-u8-nVY"/>
                                 </connections>
                             </button>

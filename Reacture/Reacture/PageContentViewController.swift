@@ -10,7 +10,6 @@ import UIKit
 
 class PageContentViewController: UIViewController {
 
-    @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var skipIntroButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -24,6 +23,9 @@ class PageContentViewController: UIViewController {
         self.imageView.image = UIImage(named: self.imageFile!)
         self.titleLabel.text = self.titleText;
         // Do any additional setup after loading the view.
+    }
+    @IBAction func skipOrDoneButtonPressed(sender: AnyObject) {
+         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch")
     }
 
     override func didReceiveMemoryWarning() {
