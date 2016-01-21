@@ -114,7 +114,8 @@ class RCT_CameraViewController: UIViewController {
 
     let shutterButton = UIButton()
     let iSightFlashButton = UIButton()
-
+    let shutterButtonBorder: UIView = UIView()
+    
     // MARK: - Actions
 
     @IBAction func iSightFlashButtonTapped(sender: AnyObject) {
@@ -427,18 +428,26 @@ class RCT_CameraViewController: UIViewController {
 
     func setupButtons() {
         let width = self.view.frame.width / 6
+        let borderWidth: CGFloat = (self.view.frame.width + 3)/6
         // Shutter Button
+        
         shutterButton.frame.size = CGSize(width: width, height: width)
-        shutterButton.center.x = self.view.center.x
-        shutterButton.frame.origin.y = self.view.frame.size.height - shutterButton.frame.size.height - 10
-        shutterButton.layer.borderColor = UIColor.whiteColor().CGColor
+        shutterButtonBorder.frame.size = CGSize(width: borderWidth, height: borderWidth)
+        shutterButtonBorder.center.x = self.view.center.x
+        shutterButton.center = CGPoint(x: shutterButtonBorder.bounds.maxX/2, y: shutterButtonBorder.bounds.maxY/2)
+        shutterButtonBorder.frame.origin.y = self.view.frame.size.height - shutterButton.frame.size.height - 10
         flashView.backgroundColor = UIColor(red: 1, green: 0.718, blue: 0.318, alpha: 0.75)
-        shutterButton.layer.borderWidth = 3
         shutterButton.layer.cornerRadius = width / 2
-        shutterButton.backgroundColor = UIColor(red: 147/255, green: 206/255, blue: 59/255, alpha: 1) // Hex #93ce3b
-        shutterButton.layer.opacity = 1
+        shutterButtonBorder.layer.cornerRadius = borderWidth/2
+        shutterButton.backgroundColor = UIColor.whiteColor()
+        shutterButton.alpha = 0.5
+        shutterButtonBorder.backgroundColor = UIColor.clearColor()
+        shutterButtonBorder.layer.borderWidth = 3
+        shutterButtonBorder.layer.borderColor = UIColor.whiteColor().CGColor
         shutterButton.addTarget(self, action: "shutterButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(shutterButton)
+        self.view.addSubview(shutterButtonBorder)
+        shutterButtonBorder.addSubview(shutterButton)
+        shutterButton.sendSubviewToBack(shutterButtonBorder)
         // iSight Flash Button
         iSightFlashButton.frame.size = CGSize(width: 25, height: 44)
         iSightFlashButton.frame.origin.x = 20
