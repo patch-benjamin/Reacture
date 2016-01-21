@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             print("First launch, setting NSUserDefault.")
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch")
+           
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
