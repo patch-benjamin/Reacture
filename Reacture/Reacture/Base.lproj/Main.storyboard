@@ -162,27 +162,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zkQ-U1-mhb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="676"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="8L8-GF-PZR">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOn-dm-Wdw">
-                                                <rect key="frame" x="16" y="12" width="25" height="32"/>
+                                                <rect key="frame" x="32" y="24" width="25" height="35"/>
                                                 <state key="normal" image="cancelButton"/>
                                                 <connections>
                                                     <action selector="CancelButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="7tu-lT-FwB"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTj-5x-w2K">
-                                                <rect key="frame" x="187" y="12" width="37" height="32"/>
-                                                <state key="normal" image="swapImagesButton"/>
-                                                <connections>
-                                                    <action selector="swapImageButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="RqU-vz-j2B"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHo-cf-Zad">
-                                                <rect key="frame" x="368" y="12" width="30" height="32"/>
+                                                <rect key="frame" x="352" y="24" width="30" height="35"/>
                                                 <state key="normal" image="shareButton"/>
                                                 <connections>
                                                     <action selector="shareButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="L02-Yj-y1m"/>
@@ -190,15 +183,15 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="m2f-44-vHb"/>
+                                            <constraint firstAttribute="height" constant="75" id="m2f-44-vHb"/>
                                         </constraints>
-                                        <edgeInsets key="layoutMargins" top="12" left="16" bottom="16" right="16"/>
+                                        <edgeInsets key="layoutMargins" top="24" left="32" bottom="16" right="32"/>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bps-GF-H7p">
-                                        <rect key="frame" x="0.0" y="60" width="414" height="632"/>
+                                        <rect key="frame" x="0.0" y="75" width="414" height="601"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
-                                                <rect key="frame" x="0.0" y="47" width="414" height="539"/>
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hu3-fH-eJk">
+                                                <rect key="frame" x="0.0" y="32" width="414" height="539"/>
                                                 <color key="backgroundColor" red="0.58280308420000004" green="0.79040464740000005" blue="0.19517801730000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Hu3-fH-eJk" secondAttribute="height" multiplier="1:1.3" id="ovS-Ze-UO5"/>
@@ -222,7 +215,7 @@
                                         </variation>
                                     </view>
                                     <containerView hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qpj-PE-9Wz">
-                                        <rect key="frame" x="0.0" y="692" width="414" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="676" width="414" height="0.0"/>
                                         <connections>
                                             <segue destination="BZJ-cT-0Rw" kind="embed" id="pmK-ua-5nR"/>
                                         </connections>
@@ -230,11 +223,23 @@
                                 </subviews>
                             </stackView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2p-AU-EyF">
-                                <rect key="frame" x="0.0" y="692" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="676" width="414" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="L8l-m5-WDi"/>
+                                    <constraint firstAttribute="height" constant="60" id="L8l-m5-WDi"/>
                                 </constraints>
                                 <items>
+                                    <barButtonItem width="38" style="plain" systemItem="fixedSpace" id="eb0-23-N5T"/>
+                                    <barButtonItem style="plain" id="iWE-6b-QSo">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UTj-5x-w2K">
+                                            <rect key="frame" x="58" y="14" width="37" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="swapImagesButton"/>
+                                            <connections>
+                                                <action selector="swapImageButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="RqU-vz-j2B"/>
+                                            </connections>
+                                        </button>
+                                        <color key="tintColor" red="0.52931540030000002" green="0.91590544870000001" blue="0.87043815879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Hrk-74-gZP"/>
                                     <barButtonItem image="layout_corner" id="Jxs-yj-rgW">
                                         <connections>
@@ -248,6 +253,21 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="2n0-j1-FbY"/>
+                                    <barButtonItem style="plain" id="uR9-BN-d6o">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="l1Z-bG-u1g">
+                                            <rect key="frame" x="333" y="15" width="55" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
+                                            <state key="normal" title="Done"/>
+                                            <connections>
+                                                <action selector="doneButtonTapped:" destination="AIB-wN-uwu" eventType="touchUpInside" id="gVw-aH-cDZ"/>
+                                            </connections>
+                                        </button>
+                                        <connections>
+                                            <action selector="doneButtonTapped:" destination="AIB-wN-uwu" id="XKW-7u-AAJ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="6" style="plain" systemItem="fixedSpace" id="Q7R-Ba-C3L"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -267,9 +287,13 @@
                     <connections>
                         <outlet property="RCT_ImageViewBackgroundView" destination="bps-GF-H7p" id="HHu-9U-Zti"/>
                         <outlet property="containerView" destination="Qpj-PE-9Wz" id="jjA-NK-jL9"/>
+                        <outlet property="doneButton" destination="uR9-BN-d6o" id="pV9-RW-onV"/>
+                        <outlet property="doneUIButton" destination="l1Z-bG-u1g" id="eCF-2e-PJP"/>
                         <outlet property="filterButton" destination="R8C-Lz-DjJ" id="QkE-Ag-dXq"/>
                         <outlet property="layoutButton" destination="Jxs-yj-rgW" id="Vvg-jy-Wov"/>
                         <outlet property="rCTImageView" destination="Hu3-fH-eJk" id="aIw-Pj-mA2"/>
+                        <outlet property="swapImagesBarButton" destination="iWE-6b-QSo" id="gcP-iu-geC"/>
+                        <outlet property="swapImagesUIButton" destination="UTj-5x-w2K" id="E6v-Zq-kqV"/>
                         <outlet property="toolbar" destination="y2p-AU-EyF" id="LP9-0k-xGC"/>
                         <outlet property="toolbarFilterOption" destination="R8C-Lz-DjJ" id="Cxk-3l-sYM"/>
                         <outlet property="toolbarLayoutOption" destination="Jxs-yj-rgW" id="OoE-ul-ABB"/>

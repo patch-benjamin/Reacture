@@ -17,13 +17,14 @@ class RCT_EditViewController: UIViewController {
         self.view.backgroundColor = UIColor.flipPicGray()
         self.containerView.backgroundColor = UIColor.flipPicGray()
         self.toolbar.backgroundColor = UIColor.flipPicGray()
-        self.toolbarLayoutOption.tintColor = UIColor.flipPicGreen()
+        self.toolbarLayoutOption.tintColor = UIColor.whiteColor()
         self.toolbarFilterOption.tintColor = UIColor.whiteColor()
         self.toolbar.clipsToBounds = true
         self.containerViewController = self.childViewControllers.first! as? RCT_ContainerViewController
         containerViewController?.delegate = self
         self.containerViewController!.view.backgroundColor = UIColor.flipPicGray()
-
+        optionSelected(.None)
+        doneUIButton.setTitleColor(UIColor.flipPicBlue(), forState: .Normal)
 
         if let rCTImage = self.rCTImage {
             self.frontImageView.image = rCTImage.imageFrontUIImage
@@ -417,8 +418,11 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var RCT_ImageViewBackgroundView: UIView!
     @IBOutlet weak var rCTImageView: UIView!
     @IBOutlet weak var topBar: UIStackView!
-
-    
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var doneButtonFlexSpace: UIBarButtonItem!
+    @IBOutlet weak var doneUIButton: UIButton!
+    @IBOutlet weak var swapImagesBarButton: UIBarButtonItem!
+    @IBOutlet weak var swapImagesUIButton: UIButton!
     
     //////////////////////////////
     // MARK: Actions
@@ -426,6 +430,12 @@ class RCT_EditViewController: UIViewController {
 
     // TODO: camelCase CancelButtonTapped
 
+    @IBAction func doneButtonTapped(sender: AnyObject) {
+    
+//        animateContainerView(true)
+        optionSelected(.None)
+    }
+    
     @IBAction func CancelButtonTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
         print("Cancel Button Tapped")
@@ -473,12 +483,12 @@ class RCT_EditViewController: UIViewController {
             case .Layout:
                 // They are DESELECTING Layout
                 
-                // unselect Layout button (change image)
-                toolbarLayoutOption.tintColor = UIColor.whiteColor()
                 // move RCT_ImageViewBackgroundView down half of the containerViews height
 //                RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
                 // hide containerView.
                 animateContainerView(true)
+                // unselect Layout button (change image)
+                toolbarLayoutOption.tintColor = UIColor.whiteColor()
                 // set optionToApply to be .None
                 optionToApply = .None
 
@@ -517,10 +527,10 @@ class RCT_EditViewController: UIViewController {
             case .Filters:
                 // They are DESELECTING Filters
                 
-                // unselect Filters button (change image)
-                toolbarFilterOption.tintColor = UIColor.whiteColor()
                 // hide containerView
                 animateContainerView(true)
+                // unselect Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.whiteColor()
                 // set optionToApply to be .None
                 optionToApply = .None
 
@@ -536,9 +546,28 @@ class RCT_EditViewController: UIViewController {
             }
             
         case .None:
-            // Not a selectable option; do nothing
-            break
+
+            // hide containerView
+            animateContainerView(true)
+
+            switch currentOptionSelected {
+            case .Filters:
+
+                // unselect Filters button (change image)
+                toolbarFilterOption.tintColor = UIColor.whiteColor()
+
+            case .Layout:
             
+                // unselect Layouts button (change image)
+                toolbarLayoutOption.tintColor = UIColor.whiteColor()
+
+            case .None:
+                break
+            }
+            
+            // set optionToApply to be .None
+            optionToApply = .None
+
         }
         
         // set optionSelected of containerViewController = .Layout
@@ -553,21 +582,43 @@ class RCT_EditViewController: UIViewController {
         frontImageZoomableView.removeIsMovableView()
     }
 
-    func animateContainerView(hide: Bool) {
+    func animateContainerView(hide: Bool, additionalCode: (() -> Void) = {} ) {
         if hide {
-            UIView.animateWithDuration(0.4) { () -> Void in
+//            self.doneButton.enabled = false
+//            self.doneButton.tintColor = UIColor.clearColor()
+//            self.swapImagesBarButton.enabled = false
+//            self.swapImagesBarButton.tintColor = UIColor.clearColor()
+            self.doneUIButton.hidden = hide
+            self.swapImagesUIButton.hidden = hide
+
+            
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.containerView.alpha = 0.0
                 self.containerView.hidden = hide
                 self.topBar.alpha = 1.0
                 self.topBar.hidden = !hide
-            }
+
+                }, completion: { (_) -> Void in
+            })
+
         } else {
-            UIView.animateWithDuration(0.4) { () -> Void in
+
+//            self.doneButton.enabled = true
+//            self.doneButton.tintColor = nil
+//            self.swapImagesBarButton.enabled = true
+//            self.swapImagesBarButton.tintColor = UIColor.whiteColor()
+            self.doneUIButton.hidden = hide
+            self.swapImagesUIButton.hidden = hide
+            
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.containerView.alpha = 1.0
                 self.containerView.hidden = hide
                 self.topBar.alpha = 0.0
                 self.topBar.hidden = !hide
-            }
+
+                }, completion: { (_) -> Void in
+                    
+            })
         }
     }
 }
