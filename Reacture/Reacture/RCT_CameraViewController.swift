@@ -381,10 +381,10 @@ class RCT_CameraViewController: UIViewController {
     func frontFlash() {
         let rect = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         flashView.frame = rect
-        flashView.backgroundColor = UIColor.whiteColor()
+        flashView.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 0.7176, blue: 0.47, alpha: 1.0)
         flashView.alpha = 1.0
         self.view.addSubview(flashView)
-        delay(seconds: 0.1) { () -> () in
+        delay(seconds: 0.3) { () -> () in
             UIScreen.mainScreen().brightness = 1.0
         }
     }
