@@ -13,6 +13,7 @@ class RCT_EditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.rCTImage = RCT_Image(imageFront: UIImage(named: "mock_selfie")!, imageBack: UIImage(named: "mock_landscape")!) // TODO: remove this line completely.
         self.RCT_ImageViewBackgroundView.backgroundColor = UIColor.flipPicGray()
         self.view.backgroundColor = UIColor.flipPicGray()
         self.containerView.backgroundColor = UIColor.flipPicGray()
@@ -33,10 +34,20 @@ class RCT_EditViewController: UIViewController {
             print("ERROR: rCTImage is nil!")
         }
         setupFilters()
-        self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width * 1.3)
+        if self.view.frame.size.width == 320 && self.view.frame.size.height == 480 {
+            
+            self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width)
+            self.rCTImageView.removeConstraint(rCTImageViewAspectRatioConstraint)
+            self.rCTImageViewAspectRatioConstraint = NSLayoutConstraint(item: rCTImageView, attribute: .Width, relatedBy: .Equal, toItem: rCTImageView, attribute: .Height, multiplier: 1.0, constant: 0)
+            self.rCTImageView.addConstraint(rCTImageViewAspectRatioConstraint)
+            
+        } else {
+            self.rCTImageView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.width * 1.3)
+        }
         updateWithLayout(rCTImage!.layout)
         containerViewController?.reloadCollection()
-        
+        setupController(self.rCTImage!) // TODO: remove this line completely.
+
         // setup layout of editViewController
 //        RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
 //        RCT_ImageViewBackgroundView.backgroundColor = UIColor.greenColor()
@@ -425,6 +436,7 @@ class RCT_EditViewController: UIViewController {
     @IBOutlet weak var doneUIButton: UIButton!
     @IBOutlet weak var swapImagesBarButton: UIBarButtonItem!
     @IBOutlet weak var swapImagesUIButton: UIButton!
+    @IBOutlet weak var rCTImageViewAspectRatioConstraint: NSLayoutConstraint!
     
     //////////////////////////////
     // MARK: Actions
