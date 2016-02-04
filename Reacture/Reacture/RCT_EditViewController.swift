@@ -13,7 +13,6 @@ class RCT_EditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.rCTImage = RCT_Image(imageFront: UIImage(named: "mock_selfie")!, imageBack: UIImage(named: "mock_landscape")!) // TODO: remove this line completely.
         self.RCT_ImageViewBackgroundView.backgroundColor = UIColor.flipPicGray()
         self.view.backgroundColor = UIColor.flipPicGray()
         self.containerView.backgroundColor = UIColor.flipPicGray()
@@ -46,7 +45,6 @@ class RCT_EditViewController: UIViewController {
         }
         updateWithLayout(rCTImage!.layout)
         containerViewController?.reloadCollection()
-        setupController(self.rCTImage!) // TODO: remove this line completely.
 
         // setup layout of editViewController
 //        RCT_ImageViewBackgroundView.center = CGPoint(x: RCT_ImageViewBackgroundView.center.x, y: RCT_ImageViewBackgroundView.center.y +  containerView.bounds.size.height/2)
